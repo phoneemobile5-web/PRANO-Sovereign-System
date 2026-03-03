@@ -1,0 +1,17 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "ai-hero",
+      "description": "Abstract AI neural network visualization",
+      "imageUrl": "https://picsum.photos/seed/ai1/1200/600",
+      "imageHint": "neural network"
+    },
+    {
+      "id": "project-thumb",
+      "description": "Modern minimalist code editor interface",
+      "imageUrl": "https://picsum.photos/seed/code/400/300",
+      "imageHint": "coding interface"
+    }
+  ]
+}
