@@ -4,7 +4,7 @@
 import { SidebarNav } from '@/components/dashboard/SidebarNav';
 import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
-import { Trash2, Star, Filter, Search, Clock, ExternalLink } from 'lucide-react';
+import { Trash2, Star, Filter, Search, Clock, ExternalLink, History } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';

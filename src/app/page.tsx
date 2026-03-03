@@ -9,6 +9,7 @@ import { Plus, Zap, Star, Clock, ArrowUpRight, Share2, MoreVertical, Trash2 } fr
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -76,9 +77,9 @@ export default function Dashboard() {
                   </CardContent>
                   <CardFooter className="flex justify-between border-t bg-muted/20 mt-2">
                     <Button variant="ghost" size="sm" asChild>
-                      <a href={`/projects/${project.id}`} className="flex items-center gap-1 text-xs">
+                      <Link href={`/projects/${project.id}`} className="flex items-center gap-1 text-xs">
                         Configure <ArrowUpRight className="w-3 h-3" />
-                      </a>
+                      </Link>
                     </Button>
                     <div className="flex items-center gap-1">
                       <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
