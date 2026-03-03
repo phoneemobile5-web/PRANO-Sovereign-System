@@ -4,14 +4,26 @@
     {
       "id": "ai-hero",
       "description": "Abstract AI neural network visualization",
-      "imageUrl": "https://picsum.photos/seed/ai1/1200/600",
+      "imageUrl": "https://picsum.photos/seed/ai-workbench/1200/600",
       "imageHint": "neural network"
     },
     {
       "id": "project-thumb",
       "description": "Modern minimalist code editor interface",
-      "imageUrl": "https://picsum.photos/seed/code/400/300",
+      "imageUrl": "https://picsum.photos/seed/code-editor/400/300",
       "imageHint": "coding interface"
+    },
+    {
+      "id": "ai-chip",
+      "description": "Artificial intelligence microchip visualization",
+      "imageUrl": "https://picsum.photos/seed/ai-chip/600/400",
+      "imageHint": "ai chip"
+    },
+    {
+      "id": "data-viz",
+      "description": "Abstract data visualization and connectivity",
+      "imageUrl": "https://picsum.photos/seed/data-viz/800/400",
+      "imageHint": "data visualization"
     }
   ]
 }
