@@ -72,9 +72,9 @@ export function useWorkbenchStore() {
     } else {
       const defaultProject: AIProject = {
         id: '1',
-        name: 'مشروعي الأول للذكاء الاصطناعي',
-        description: 'مساعد ذكي للأغراض العامة',
-        prompt: 'أنت مساعد ذكي ومفيد جداً.',
+        name: 'AI Workbench Initial Project',
+        description: 'Default assistant configuration',
+        prompt: 'You are a helpful assistant.',
         model: 'gemini-1.5-flash',
         temperature: 0.7,
         topP: 0.95,
