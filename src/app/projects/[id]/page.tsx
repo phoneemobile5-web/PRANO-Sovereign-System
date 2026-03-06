@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -59,7 +58,7 @@ export default function ProjectEditor() {
       updateProject(project.id, project);
       toast({
         title: "تم الحفظ بنجاح",
-        description: "تم تحديث إعدادات المشروع ومفاتيح الوصول.",
+        description: "تم تحديث إعدادات المشروع ومفتاح التشغيل.",
       });
     }
   };
@@ -85,7 +84,7 @@ export default function ProjectEditor() {
       toast({
         variant: "destructive",
         title: "فشل التحسين",
-        description: "تأكد من اتصالك بالإنترنت وصحة المفتاح.",
+        description: "تأكد من اتصالك بالإنترنت.",
       });
     } finally {
       setIsRefining(false);
@@ -97,15 +96,19 @@ export default function ProjectEditor() {
     setIsRunning(true);
     setTestOutput('');
     try {
-      const combinedPrompt = `${project.prompt}\n\nUser input: ${testInput}`;
-      const result = await testAIProjectResponses({ prompt: combinedPrompt });
+      const combinedPrompt = `${project.prompt}\n\nالمستخدم: ${testInput}`;
+      const result = await testAIProjectResponses({ 
+        prompt: combinedPrompt,
+        apiKey: project.apiKeys?.[0], // نمرر مفتاح المستخدم الخاص
+        model: project.model
+      });
       setTestOutput(result.response);
       addSession(project.id, testInput, result.response);
     } catch (error) {
       toast({
         variant: "destructive",
         title: "فشل الاختبار",
-        description: "حدث خطأ أثناء توليد الاستجابة.",
+        description: "تأكد من صحة مفتاح Gemini الخاص بك.",
       });
     } finally {
       setIsRunning(false);
@@ -138,7 +141,6 @@ export default function ProjectEditor() {
         </Button>
       </header>
 
-      {/* قسم إدارة المفاتيح - Gemini API Key */}
       <Collapsible open={showKeys} onOpenChange={setShowKeys} className="bg-card p-4 rounded-2xl border border-accent/20 shadow-sm space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -156,22 +158,18 @@ export default function ProjectEditor() {
           <Alert className="bg-accent/5 border-accent/20 p-2">
             <Info className="h-3 w-3 text-accent" />
             <AlertDescription className="text-[9px] text-accent leading-tight">
-              هذا هو مفتاح API Key الذي تحصل عليه من **Google AI Studio** فقط. لا تستخدم مفاتيح Firebase هنا.
+              استخدم مفتاح **API Key** من Google AI Studio لتشغيل هذا المشروع.
             </AlertDescription>
           </Alert>
           <div className="space-y-1.5">
-            <span className="text-[10px] font-bold text-muted-foreground mr-1">Gemini API Key (من AI Studio)</span>
+            <span className="text-[10px] font-bold text-muted-foreground mr-1">الصق المفتاح هنا</span>
             <Input 
               type="password"
-              placeholder="الصق مفتاح Gemini هنا..."
+              placeholder="AIzaSy..."
               value={project.apiKeys?.[0] || ''}
               onChange={(e) => handleKeyChange(e.target.value)}
-              className="h-12 bg-background font-mono text-xs border-2 focus:border-accent"
+              className="h-12 bg-background font-mono text-xs border-2"
             />
-          </div>
-          <div className="flex items-center gap-2 p-2 bg-accent/5 rounded-lg border border-accent/10">
-            <ShieldCheck className="w-4 h-4 text-accent shrink-0" />
-            <p className="text-[9px] text-accent font-bold leading-tight">سيتم استخدام هذا المفتاح لتشغيل ردود الذكاء لهذا المشروع.</p>
           </div>
         </CollapsibleContent>
       </Collapsible>
@@ -183,62 +181,52 @@ export default function ProjectEditor() {
           <Button 
             variant="ghost" 
             size="sm" 
-            className="text-primary h-8 px-2 bg-primary/5 hover:bg-primary/10 rounded-full"
+            className="text-primary h-8 px-2 bg-primary/5 rounded-full"
             onClick={handleRefinePrompt}
             disabled={isRefining}
           >
             {isRefining ? <RefreshCw className="w-4 h-4 animate-spin ml-1" /> : <Sparkles className="w-4 h-4 ml-1" />}
-            <span className="text-[10px] font-bold">{isRefining ? 'جاري التحسين...' : 'تحسين ذكي'}</span>
+            <span className="text-[10px] font-bold">{isRefining ? 'جاري...' : 'تحسين'}</span>
           </Button>
         </div>
         <Textarea 
           value={project.prompt}
           onChange={(e) => setProject({ ...project, prompt: e.target.value })}
           placeholder="أدخل تعليمات النظام هنا..."
-          className="min-h-[220px] text-sm leading-relaxed bg-background/50 rounded-xl border-dashed border-2"
+          className="min-h-[200px] text-sm leading-relaxed bg-background/50 rounded-xl border-dashed border-2"
         />
-        <Button onClick={handleSave} className="w-full h-14 font-black text-lg gap-3 shadow-lg rounded-2xl active:scale-95">
+        <Button onClick={handleSave} className="w-full h-14 font-black text-lg gap-3 shadow-lg rounded-2xl">
           <Save className="w-6 h-6" /> حفظ المشروع
         </Button>
       </div>
 
-      <div className="bg-muted/40 p-5 rounded-2xl border border-dashed border-primary/20 space-y-4 shadow-inner">
-        <div className="flex items-center gap-2 mb-1">
+      <div className="bg-muted/40 p-4 rounded-2xl border border-dashed border-primary/20 space-y-4">
+        <div className="flex items-center gap-2">
           <Play className="w-4 h-4 text-primary" />
-          <Label className="text-xs font-black text-muted-foreground uppercase">تجربة فورية (Sandbox)</Label>
+          <Label className="text-xs font-black text-muted-foreground uppercase">تجربة سريعة</Label>
         </div>
         <Textarea 
-          placeholder="اكتب سؤالاً لتجربة الموجه..."
-          className="min-h-[120px] bg-background border-none shadow-sm text-sm"
+          placeholder="اكتب سؤالاً..."
+          className="min-h-[100px] bg-background border-none shadow-sm text-sm"
           value={testInput}
           onChange={(e) => setTestInput(e.target.value)}
         />
         <Button 
           variant="secondary" 
-          className="w-full h-14 font-black text-base rounded-xl gap-2 border-2 border-primary/10" 
+          className="w-full h-14 font-black text-base rounded-xl gap-2 border-2" 
           onClick={handleRunTest}
           disabled={isRunning || !testInput}
         >
           {isRunning ? <RefreshCw className="w-5 h-5 animate-spin" /> : <Play className="w-5 h-5 fill-current" />}
-          {isRunning ? 'جاري التحليل...' : 'تشغيل الاختبار'}
+          {isRunning ? 'جاري التحليل...' : 'تشغيل التجربة'}
         </Button>
 
         {testOutput && (
-          <div className="p-4 bg-background rounded-2xl border-2 border-primary/10 text-sm whitespace-pre-wrap font-mono leading-relaxed shadow-sm">
-            <div className="text-[9px] font-black text-primary mb-2 border-b pb-1">النتيجة المولدة:</div>
+          <div className="p-4 bg-background rounded-2xl border-2 border-primary/10 text-sm whitespace-pre-wrap font-mono leading-relaxed">
+            <div className="text-[9px] font-black text-primary mb-2 border-b pb-1">النتيجة:</div>
             {testOutput}
           </div>
         )}
-      </div>
-
-      <div className="bg-card p-4 rounded-2xl border flex items-center justify-between shadow-sm border-r-4 border-r-accent/30">
-        <div className="flex flex-col">
-          <span className="text-[9px] font-black uppercase text-muted-foreground tracking-tighter">النموذج المستخدم</span>
-          <span className="text-sm font-bold text-accent">{project.model}</span>
-        </div>
-        <Button variant="outline" size="sm" className="h-9 gap-2 rounded-xl text-xs font-bold border-2">
-          <Settings2 className="w-4 h-4" /> الخيارات
-        </Button>
       </div>
     </div>
   );
