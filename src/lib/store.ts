@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
@@ -24,7 +25,7 @@ export interface AIProject {
   maxTokens: number;
   inputSchema: string;
   outputSchema: string;
-  apiKeys?: string[]; // لدعم المفاتيح المتعددة للمشاريع الضخمة
+  apiKeys?: string[];
   createdAt: number;
 }
 
@@ -48,6 +49,7 @@ export function useWorkbenchStore() {
   const [localSessions, setLocalSessions] = useState<AISession[]>([]);
   const [isLocalLoaded, setIsLocalLoaded] = useState(false);
 
+  // Queries for remote data
   const projectsQuery = useMemo(() => {
     if (!db || !user) return null;
     return query(collection(db, 'users', user.uid, 'projects'), orderBy('createdAt', 'desc'));
@@ -61,6 +63,7 @@ export function useWorkbenchStore() {
   const { data: remoteProjects, loading: projectsLoading } = useCollection<AIProject>(projectsQuery);
   const { data: remoteSessions, loading: sessionsLoading } = useCollection<AISession>(sessionsQuery);
 
+  // Load local data on mount
   useEffect(() => {
     const savedProjects = localStorage.getItem(STORAGE_KEY_PROJECTS);
     const savedSessions = localStorage.getItem(STORAGE_KEY_SESSIONS);
@@ -136,5 +139,31 @@ export function useWorkbenchStore() {
     return newSession;
   };
 
-  return { projects, sessions, isLoaded, addProject, updateProject, deleteProject, addSession };
+  const toggleBookmark = (sessionId: string) => {
+    const session = sessions.find(s => s.id === sessionId);
+    if (!session) return;
+    
+    const updates = { isBookmarked: !session.isBookmarked };
+    if (user && db) {
+      const docRef = doc(db, 'users', user.uid, 'sessions', sessionId);
+      setDoc(docRef, updates, { merge: true }).catch(() => {});
+    } else {
+      const updated = localSessions.map(s => s.id === sessionId ? { ...s, ...updates } : s);
+      setLocalSessions(updated);
+      localStorage.setItem(STORAGE_KEY_SESSIONS, JSON.stringify(updated));
+    }
+  };
+
+  const deleteSession = (sessionId: string) => {
+    if (user && db) {
+      const docRef = doc(db, 'users', user.uid, 'sessions', sessionId);
+      deleteDoc(docRef).catch(() => {});
+    } else {
+      const updated = localSessions.filter(s => s.id !== sessionId);
+      setLocalSessions(updated);
+      localStorage.setItem(STORAGE_KEY_SESSIONS, JSON.stringify(updated));
+    }
+  };
+
+  return { projects, sessions, isLoaded, addProject, updateProject, deleteProject, addSession, toggleBookmark, deleteSession };
 }

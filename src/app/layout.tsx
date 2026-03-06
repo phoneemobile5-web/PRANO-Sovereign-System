@@ -1,3 +1,4 @@
+
 import './globals.css';
 import { FirebaseClientProvider } from '@/firebase';
 
@@ -15,7 +16,7 @@ export default function RootLayout({
         <title>AI Workbench</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
       </head>
-      <body className="font-body antialiased bg-background text-foreground">
+      <body className="font-body antialiased bg-background text-foreground overflow-x-hidden">
         <FirebaseClientProvider>
           {children}
         </FirebaseClientProvider>
