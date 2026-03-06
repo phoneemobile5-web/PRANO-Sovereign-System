@@ -1,4 +1,3 @@
-
 'use client';
 
 import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
@@ -7,7 +6,7 @@ import { getFirestore, Firestore } from 'firebase/firestore';
 import { firebaseConfig } from './config';
 
 /**
- * تهيئة خدمات Firebase فقط من جهة العميل (Client-side) لضمان التوافق مع Next.js 15
+ * وظيفة تهيئة Firebase مع ضمان العمل في المتصفح فقط
  */
 export function initializeFirebase() {
   if (typeof window === 'undefined') return null;
