@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
-import { Plus, Import, FolderOpen, Zap, Key, History } from 'lucide-react';
+import { Plus, Import, FolderOpen, Zap, Key, History, Terminal } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -71,7 +71,7 @@ export default function Dashboard() {
   );
 
   return (
-    <div className="min-h-screen bg-background p-4 space-y-6 max-w-md mx-auto" dir="rtl">
+    <div className="min-h-screen bg-background p-4 space-y-6 max-w-md mx-auto pb-20" dir="rtl">
       {/* رأس الصفحة - بسيط وعالي التباين للهواتف القديمة */}
       <header className="bg-card p-6 rounded-2xl border border-primary/20 shadow-lg space-y-4">
         <div className="flex items-center gap-3">
@@ -80,7 +80,7 @@ export default function Dashboard() {
           </div>
           <div>
             <h1 className="text-xl font-black text-foreground">مختبر الذكاء</h1>
-            <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-tighter">نسخة الهواتف الخفيفة v1.0</p>
+            <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-tighter">نسخة الهواتف الخفيفة v1.1</p>
           </div>
         </div>
         
@@ -95,42 +95,51 @@ export default function Dashboard() {
                 <Import className="ml-2 w-5 h-5" /> استيراد سريع
               </Button>
             </DialogTrigger>
-            <DialogContent className="w-[90%] max-w-xs rounded-2xl">
+            <DialogContent className="w-[95%] max-w-xs rounded-2xl">
               <DialogHeader>
-                <DialogTitle className="text-right">استيراد مشروع</DialogTitle>
+                <DialogTitle className="text-right">استيراد من AI Studio</DialogTitle>
               </DialogHeader>
-              <div className="space-y-4 py-2">
-                <Input 
-                  placeholder="اسم المشروع" 
-                  value={importName}
-                  onChange={(e) => setImportName(e.target.value)}
-                  className="h-12 rounded-lg"
-                />
-                <Input 
-                  placeholder="المفتاح الرقمي (اختياري)" 
-                  value={importKey}
-                  onChange={(e) => setImportKey(e.target.value)}
-                  className="h-12 rounded-lg font-mono text-xs"
-                />
-                <Textarea 
-                  placeholder="System Prompt" 
-                  className="min-h-[100px] rounded-lg"
-                  value={importPrompt}
-                  onChange={(e) => setImportPrompt(e.target.value)}
-                />
+              <div className="space-y-4 py-2 text-right">
+                <div className="space-y-1">
+                  <span className="text-xs font-bold">اسم المشروع</span>
+                  <Input 
+                    placeholder="مثال: مشروع المساعدة" 
+                    value={importName}
+                    onChange={(e) => setImportName(e.target.value)}
+                    className="h-12 rounded-lg"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <span className="text-xs font-bold">المفتاح الرقمي</span>
+                  <Input 
+                    placeholder="الصق المفتاح هنا" 
+                    value={importKey}
+                    onChange={(e) => setImportKey(e.target.value)}
+                    className="h-12 rounded-lg font-mono text-xs"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <span className="text-xs font-bold">System Prompt</span>
+                  <Textarea 
+                    placeholder="أدخل التعليمات البرمجية هنا..." 
+                    className="min-h-[120px] rounded-lg text-sm"
+                    value={importPrompt}
+                    onChange={(e) => setImportPrompt(e.target.value)}
+                  />
+                </div>
               </div>
               <DialogFooter>
-                <Button onClick={handleQuickImport} className="w-full h-12 font-bold">حفظ الآن</Button>
+                <Button onClick={handleQuickImport} className="w-full h-12 font-bold text-lg">بدء العمل الآن</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
         </div>
       </header>
 
-      {/* قائمة المشاريع - أهداف لمس كبيرة */}
+      {/* قائمة المشاريع */}
       <section className="space-y-4">
         <h2 className="text-xs font-black uppercase text-muted-foreground px-2 flex items-center gap-2">
-          <FolderOpen className="w-4 h-4 text-primary" /> مشاريعك ({projects.length})
+          <FolderOpen className="w-4 h-4 text-primary" /> مشاريعك المتاحة ({projects.length})
         </h2>
         
         <div className="grid gap-3">
@@ -142,29 +151,38 @@ export default function Dashboard() {
                     <span className="font-bold truncate text-base">{project.name}</span>
                     <span className="text-[10px] text-muted-foreground uppercase">{project.model}</span>
                   </div>
-                  {project.apiKeys && project.apiKeys.length > 0 && <Key className="w-4 h-4 text-accent" />}
+                  <div className="flex items-center gap-2">
+                    {project.apiKeys && project.apiKeys.length > 0 && <Key className="w-4 h-4 text-accent" />}
+                    <Plus className="w-4 h-4 text-muted-foreground opacity-30" />
+                  </div>
                 </CardContent>
               </Card>
             </Link>
           ))}
           
           {projects.length === 0 && (
-            <div className="text-center p-8 border-2 border-dashed rounded-2xl opacity-50">
-              <p className="text-sm font-bold text-muted-foreground">ابدأ الآن بإضافة أول مشروع</p>
+            <div className="text-center p-8 border-2 border-dashed rounded-2xl opacity-50 bg-card/50">
+              <p className="text-sm font-bold text-muted-foreground">لا توجد مشاريع حالياً. أضف مشروعك الأول لبدء التجربة.</p>
             </div>
           )}
         </div>
       </section>
 
-      {/* تذييل الصفحة - روابط سريعة */}
-      <footer className="pt-6 flex flex-col items-center gap-4">
-        <Button variant="ghost" asChild className="text-muted-foreground font-bold h-12">
-          <Link href="/history">
-            <History className="ml-2 w-4 h-4" /> سجل التفاعلات
-          </Link>
-        </Button>
-        <p className="text-[10px] text-muted-foreground/40 font-mono">Mobile Optimized Build</p>
-      </footer>
+      {/* شريط سفلي سريع للهواتف */}
+      <nav className="fixed bottom-0 left-0 right-0 h-16 bg-card border-t flex items-center justify-around px-4 shadow-2xl z-50">
+        <Link href="/" className="flex flex-col items-center gap-1 text-primary">
+          <Zap className="w-6 h-6 fill-current" />
+          <span className="text-[10px] font-bold">الرئيسية</span>
+        </Link>
+        <Link href="/playground" className="flex flex-col items-center gap-1 text-muted-foreground">
+          <Terminal className="w-6 h-6" />
+          <span className="text-[10px] font-bold">المختبر</span>
+        </Link>
+        <Link href="/history" className="flex flex-col items-center gap-1 text-muted-foreground">
+          <History className="w-6 h-6" />
+          <span className="text-[10px] font-bold">السجل</span>
+        </Link>
+      </nav>
     </div>
   );
 }
