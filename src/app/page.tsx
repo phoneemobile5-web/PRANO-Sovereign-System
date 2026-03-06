@@ -67,7 +67,7 @@ export default function Dashboard() {
     <div className="min-h-screen flex items-center justify-center bg-background">
       <div className="text-center space-y-4">
         <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
-        <p className="text-xs font-bold text-primary tracking-widest">جاري التحميل...</p>
+        <p className="text-xs font-bold text-primary tracking-widest uppercase">جاري التحميل...</p>
       </div>
     </div>
   );
