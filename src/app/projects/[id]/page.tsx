@@ -13,7 +13,9 @@ import {
   ArrowRight,
   Trash2,
   Key,
-  Cpu
+  Cpu,
+  Info,
+  ChevronDown
 } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -27,6 +29,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function ProjectEditor() {
   const { id } = useParams();
@@ -56,13 +59,13 @@ export default function ProjectEditor() {
       updateProject(project.id, project);
       toast({
         title: "تم الحفظ بنجاح ✅",
-        description: "تم تحديث إعدادات العقل.",
+        description: "تم تحديث "وصفة" المشروع.",
       });
     }
   };
 
   const handleDelete = () => {
-    if (confirm('هل أنت متأكد من حذف هذا المشروع؟')) {
+    if (confirm('هل أنت متأكد من حذف هذا المشروع نهائياً؟')) {
       deleteProject(id as string);
       router.push('/');
     }
@@ -102,8 +105,8 @@ export default function ProjectEditor() {
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "خطأ في التشغيل ❌",
-        description: "تأكد من صحة مفتاح Gemini API.",
+        title: "خطأ في التشغيل ⚠️",
+        description: "تأكد من صحة مفتاح Gemini API في قسم الإعدادات أدناه.",
       });
     } finally {
       setIsRunning(false);
@@ -113,103 +116,124 @@ export default function ProjectEditor() {
   if (!isLoaded || !project) return null;
 
   return (
-    <div className="min-h-screen bg-background p-3 pb-32 space-y-6 max-w-md mx-auto" dir="rtl">
+    <div className="min-h-screen bg-background p-4 pb-32 space-y-6 max-w-md mx-auto" dir="rtl">
       <Toaster />
       
-      <header className="flex items-center justify-between bg-card p-4 rounded-2xl border border-primary/20 shadow-md">
-        <Button variant="ghost" size="icon" onClick={() => router.push('/')} className="h-10 w-10">
+      <header className="flex items-center justify-between bg-card p-5 rounded-3xl border-2 border-primary/20 shadow-xl">
+        <Button variant="ghost" size="icon" onClick={() => router.push('/')} className="h-12 w-12 bg-secondary rounded-2xl">
           <ArrowRight className="w-8 h-8" />
         </Button>
-        <div className="flex-1 px-2">
+        <div className="flex-1 px-4">
           <input 
             value={project.name}
             onChange={(e) => setProject({ ...project, name: e.target.value })}
-            className="bg-transparent font-black text-center w-full border-none focus:ring-0 text-xl truncate"
+            className="bg-transparent font-black text-right w-full border-none focus:ring-0 text-xl truncate"
           />
         </div>
-        <Button variant="ghost" size="icon" onClick={handleDelete} className="text-destructive">
+        <Button variant="ghost" size="icon" onClick={handleDelete} className="text-destructive h-12 w-12 bg-destructive/10 rounded-2xl">
           <Trash2 className="w-6 h-6" />
         </Button>
       </header>
 
-      <div className="bg-card p-4 rounded-3xl border-2 shadow-lg space-y-4">
-        <div className="flex items-center justify-between">
-          <Label className="text-[10px] font-black uppercase text-primary tracking-widest">الموجه (تعليمات النظام)</Label>
+      <section className="bg-card p-5 rounded-[40px] border-4 border-primary/10 shadow-2xl space-y-5">
+        <div className="flex items-center justify-between border-b-2 border-primary/10 pb-3">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-primary" />
+            <Label className="text-[11px] font-black uppercase text-primary tracking-widest">١. تعليمات النظام (وصفة الذكاء)</Label>
+          </div>
           <Button 
             variant="secondary" 
             size="sm" 
-            className="h-8 px-3 rounded-xl"
+            className="h-8 px-4 rounded-full bg-primary/10 hover:bg-primary/20 text-primary border-none"
             onClick={handleRefinePrompt}
             disabled={isRefining}
           >
             {isRefining ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
-            <span className="text-[10px] font-black mr-1">تحسين</span>
+            <span className="text-[10px] font-black mr-1">تحسين ذكي</span>
           </Button>
         </div>
 
         <Textarea 
           value={project.prompt}
           onChange={(e) => setProject({ ...project, prompt: e.target.value })}
-          className="min-h-[180px] text-base leading-relaxed rounded-xl border-2 p-3 shadow-inner"
+          className="min-h-[200px] text-base font-medium leading-relaxed rounded-2xl border-2 p-4 shadow-inner bg-background/50 focus:border-primary/40 transition-all"
+          placeholder="اكتب هنا كيف تريد للذكاء أن يتصرف..."
         />
 
-        <Button onClick={handleSave} className="w-full h-14 font-black text-lg gap-2 rounded-2xl">
-          <Save className="w-5 h-5" /> حفظ التعليمات
+        <Button onClick={handleSave} className="w-full h-16 font-black text-xl gap-3 rounded-2xl shadow-lg active:scale-95 transition-transform">
+          <Save className="w-6 h-6" /> حفظ التعديلات
         </Button>
-      </div>
+      </section>
 
-      <Collapsible open={showKeys} onOpenChange={setShowKeys} className="bg-card p-4 rounded-3xl border-2 border-accent/20">
+      <Collapsible open={showKeys} onOpenChange={setShowKeys} className="bg-card p-5 rounded-[32px] border-2 border-accent/20 shadow-md">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Key className="w-5 h-5 text-accent" />
-            <Label className="text-[10px] font-black uppercase text-accent">مفتاح Gemini API</Label>
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-accent/10 rounded-xl">
+              <Key className="w-6 h-6 text-accent" />
+            </div>
+            <div>
+              <Label className="text-[11px] font-black uppercase text-accent leading-none">إعدادات الاتصال</Label>
+              <p className="text-[9px] text-muted-foreground font-bold mt-1">مفتاح Gemini API والنموذج</p>
+            </div>
           </div>
           <CollapsibleTrigger asChild>
-            <Button variant="outline" size="sm" className="h-7 text-[9px] font-black rounded-lg">
-              تعديل
+            <Button variant="outline" size="sm" className="h-10 px-4 font-black rounded-xl border-2">
+              تعديل <ChevronDown className={`w-4 h-4 mr-1 transition-transform ${showKeys ? 'rotate-180' : ''}`} />
             </Button>
           </CollapsibleTrigger>
         </div>
-        <CollapsibleContent className="pt-3">
-          <Input 
-            type="password"
-            placeholder="الصق المفتاح هنا..."
-            value={project.apiKeys?.[0] || ''}
-            onChange={(e) => setProject({ ...project, apiKeys: [e.target.value] })}
-            className="h-10 font-mono text-sm border-2 rounded-xl"
-          />
+        <CollapsibleContent className="pt-5 space-y-4">
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-black text-muted-foreground uppercase mr-1">مفتاح جيميناي النشط</label>
+            <Input 
+              type="password"
+              placeholder="الصق مفتاح API الخاص بك هنا..."
+              value={project.apiKeys?.[0] || ''}
+              onChange={(e) => setProject({ ...project, apiKeys: [e.target.value] })}
+              className="h-12 font-mono text-sm border-2 rounded-xl bg-background"
+            />
+          </div>
+          <Alert className="bg-accent/5 border-accent/10 py-2">
+            <Info className="w-4 h-4 text-accent" />
+            <AlertDescription className="text-[10px] font-bold text-accent mr-1 leading-relaxed">
+              تأكد من أن المفتاح هو Gemini API Key من Google AI Studio.
+            </AlertDescription>
+          </Alert>
         </CollapsibleContent>
       </Collapsible>
 
-      <div className="bg-muted/30 p-4 rounded-3xl border-2 border-dashed border-primary/20 space-y-4">
+      <section className="bg-muted/40 p-6 rounded-[48px] border-4 border-dashed border-primary/20 space-y-5">
         <div className="flex items-center justify-between">
-          <Label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">تجربة العقل (السؤال)</Label>
-          <Cpu className="w-4 h-4 text-primary opacity-50" />
+          <div className="flex items-center gap-2">
+            <Cpu className="w-5 h-5 text-primary" />
+            <Label className="text-[11px] font-black uppercase text-muted-foreground tracking-widest">٢. اختبار النظام (السؤال)</Label>
+          </div>
         </div>
 
         <Textarea 
-          placeholder="اكتب سؤالك هنا..."
-          className="min-h-[80px] bg-background border-2 rounded-xl text-base p-3"
+          placeholder="اكتب سؤالاً لاختبار ذكاء مشروعك..."
+          className="min-h-[100px] bg-background border-2 border-primary/10 rounded-2xl text-lg p-4 shadow-sm"
           value={testInput}
           onChange={(e) => setTestInput(e.target.value)}
         />
         
         <Button 
-          className="w-full h-14 font-black text-lg rounded-2xl gap-3 shadow-xl" 
+          className="w-full h-18 text-xl font-black rounded-3xl gap-4 shadow-2xl active:scale-95 transition-all bg-primary hover:bg-primary/90" 
           onClick={handleRunTest}
           disabled={isRunning || !testInput}
         >
-          {isRunning ? <RefreshCw className="w-5 h-5 animate-spin" /> : <Play className="w-5 h-5 fill-current" />}
-          {isRunning ? 'جاري التحليل...' : 'اسأل الذكاء'}
+          {isRunning ? <RefreshCw className="w-7 h-7 animate-spin" /> : <Play className="w-7 h-7 fill-current" />}
+          {isRunning ? 'جاري التوليد...' : 'تشغيل التجربة'}
         </Button>
 
         {testOutput && (
-          <div className="p-4 bg-card rounded-2xl border-2 border-primary/20 text-base whitespace-pre-wrap leading-relaxed animate-in zoom-in-95">
-            <div className="text-[9px] font-black text-primary mb-2 border-b border-primary/10 pb-1">رد الذكاء:</div>
+          <div className="p-6 bg-card rounded-[32px] border-2 border-primary/20 text-base font-medium whitespace-pre-wrap leading-relaxed animate-in zoom-in-95 shadow-lg relative overflow-hidden">
+            <div className="absolute top-0 right-0 left-0 h-1 bg-primary/20"></div>
+            <div className="text-[10px] font-black text-primary mb-3 border-b border-primary/10 pb-2 uppercase tracking-widest">رد الذكاء الاصطناعي:</div>
             {testOutput}
           </div>
         )}
-      </div>
+      </section>
     </div>
   );
 }

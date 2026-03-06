@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
-import { Plus, Import, FolderOpen, Zap, History, Terminal, CheckCircle2, ChevronLeft, Info } from 'lucide-react';
+import { Plus, Import, FolderOpen, Zap, History, Terminal, CheckCircle2, ChevronLeft, Info, Settings2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -29,7 +29,7 @@ export default function Dashboard() {
 
   const handleCreateProject = () => {
     const newProject = addProject({
-      name: 'مشروع جديد',
+      name: 'مشروع ذكاء جديد',
       description: '',
       prompt: 'أنت مساعد ذكي ومفيد.',
       model: 'gemini-2.0-flash',
@@ -46,8 +46,8 @@ export default function Dashboard() {
   const handleQuickImport = () => {
     if (!importPrompt) return;
     const newProject = addProject({
-      name: importName || 'مشروع مستورد',
-      description: 'مستورد من AI Studio',
+      name: importName || 'مشروع مستورد من جوجل',
+      description: 'تم الاستيراد بنجاح',
       prompt: importPrompt,
       model: 'gemini-2.0-flash',
       temperature: 0.7,
@@ -66,145 +66,161 @@ export default function Dashboard() {
   if (!isLoaded) return (
     <div className="min-h-screen flex items-center justify-center bg-background">
       <div className="text-center space-y-4">
-        <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
-        <p className="text-sm font-bold text-primary tracking-widest uppercase">جاري التحميل...</p>
+        <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
+        <p className="text-sm font-black text-primary tracking-widest uppercase">جاري تشغيل مركز القيادة...</p>
       </div>
     </div>
   );
 
   return (
     <div className="min-h-screen bg-background p-4 space-y-6 max-w-md mx-auto pb-24" dir="rtl">
-      <header className="bg-card p-6 rounded-2xl border border-primary/20 shadow-lg space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="p-3 bg-primary rounded-xl shadow-inner">
-            <Zap className="text-primary-foreground w-6 h-6 fill-current" />
+      <header className="bg-card p-6 rounded-3xl border-2 border-primary/20 shadow-xl space-y-4 relative overflow-hidden">
+        <div className="absolute top-0 right-0 p-8 opacity-5">
+          <Settings2 className="w-32 h-32 rotate-12" />
+        </div>
+        
+        <div className="flex items-center gap-4 relative z-10">
+          <div className="p-4 bg-primary rounded-2xl shadow-lg">
+            <Zap className="text-primary-foreground w-8 h-8 fill-current" />
           </div>
           <div>
-            <h1 className="text-2xl font-black text-foreground">مختبر الذكاء</h1>
-            <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest italic">نظام إدارة مشاريعك الضخمة</p>
+            <h1 className="text-3xl font-black text-foreground leading-none">مركز التحكم</h1>
+            <p className="text-[11px] text-muted-foreground font-bold uppercase tracking-widest mt-1">إدارة مشاريعك الضخمة من جوجل</p>
           </div>
         </div>
 
-        <Alert className="bg-primary/5 border-primary/20 py-2">
-          <Info className="w-4 h-4 text-primary" />
-          <AlertDescription className="text-[11px] font-bold text-primary mr-1">
-            أنت الآن في لوحة التحكم. ابدأ باستيراد مشاريعك من جوجل.
+        <Alert className="bg-accent/10 border-accent/20 py-3 rounded-2xl relative z-10">
+          <Info className="w-5 h-5 text-accent" />
+          <AlertDescription className="text-xs font-black text-accent mr-2">
+            هذه هي مرحلة ربط خدمات Google AI Studio بهاتفك.
           </AlertDescription>
         </Alert>
         
-        <div className="grid gap-3 pt-2">
-          <Button onClick={handleCreateProject} className="h-16 text-xl font-bold rounded-2xl w-full shadow-md">
-            <Plus className="ml-2 w-6 h-6" /> إنشاء مشروع جديد
-          </Button>
-          
+        <div className="grid gap-3 pt-2 relative z-10">
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="outline" className="h-16 text-xl font-bold rounded-2xl w-full border-2 border-primary/20">
-                <Import className="ml-2 w-6 h-6" /> استيراد من AI Studio
+              <Button className="h-20 text-xl font-black rounded-2xl w-full shadow-2xl flex flex-col items-center justify-center gap-1 group">
+                <div className="flex items-center gap-2">
+                  <Import className="w-6 h-6 group-hover:scale-110 transition-transform" /> 
+                  <span>استيراد مشروع من جوجل</span>
+                </div>
+                <span className="text-[10px] opacity-70 font-bold">انقل "وصفة" الذكاء هنا</span>
               </Button>
             </DialogTrigger>
-            <DialogContent className="w-[95%] max-w-xs rounded-2xl p-5 bg-card border-2">
+            <DialogContent className="w-[95%] max-w-xs rounded-3xl p-6 bg-card border-4 border-primary/20 shadow-2xl">
               <DialogHeader>
-                <DialogTitle className="text-right text-xl font-black">نقل مشروع من جوجل</DialogTitle>
+                <DialogTitle className="text-right text-2xl font-black">نقل بياناتك من جوجل</DialogTitle>
               </DialogHeader>
               
-              <div className="space-y-4 py-4 text-right overflow-y-auto max-h-[60vh]">
-                <div className="space-y-1">
-                  <span className="text-xs font-black text-muted-foreground">١. اختر اسماً للمشروع</span>
+              <div className="space-y-5 py-4 text-right overflow-y-auto max-h-[60vh]">
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-black text-primary uppercase">١. اسم المشروع (اختياري)</label>
                   <Input 
-                    placeholder="مثال: مشروعي الضخم الأول" 
+                    placeholder="مثال: خبير الردود الذكي" 
                     value={importName}
                     onChange={(e) => setImportName(e.target.value)}
-                    className="h-12 rounded-xl border-2"
+                    className="h-12 rounded-xl border-2 font-bold"
                   />
                 </div>
-                <div className="space-y-1">
-                  <span className="text-xs font-black text-muted-foreground">٢. الصق مفتاح Gemini (API Key)</span>
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-black text-primary uppercase">٢. مفتاح Gemini (API Key)</label>
                   <Input 
-                    placeholder="تحده في Get API Key بـ AI Studio" 
+                    placeholder="المفتاح الذي وجدته بـ AI Studio" 
                     value={importKey}
                     onChange={(e) => setImportKey(e.target.value)}
-                    className="h-12 rounded-xl font-mono text-xs border-2"
+                    className="h-12 rounded-xl font-mono text-sm border-2"
                   />
                 </div>
-                <div className="space-y-1">
-                  <span className="text-xs font-black text-muted-foreground">٣. الصق تعليمات النظام (System Prompt)</span>
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-black text-primary uppercase">٣. تعليمات النظام (System Prompt)</label>
                   <Textarea 
-                    placeholder="انسخ التعليمات من AI Studio وضعها هنا" 
-                    className="min-h-[120px] rounded-xl text-base border-2 p-3"
+                    placeholder="الصق الـ System Instructions هنا..." 
+                    className="min-h-[140px] rounded-xl text-base border-2 p-4 font-medium"
                     value={importPrompt}
                     onChange={(e) => setImportPrompt(e.target.value)}
                   />
+                  <p className="text-[9px] text-muted-foreground font-bold">هذه هي "الوصفة" التي تحدد شخصية الذكاء.</p>
                 </div>
               </div>
               <DialogFooter>
-                <Button onClick={handleQuickImport} className="w-full h-14 font-black text-lg rounded-2xl">تفعيل المشروع الآن</Button>
+                <Button onClick={handleQuickImport} className="w-full h-16 font-black text-xl rounded-2xl shadow-lg">تفعيل المشروع الآن 🚀</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
+
+          <Button variant="outline" onClick={handleCreateProject} className="h-16 text-lg font-bold rounded-2xl w-full border-2 border-dashed border-primary/30">
+            <Plus className="ml-2 w-5 h-5" /> إنشاء مسودة جديدة
+          </Button>
         </div>
       </header>
 
       <section className="space-y-4">
-        <h2 className="text-sm font-black uppercase text-muted-foreground flex items-center gap-2 px-2">
-          <FolderOpen className="w-4 h-4 text-primary" /> مشاريعك المحفوظة ({projects.length})
+        <h2 className="text-xs font-black uppercase text-muted-foreground flex items-center gap-2 px-2 tracking-[0.2em]">
+          <FolderOpen className="w-4 h-4 text-primary" /> مكتبة المشاريع ({projects.length})
         </h2>
         
         <div className="grid gap-4">
           {projects.length > 0 ? (
             projects.map(project => (
               <Link key={project.id} href={`/projects/${project.id}`}>
-                <Card className="active:scale-95 transition-transform bg-card border-primary/10 rounded-2xl overflow-hidden shadow-md border-r-8 border-r-primary">
-                  <CardContent className="p-5 flex flex-col gap-3">
+                <Card className="active:scale-95 transition-all bg-card border-primary/10 rounded-3xl overflow-hidden shadow-lg border-r-[12px] border-r-primary group">
+                  <CardContent className="p-6 flex flex-col gap-4">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="font-black truncate text-lg">{project.name}</span>
-                        {project.apiKeys?.[0] && (
-                          <CheckCircle2 className="w-4 h-4 text-accent fill-accent/20" />
-                        )}
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-secondary rounded-lg">
+                          <Terminal className="w-5 h-5 text-primary" />
+                        </div>
+                        <span className="font-black text-xl tracking-tight">{project.name}</span>
                       </div>
-                      <ChevronLeft className="w-4 h-4 text-muted-foreground opacity-30" />
+                      <ChevronLeft className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                     </div>
                     
-                    <div className="bg-secondary/20 p-2 rounded-xl border border-secondary/10">
-                      <p className="text-[10px] font-medium text-muted-foreground line-clamp-1 italic">
-                        الموجه: "{project.prompt}"
+                    <div className="bg-secondary/30 p-3 rounded-2xl border border-secondary/20">
+                      <p className="text-[11px] font-bold text-muted-foreground line-clamp-2 leading-relaxed italic">
+                        "{project.prompt}"
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="text-[9px] bg-primary/10 px-2 py-0.5 rounded-lg font-black text-primary uppercase">
-                        {project.model}
+                    <div className="flex items-center justify-between mt-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] bg-primary/20 px-3 py-1 rounded-full font-black text-primary uppercase">
+                          {project.model}
+                        </span>
+                        {project.apiKeys?.[0] ? (
+                          <span className="text-[10px] font-black text-accent bg-accent/10 px-3 py-1 rounded-full flex items-center gap-1">
+                            <CheckCircle2 className="w-3 h-3" /> المفتاح جاهز
+                          </span>
+                        ) : (
+                          <span className="text-[10px] font-black text-destructive bg-destructive/10 px-3 py-1 rounded-full">يحتاج مفتاح ⚠️</span>
+                        )}
+                      </div>
+                      <span className="text-[10px] text-muted-foreground font-bold">
+                        {new Date(project.createdAt).toLocaleDateString('ar-EG')}
                       </span>
-                      {project.apiKeys?.[0] ? (
-                        <span className="text-[9px] font-black text-accent bg-accent/5 px-2 py-0.5 rounded-lg border border-accent/20">المفتاح جاهز ✅</span>
-                      ) : (
-                        <span className="text-[9px] font-black text-destructive bg-destructive/5 px-2 py-0.5 rounded-lg border border-destructive/20">يحتاج مفتاح ❌</span>
-                      )}
                     </div>
                   </CardContent>
                 </Card>
               </Link>
             ))
           ) : (
-            <div className="py-10 text-center border-2 border-dashed rounded-3xl opacity-40">
-              <Plus className="w-10 h-10 mx-auto mb-2 text-muted-foreground" />
-              <p className="text-xs font-bold">لا توجد مشاريع حتى الآن</p>
+            <div className="py-16 text-center border-4 border-dashed rounded-[40px] opacity-40 bg-muted/5">
+              <Import className="w-12 h-12 mx-auto mb-3 text-muted-foreground" />
+              <p className="text-sm font-black text-muted-foreground uppercase tracking-widest">لا يوجد مشاريع.. ابدأ بالاستيراد</p>
             </div>
           )}
         </div>
       </section>
 
-      <nav className="fixed bottom-0 left-0 right-0 h-16 bg-card/95 backdrop-blur-md border-t flex items-center justify-around px-6 shadow-2xl z-50 rounded-t-3xl">
-        <Link href="/" className="flex flex-col items-center gap-1 text-primary">
+      <nav className="fixed bottom-4 left-4 right-4 h-16 bg-card/90 backdrop-blur-xl border-2 border-primary/20 flex items-center justify-around px-8 shadow-2xl z-50 rounded-full">
+        <Link href="/" className="flex flex-col items-center gap-1 text-primary animate-pulse">
           <Zap className="w-6 h-6 fill-current" />
           <span className="text-[9px] font-black">الرئيسية</span>
         </Link>
-        <Link href="/playground" className="flex flex-col items-center gap-1 text-muted-foreground/60">
+        <Link href="/playground" className="flex flex-col items-center gap-1 text-muted-foreground/60 hover:text-primary transition-colors">
           <Terminal className="w-6 h-6" />
           <span className="text-[9px] font-bold">المختبر</span>
         </Link>
-        <Link href="/history" className="flex flex-col items-center gap-1 text-muted-foreground/60">
+        <Link href="/history" className="flex flex-col items-center gap-1 text-muted-foreground/60 hover:text-primary transition-colors">
           <History className="w-6 h-6" />
           <span className="text-[9px] font-bold">السجل</span>
         </Link>
