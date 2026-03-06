@@ -9,7 +9,7 @@ export const FirebaseClientProvider: React.FC<{
 }> = ({ children }) => {
   const [isMounted, setIsMounted] = useState(false);
 
-  // Initialize Firebase ONLY on the client side
+  // Initialize Firebase ONLY on the client side inside useMemo or useEffect
   const firebase = useMemo(() => {
     if (typeof window === 'undefined') return null;
     return initializeFirebase();

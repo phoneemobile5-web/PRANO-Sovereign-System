@@ -1,11 +1,10 @@
-
 'use client';
 
 import { useState } from 'react';
 import { SidebarNav } from '@/components/dashboard/SidebarNav';
 import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
-import { Plus, Zap, Star, Clock, ArrowUpRight, Share2, MoreVertical, Trash2 } from 'lucide-react';
+import { Plus, Zap, Star, Clock, ArrowUpRight, Share2, MoreVertical, Trash2, Import } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useRouter } from 'next/navigation';
@@ -16,16 +15,30 @@ import {
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 
 export default function Dashboard() {
   const { projects, sessions, isLoaded, addProject, deleteProject, toggleBookmark } = useWorkbenchStore();
   const router = useRouter();
+  const [isImportOpen, setIsImportOpen] = useState(false);
+  const [importPrompt, setImportPrompt] = useState('');
+  const [importName, setImportName] = useState('');
 
   const handleCreateProject = () => {
     const newProject = addProject({
-      name: 'Untitled Project',
-      description: 'New AI project configuration',
-      prompt: 'You are a helpful assistant.',
+      name: 'مشروع جديد بدون عنوان',
+      description: 'إعدادات جديدة للذكاء الاصطناعي',
+      prompt: 'أنت مساعد ذكي ومفيد.',
       model: 'gemini-1.5-flash',
       temperature: 0.7,
       topP: 0.95,
@@ -33,6 +46,25 @@ export default function Dashboard() {
       inputSchema: '',
       outputSchema: '',
     });
+    router.push(`/projects/${newProject.id}`);
+  };
+
+  const handleQuickImport = () => {
+    if (!importPrompt) return;
+    const newProject = addProject({
+      name: importName || 'مستورد من AI Studio',
+      description: 'تم استيراد هذا المشروع من Google AI Studio',
+      prompt: importPrompt,
+      model: 'gemini-1.5-flash',
+      temperature: 0.7,
+      topP: 0.95,
+      maxTokens: 1024,
+      inputSchema: '',
+      outputSchema: '',
+    });
+    setIsImportOpen(false);
+    setImportPrompt('');
+    setImportName('');
     router.push(`/projects/${newProject.id}`);
   };
 
@@ -48,20 +80,60 @@ export default function Dashboard() {
       <main className="flex-1 overflow-y-auto p-8 space-y-8">
         <header className="flex items-center justify-between">
           <div className="space-y-1">
-            <h1 className="text-3xl font-bold tracking-tight font-headline">Workbench Overview</h1>
-            <p className="text-muted-foreground">Manage your AI configurations and experiments from Google AI Studio.</p>
+            <h1 className="text-3xl font-bold tracking-tight font-headline">نظرة عامة على المختبر</h1>
+            <p className="text-muted-foreground">قم بإدارة إعدادات وتجارب الذكاء الاصطناعي الخاصة بك من Google AI Studio.</p>
           </div>
-          <Button onClick={handleCreateProject} className="gap-2 shadow-lg shadow-primary/20">
-            <Plus className="w-4 h-4" />
-            Create Project
-          </Button>
+          <div className="flex gap-3">
+            <Dialog open={isImportOpen} onOpenChange={setIsImportOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="gap-2 border-primary/20 hover:bg-primary/5">
+                  <Import className="w-4 h-4" />
+                  استيراد من AI Studio
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[500px]">
+                <DialogHeader>
+                  <DialogTitle>استيراد سريع للمشروع</DialogTitle>
+                  <DialogDescription>
+                    انسخ "System Prompt" من Google AI Studio والصقه هنا لإنشاء مشروع جديد فوراً.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">اسم المشروع</label>
+                    <Input 
+                      placeholder="مثال: مصحح الأكواد" 
+                      value={importName}
+                      onChange={(e) => setImportName(e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">System Prompt</label>
+                    <Textarea 
+                      placeholder="الصق تعليمات AI Studio هنا..." 
+                      className="min-h-[150px] font-code text-xs"
+                      value={importPrompt}
+                      onChange={(e) => setImportPrompt(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button onClick={handleQuickImport} disabled={!importPrompt}>إنشاء واستيراد</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+            <Button onClick={handleCreateProject} className="gap-2 shadow-lg shadow-primary/20">
+              <Plus className="w-4 h-4" />
+              إنشاء مشروع
+            </Button>
+          </div>
         </header>
 
         <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <div className="col-span-full lg:col-span-2 space-y-4">
             <h2 className="text-lg font-semibold flex items-center gap-2">
               <Zap className="w-5 h-5 text-primary" />
-              Active Projects
+              المشاريع النشطة
             </h2>
             <div className="grid gap-4 md:grid-cols-2">
               {projects.map(project => (
@@ -72,13 +144,13 @@ export default function Dashboard() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-xs text-muted-foreground line-clamp-2 h-8">
-                      {project.description || 'No description provided.'}
+                      {project.description || 'لا يوجد وصف للمشروع.'}
                     </p>
                   </CardContent>
                   <CardFooter className="flex justify-between border-t bg-muted/20 mt-2">
                     <Button variant="ghost" size="sm" asChild>
                       <Link href={`/projects/${project.id}`} className="flex items-center gap-1 text-xs">
-                        Configure <ArrowUpRight className="w-3 h-3" />
+                        تعديل <ArrowUpRight className="w-3 h-3" />
                       </Link>
                     </Button>
                     <div className="flex items-center gap-1">
@@ -97,7 +169,7 @@ export default function Dashboard() {
                             onClick={() => deleteProject(project.id)}
                           >
                             <Trash2 className="w-4 h-4 mr-2" />
-                            Delete Project
+                            حذف المشروع
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -111,7 +183,7 @@ export default function Dashboard() {
           <div className="space-y-4">
             <h2 className="text-lg font-semibold flex items-center gap-2">
               <Star className="w-5 h-5 text-accent" />
-              Bookmarks
+              المميزة
             </h2>
             <div className="space-y-3">
               {bookmarkedSessions.length > 0 ? (
@@ -139,7 +211,7 @@ export default function Dashboard() {
               ) : (
                 <div className="bg-muted/10 border-2 border-dashed rounded-xl p-8 text-center">
                   <Star className="w-8 h-8 text-muted/30 mx-auto mb-2" />
-                  <p className="text-sm text-muted-foreground">Successful experiments you bookmark will appear here.</p>
+                  <p className="text-sm text-muted-foreground">التجارب الناجحة التي تميزها ستظهر هنا.</p>
                 </div>
               )}
             </div>
@@ -149,7 +221,7 @@ export default function Dashboard() {
         <section className="space-y-4 pt-4">
           <h2 className="text-lg font-semibold flex items-center gap-2">
             <Clock className="w-5 h-5 text-muted-foreground" />
-            Recent Activity
+            النشاط الأخير
           </h2>
           <Card className="bg-card/40">
             <CardContent className="p-0">
@@ -160,7 +232,7 @@ export default function Dashboard() {
                       <div className="flex flex-col gap-0.5 max-w-[70%]">
                         <span className="text-sm font-medium truncate">{session.input}</span>
                         <span className="text-xs text-muted-foreground truncate opacity-70">
-                          {projects.find(p => p.id === session.projectId)?.name || 'Deleted Project'}
+                          {projects.find(p => p.id === session.projectId)?.name || 'مشروع محذوف'}
                         </span>
                       </div>
                       <div className="flex items-center gap-4 shrink-0">
@@ -168,14 +240,14 @@ export default function Dashboard() {
                           {new Date(session.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         </span>
                         <Button variant="outline" size="sm" asChild>
-                          <Link href="/history">View</Link>
+                          <Link href="/history">عرض</Link>
                         </Button>
                       </div>
                     </div>
                   ))
                 ) : (
                   <div className="p-12 text-center text-muted-foreground">
-                    <p className="text-sm">No recent interactions yet. Head to the playground to start!</p>
+                    <p className="text-sm">لا توجد تفاعلات أخيرة. ابدأ من المختبر!</p>
                   </div>
                 )}
               </div>
