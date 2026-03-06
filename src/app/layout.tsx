@@ -1,4 +1,3 @@
-
 import './globals.css';
 import { FirebaseClientProvider } from '@/firebase';
 
