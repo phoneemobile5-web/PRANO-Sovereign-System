@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useEffect, useState, useMemo } from 'react';
@@ -10,6 +9,7 @@ export const FirebaseClientProvider: React.FC<{
 }> = ({ children }) => {
   const [isMounted, setIsMounted] = useState(false);
 
+  // Initialize Firebase ONLY on the client side
   const firebase = useMemo(() => {
     if (typeof window === 'undefined') return null;
     return initializeFirebase();
@@ -19,7 +19,14 @@ export const FirebaseClientProvider: React.FC<{
     setIsMounted(true);
   }, []);
 
-  if (!isMounted || !firebase) return null;
+  // Prevent server-side rendering of Firebase logic
+  if (!isMounted || !firebase) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="animate-pulse text-primary font-bold">جاري تحميل المختبر...</div>
+      </div>
+    );
+  }
 
   return (
     <FirebaseProvider 

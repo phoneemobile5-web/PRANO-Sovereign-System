@@ -1,12 +1,8 @@
+'use client';
 
-import type {Metadata} from 'next';
+import type { Metadata } from 'next';
 import './globals.css';
 import { FirebaseClientProvider } from '@/firebase';
-
-export const metadata: Metadata = {
-  title: 'AI Workbench | Streamline Your AI Development',
-  description: 'A comprehensive workbench for creating, managing, and optimizing AI projects imported from Google AI Studio.',
-};
 
 export default function RootLayout({
   children,
@@ -14,11 +10,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="ar" className="dark" dir="rtl">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet" />
+        <title>AI Workbench | مختبر الذكاء الاصطناعي</title>
       </head>
       <body className="font-body antialiased bg-background text-foreground">
         <FirebaseClientProvider>

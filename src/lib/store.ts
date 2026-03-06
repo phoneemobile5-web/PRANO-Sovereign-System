@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
@@ -45,12 +44,11 @@ export function useWorkbenchStore() {
   const { user, loading: userLoading } = useUser();
   const db = useFirestore();
   
-  // Local state as fallback
   const [localProjects, setLocalProjects] = useState<AIProject[]>([]);
   const [localSessions, setLocalSessions] = useState<AISession[]>([]);
   const [isLocalLoaded, setIsLocalLoaded] = useState(false);
 
-  // Firestore queries
+  // Firestore queries - only active when user is logged in
   const projectsQuery = useMemo(() => {
     if (!db || !user) return null;
     return query(collection(db, 'users', user.uid, 'projects'), orderBy('createdAt', 'desc'));
@@ -64,7 +62,7 @@ export function useWorkbenchStore() {
   const { data: remoteProjects, loading: projectsLoading } = useCollection<AIProject>(projectsQuery);
   const { data: remoteSessions, loading: sessionsLoading } = useCollection<AISession>(sessionsQuery);
 
-  // Load local data on mount
+  // Load from LocalStorage on mount (fallback)
   useEffect(() => {
     const savedProjects = localStorage.getItem(STORAGE_KEY_PROJECTS);
     const savedSessions = localStorage.getItem(STORAGE_KEY_SESSIONS);
@@ -74,9 +72,9 @@ export function useWorkbenchStore() {
     } else {
       const defaultProject: AIProject = {
         id: '1',
-        name: 'My First AI Project',
-        description: 'General purpose assistant',
-        prompt: 'You are a helpful AI assistant.',
+        name: 'مشروعي الأول للذكاء الاصطناعي',
+        description: 'مساعد ذكي للأغراض العامة',
+        prompt: 'أنت مساعد ذكي ومفيد جداً.',
         model: 'gemini-1.5-flash',
         temperature: 0.7,
         topP: 0.95,
