@@ -158,7 +158,7 @@ export default function ProjectEditor() {
           <Alert className="bg-accent/10 border-accent/20 p-3 rounded-xl">
             <Info className="h-4 w-4 text-accent" />
             <AlertDescription className="text-xs text-accent font-bold leading-relaxed text-right">
-              الصق مفتاح API الذي حصلت عليه من Google AI Studio هنا. سيتم استخدامه لتشغيل تجاربك.
+              الصق مفتاح API الذي حصلت عليه من Google AI Studio هنا.
             </AlertDescription>
           </Alert>
           <div className="space-y-2">
@@ -191,21 +191,21 @@ export default function ProjectEditor() {
         <Textarea 
           value={project.prompt}
           onChange={(e) => setProject({ ...project, prompt: e.target.value })}
-          placeholder="أدخل تعليمات النظام الضخمة هنا..."
+          placeholder="أدخل تعليمات النظام هنا..."
           className="min-h-[250px] text-lg leading-relaxed bg-background/50 rounded-2xl border-dashed border-2 p-4"
         />
         <Button onClick={handleSave} className="w-full h-16 font-black text-xl gap-4 shadow-xl rounded-2xl active:scale-95 transition-transform">
-          <Save className="w-7 h-7" /> حفظ كل التغييرات
+          <Save className="w-7 h-7" /> حفظ التغييرات
         </Button>
       </div>
 
       <div className="bg-muted/30 p-5 rounded-3xl border-2 border-dashed border-primary/20 space-y-5">
         <div className="flex items-center gap-3">
           <Play className="w-6 h-6 text-primary" />
-          <Label className="text-sm font-black text-muted-foreground uppercase tracking-tighter">منطقة التجربة السريعة</Label>
+          <Label className="text-sm font-black text-muted-foreground uppercase tracking-tighter">تجربة سريعة</Label>
         </div>
         <Textarea 
-          placeholder="ماذا تريد أن تسأل هذا الموجه؟"
+          placeholder="ماذا تريد أن تسأل؟"
           className="min-h-[120px] bg-background border-2 border-primary/5 rounded-2xl shadow-inner text-lg p-4"
           value={testInput}
           onChange={(e) => setTestInput(e.target.value)}
@@ -222,7 +222,7 @@ export default function ProjectEditor() {
 
         {testOutput && (
           <div className="p-5 bg-card rounded-2xl border-2 border-primary/20 text-lg whitespace-pre-wrap font-medium leading-relaxed shadow-sm animate-in zoom-in-95">
-            <div className="text-[10px] font-black text-primary mb-3 border-b border-primary/10 pb-2 tracking-widest uppercase">النتيجة النهائية:</div>
+            <div className="text-[10px] font-black text-primary mb-3 border-b border-primary/10 pb-2 tracking-widest uppercase">الرد:</div>
             {testOutput}
           </div>
         )}

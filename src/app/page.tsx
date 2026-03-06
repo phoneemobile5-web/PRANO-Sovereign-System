@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
-import { Plus, Import, FolderOpen, Zap, Key, History, Terminal, Info, AlertCircle } from 'lucide-react';
+import { Plus, Import, FolderOpen, Zap, Key, History, Terminal, Info, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -81,7 +81,7 @@ export default function Dashboard() {
           </div>
           <div>
             <h1 className="text-xl font-black text-foreground">مختبر الذكاء</h1>
-            <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-tighter">نسخة الهواتف الخفيفة v1.3</p>
+            <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-tighter">نسخة الهواتف الخفيفة v1.5</p>
           </div>
         </div>
         
@@ -105,7 +105,7 @@ export default function Dashboard() {
                 <AlertCircle className="h-4 w-4 text-accent" />
                 <AlertTitle className="text-right text-xs font-bold text-accent">تنبيه هام</AlertTitle>
                 <AlertDescription className="text-right text-[10px] leading-relaxed">
-                  استخدم مفتاح **Gemini API Key** الذي تجده في Google AI Studio تحت خيار "Get API key". لا تخلط بينه وبين مفاتيح Firebase.
+                  استخدم مفتاح **Gemini API Key** من Google AI Studio.
                 </AlertDescription>
               </Alert>
 
@@ -120,9 +120,9 @@ export default function Dashboard() {
                   />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-xs font-bold text-muted-foreground">مفتاح جيميناي (Gemini API Key)</span>
+                  <span className="text-xs font-bold text-muted-foreground">مفتاح جيميناي (API Key)</span>
                   <Input 
-                    placeholder="الصق المفتاح الطويل هنا" 
+                    placeholder="الصق المفتاح هنا" 
                     value={importKey}
                     onChange={(e) => setImportKey(e.target.value)}
                     className="h-12 rounded-lg font-mono text-xs border-2"
@@ -149,7 +149,7 @@ export default function Dashboard() {
       <section className="space-y-4">
         <div className="flex items-center justify-between px-2">
           <h2 className="text-xs font-black uppercase text-muted-foreground flex items-center gap-2">
-            <FolderOpen className="w-4 h-4 text-primary" /> مشاريعك النشطة ({projects.length})
+            <FolderOpen className="w-4 h-4 text-primary" /> مشاريعك ({projects.length})
           </h2>
         </div>
         
@@ -159,14 +159,20 @@ export default function Dashboard() {
               <Card className="active:scale-95 transition-transform bg-card border-primary/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-md border-r-4 border-r-primary">
                 <CardContent className="p-4 flex items-center justify-between">
                   <div className="flex flex-col min-w-0">
-                    <span className="font-bold truncate text-base leading-tight">{project.name}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold truncate text-base leading-tight">{project.name}</span>
+                      {project.apiKeys?.[0] && (
+                        <CheckCircle2 className="w-4 h-4 text-accent fill-accent/20" />
+                      )}
+                    </div>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-[9px] bg-secondary px-1.5 py-0.5 rounded font-black text-secondary-foreground uppercase">{project.model}</span>
-                      {project.apiKeys && project.apiKeys.length > 0 && (
-                        <div className="flex items-center gap-1 text-accent">
-                          <Key className="w-3 h-3" />
-                          <span className="text-[9px] font-bold">مفتاح نشط</span>
-                        </div>
+                      <span className="text-[9px] bg-secondary px-1.5 py-0.5 rounded font-black text-secondary-foreground uppercase">
+                        {project.model}
+                      </span>
+                      {project.apiKeys?.[0] ? (
+                        <span className="text-[9px] font-bold text-accent">مفتاح نشط ✅</span>
+                      ) : (
+                        <span className="text-[9px] font-bold text-destructive">بدون مفتاح ❌</span>
                       )}
                     </div>
                   </div>
