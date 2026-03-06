@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -10,11 +11,10 @@ import {
   RefreshCw,
   Sparkles,
   ArrowRight,
-  Settings2,
   Trash2,
   Key,
-  ShieldCheck,
-  Info
+  Info,
+  CheckCircle2
 } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -96,10 +96,9 @@ export default function ProjectEditor() {
     setIsRunning(true);
     setTestOutput('');
     try {
-      const combinedPrompt = `${project.prompt}\n\nالمستخدم: ${testInput}`;
       const result = await testAIProjectResponses({ 
-        prompt: combinedPrompt,
-        apiKey: project.apiKeys?.[0], // نمرر مفتاح المستخدم الخاص
+        prompt: `${project.prompt}\n\nUser: ${testInput}`,
+        apiKey: project.apiKeys?.[0],
         model: project.model
       });
       setTestOutput(result.response);
@@ -115,12 +114,6 @@ export default function ProjectEditor() {
     }
   };
 
-  const handleKeyChange = (val: string) => {
-    if (project) {
-      setProject({ ...project, apiKeys: [val] });
-    }
-  };
-
   if (!isLoaded || !project) return null;
 
   return (
@@ -128,102 +121,108 @@ export default function ProjectEditor() {
       <Toaster />
       
       <header className="flex items-center justify-between bg-card p-4 rounded-2xl border border-primary/20 shadow-md">
-        <Button variant="ghost" size="icon" onClick={() => router.push('/')} className="hover:bg-primary/10">
-          <ArrowRight className="w-6 h-6" />
+        <Button variant="ghost" size="icon" onClick={() => router.push('/')} className="h-12 w-12 hover:bg-primary/10">
+          <ArrowRight className="w-8 h-8" />
         </Button>
         <input 
           value={project.name}
           onChange={(e) => setProject({ ...project, name: e.target.value })}
-          className="bg-transparent font-black text-center flex-1 border-none focus:ring-0 focus:outline-none text-lg truncate px-2"
+          className="bg-transparent font-black text-center flex-1 border-none focus:ring-0 focus:outline-none text-xl truncate px-2"
         />
-        <Button variant="ghost" size="icon" onClick={handleDelete} className="text-destructive hover:bg-destructive/10">
-          <Trash2 className="w-5 h-5" />
+        <Button variant="ghost" size="icon" onClick={handleDelete} className="text-destructive h-12 w-12 hover:bg-destructive/10">
+          <Trash2 className="w-7 h-7" />
         </Button>
       </header>
 
-      <Collapsible open={showKeys} onOpenChange={setShowKeys} className="bg-card p-4 rounded-2xl border border-accent/20 shadow-sm space-y-3">
+      <Collapsible open={showKeys} onOpenChange={setShowKeys} className="bg-card p-5 rounded-2xl border-2 border-accent/20 shadow-md space-y-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Key className="w-4 h-4 text-accent" />
-            <Label className="text-[10px] font-black uppercase text-accent tracking-widest">إدارة مفتاح Gemini</Label>
+          <div className="flex items-center gap-3">
+            <Key className="w-6 h-6 text-accent" />
+            <Label className="text-xs font-black uppercase text-accent tracking-tighter">مفتاح Gemini API</Label>
           </div>
           <CollapsibleTrigger asChild>
-            <Button variant="ghost" size="sm" className="h-7 text-[10px] font-bold">
-              {showKeys ? 'إخفاء' : 'عرض الإعدادات'}
+            <Button variant="outline" size="sm" className="h-9 px-4 text-xs font-black rounded-lg border-accent/30 text-accent">
+              {showKeys ? 'إغفاء' : 'تعديل المفتاح'}
             </Button>
           </CollapsibleTrigger>
         </div>
         
+        {project.apiKeys?.[0] && !showKeys && (
+          <div className="flex items-center gap-2 text-accent bg-accent/5 p-2 rounded-lg border border-accent/10">
+            <CheckCircle2 className="w-4 h-4" />
+            <span className="text-[10px] font-bold">المفتاح نشط ومحمي</span>
+          </div>
+        )}
+
         <CollapsibleContent className="space-y-4 pt-2">
-          <Alert className="bg-accent/5 border-accent/20 p-2">
-            <Info className="h-3 w-3 text-accent" />
-            <AlertDescription className="text-[9px] text-accent leading-tight">
-              استخدم مفتاح **API Key** من Google AI Studio لتشغيل هذا المشروع.
+          <Alert className="bg-accent/10 border-accent/20 p-3 rounded-xl">
+            <Info className="h-4 w-4 text-accent" />
+            <AlertDescription className="text-xs text-accent font-bold leading-relaxed text-right">
+              الصق مفتاح API الذي حصلت عليه من Google AI Studio هنا. سيتم استخدامه لتشغيل تجاربك.
             </AlertDescription>
           </Alert>
-          <div className="space-y-1.5">
-            <span className="text-[10px] font-bold text-muted-foreground mr-1">الصق المفتاح هنا</span>
+          <div className="space-y-2">
             <Input 
               type="password"
               placeholder="AIzaSy..."
               value={project.apiKeys?.[0] || ''}
-              onChange={(e) => handleKeyChange(e.target.value)}
-              className="h-12 bg-background font-mono text-xs border-2"
+              onChange={(e) => setProject({ ...project, apiKeys: [e.target.value] })}
+              className="h-14 bg-background font-mono text-base border-2 border-accent/20 rounded-xl"
             />
           </div>
         </CollapsibleContent>
       </Collapsible>
 
-      <div className="bg-card p-4 rounded-2xl border space-y-4 shadow-sm relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1 h-full bg-primary/20"></div>
+      <div className="bg-card p-5 rounded-3xl border-2 shadow-lg space-y-5 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1.5 h-full bg-primary/30"></div>
         <div className="flex items-center justify-between">
-          <Label className="text-xs font-black uppercase text-muted-foreground">التعليمات الأساسية (Prompt)</Label>
+          <Label className="text-xs font-black uppercase text-muted-foreground tracking-widest">تعليمات النظام (Prompt)</Label>
           <Button 
-            variant="ghost" 
+            variant="secondary" 
             size="sm" 
-            className="text-primary h-8 px-2 bg-primary/5 rounded-full"
+            className="text-primary h-10 px-4 bg-primary/10 rounded-full border-2 border-primary/20"
             onClick={handleRefinePrompt}
             disabled={isRefining}
           >
-            {isRefining ? <RefreshCw className="w-4 h-4 animate-spin ml-1" /> : <Sparkles className="w-4 h-4 ml-1" />}
-            <span className="text-[10px] font-bold">{isRefining ? 'جاري...' : 'تحسين'}</span>
+            {isRefining ? <RefreshCw className="w-5 h-5 animate-spin ml-2" /> : <Sparkles className="w-5 h-5 ml-2" />}
+            <span className="text-xs font-black">{isRefining ? 'جاري...' : 'تحسين ذكي'}</span>
           </Button>
         </div>
         <Textarea 
           value={project.prompt}
           onChange={(e) => setProject({ ...project, prompt: e.target.value })}
-          placeholder="أدخل تعليمات النظام هنا..."
-          className="min-h-[200px] text-sm leading-relaxed bg-background/50 rounded-xl border-dashed border-2"
+          placeholder="أدخل تعليمات النظام الضخمة هنا..."
+          className="min-h-[250px] text-lg leading-relaxed bg-background/50 rounded-2xl border-dashed border-2 p-4"
         />
-        <Button onClick={handleSave} className="w-full h-14 font-black text-lg gap-3 shadow-lg rounded-2xl">
-          <Save className="w-6 h-6" /> حفظ المشروع
+        <Button onClick={handleSave} className="w-full h-16 font-black text-xl gap-4 shadow-xl rounded-2xl active:scale-95 transition-transform">
+          <Save className="w-7 h-7" /> حفظ كل التغييرات
         </Button>
       </div>
 
-      <div className="bg-muted/40 p-4 rounded-2xl border border-dashed border-primary/20 space-y-4">
-        <div className="flex items-center gap-2">
-          <Play className="w-4 h-4 text-primary" />
-          <Label className="text-xs font-black text-muted-foreground uppercase">تجربة سريعة</Label>
+      <div className="bg-muted/30 p-5 rounded-3xl border-2 border-dashed border-primary/20 space-y-5">
+        <div className="flex items-center gap-3">
+          <Play className="w-6 h-6 text-primary" />
+          <Label className="text-sm font-black text-muted-foreground uppercase tracking-tighter">منطقة التجربة السريعة</Label>
         </div>
         <Textarea 
-          placeholder="اكتب سؤالاً..."
-          className="min-h-[100px] bg-background border-none shadow-sm text-sm"
+          placeholder="ماذا تريد أن تسأل هذا الموجه؟"
+          className="min-h-[120px] bg-background border-2 border-primary/5 rounded-2xl shadow-inner text-lg p-4"
           value={testInput}
           onChange={(e) => setTestInput(e.target.value)}
         />
         <Button 
-          variant="secondary" 
-          className="w-full h-14 font-black text-base rounded-xl gap-2 border-2" 
+          variant="default" 
+          className="w-full h-16 font-black text-xl rounded-2xl gap-3 shadow-lg border-b-4 border-primary/80 active:border-b-0 active:translate-y-1 transition-all" 
           onClick={handleRunTest}
           disabled={isRunning || !testInput}
         >
-          {isRunning ? <RefreshCw className="w-5 h-5 animate-spin" /> : <Play className="w-5 h-5 fill-current" />}
-          {isRunning ? 'جاري التحليل...' : 'تشغيل التجربة'}
+          {isRunning ? <RefreshCw className="w-6 h-6 animate-spin" /> : <Play className="w-6 h-6 fill-current" />}
+          {isRunning ? 'جاري التحليل...' : 'تشغيل الموجه'}
         </Button>
 
         {testOutput && (
-          <div className="p-4 bg-background rounded-2xl border-2 border-primary/10 text-sm whitespace-pre-wrap font-mono leading-relaxed">
-            <div className="text-[9px] font-black text-primary mb-2 border-b pb-1">النتيجة:</div>
+          <div className="p-5 bg-card rounded-2xl border-2 border-primary/20 text-lg whitespace-pre-wrap font-medium leading-relaxed shadow-sm animate-in zoom-in-95">
+            <div className="text-[10px] font-black text-primary mb-3 border-b border-primary/10 pb-2 tracking-widest uppercase">النتيجة النهائية:</div>
             {testOutput}
           </div>
         )}
