@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
-import { Plus, Import, FolderOpen, Zap, Key, History, Terminal, Info } from 'lucide-react';
+import { Plus, Import, FolderOpen, Zap, Key, History, Terminal, Info, AlertCircle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -32,7 +32,7 @@ export default function Dashboard() {
       name: 'مشروع جديد',
       description: '',
       prompt: 'أنت مساعد ذكي.',
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.0-flash',
       temperature: 0.7,
       topP: 0.95,
       maxTokens: 1024,
@@ -49,7 +49,7 @@ export default function Dashboard() {
       name: importName || 'مشروع مستورد',
       description: 'مستورد من AI Studio',
       prompt: importPrompt,
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.0-flash',
       temperature: 0.7,
       topP: 0.95,
       maxTokens: 1024,
@@ -67,7 +67,7 @@ export default function Dashboard() {
     <div className="min-h-screen flex items-center justify-center bg-background">
       <div className="text-center space-y-4">
         <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
-        <p className="text-xs font-bold text-primary">تحميل البيانات...</p>
+        <p className="text-xs font-bold text-primary tracking-widest">جاري التحميل...</p>
       </div>
     </div>
   );
@@ -81,13 +81,13 @@ export default function Dashboard() {
           </div>
           <div>
             <h1 className="text-xl font-black text-foreground">مختبر الذكاء</h1>
-            <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-tighter">نسخة الهواتف الخفيفة v1.2</p>
+            <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-tighter">نسخة الهواتف الخفيفة v1.3</p>
           </div>
         </div>
         
         <div className="grid gap-3">
           <Button onClick={handleCreateProject} className="h-14 text-lg font-bold rounded-xl w-full shadow-md active:translate-y-0.5 transition-transform">
-            <Plus className="ml-2 w-5 h-5" /> مشروع جديد
+            <Plus className="ml-2 w-5 h-5" /> إنشاء مشروع
           </Button>
           
           <Dialog>
@@ -96,16 +96,16 @@ export default function Dashboard() {
                 <Import className="ml-2 w-5 h-5" /> استيراد سريع
               </Button>
             </DialogTrigger>
-            <DialogContent className="w-[95%] max-w-xs rounded-2xl p-4 overflow-y-auto max-h-[90vh]">
+            <DialogContent className="w-[95%] max-w-xs rounded-2xl p-4 overflow-y-auto max-h-[90vh] bg-card">
               <DialogHeader>
                 <DialogTitle className="text-right text-lg font-black">استيراد من AI Studio</DialogTitle>
               </DialogHeader>
               
-              <Alert className="bg-primary/5 border-primary/20 my-2">
-                <Info className="h-4 w-4" />
-                <AlertTitle className="text-right text-xs font-bold">تلميح المفتاح</AlertTitle>
+              <Alert className="bg-accent/10 border-accent/20 my-2">
+                <AlertCircle className="h-4 w-4 text-accent" />
+                <AlertTitle className="text-right text-xs font-bold text-accent">تنبيه هام</AlertTitle>
                 <AlertDescription className="text-right text-[10px] leading-relaxed">
-                  استخدم مفتاح **Gemini API Key** الذي تجده في القائمة الجانبية لـ AI Studio تحت خيار "Get API key".
+                  استخدم مفتاح **Gemini API Key** الذي تجده في Google AI Studio تحت خيار "Get API key". لا تخلط بينه وبين مفاتيح Firebase.
                 </AlertDescription>
               </Alert>
 
@@ -113,33 +113,33 @@ export default function Dashboard() {
                 <div className="space-y-1">
                   <span className="text-xs font-bold text-muted-foreground">اسم المشروع</span>
                   <Input 
-                    placeholder="مثال: خبير البرمجة" 
+                    placeholder="مثال: مشروعي الأول" 
                     value={importName}
                     onChange={(e) => setImportName(e.target.value)}
-                    className="h-12 rounded-lg border-2 focus:border-primary"
+                    className="h-12 rounded-lg border-2"
                   />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-xs font-bold text-muted-foreground">مفتاح جيميناي (API Key)</span>
+                  <span className="text-xs font-bold text-muted-foreground">مفتاح جيميناي (Gemini API Key)</span>
                   <Input 
                     placeholder="الصق المفتاح الطويل هنا" 
                     value={importKey}
                     onChange={(e) => setImportKey(e.target.value)}
-                    className="h-12 rounded-lg font-mono text-xs border-2 focus:border-primary"
+                    className="h-12 rounded-lg font-mono text-xs border-2"
                   />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-xs font-bold text-muted-foreground">تعليمات النظام (System Prompt)</span>
+                  <span className="text-xs font-bold text-muted-foreground">تعليمات النظام (Prompt)</span>
                   <Textarea 
-                    placeholder="أدخل التعليمات البرمجية هنا..." 
-                    className="min-h-[120px] rounded-lg text-sm border-2 focus:border-primary"
+                    placeholder="أدخل التعليمات هنا..." 
+                    className="min-h-[120px] rounded-lg text-sm border-2"
                     value={importPrompt}
                     onChange={(e) => setImportPrompt(e.target.value)}
                   />
                 </div>
               </div>
               <DialogFooter className="mt-4">
-                <Button onClick={handleQuickImport} className="w-full h-12 font-bold text-lg rounded-xl">بدء العمل الآن</Button>
+                <Button onClick={handleQuickImport} className="w-full h-12 font-bold text-lg rounded-xl">بدء الاستيراد</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -149,7 +149,7 @@ export default function Dashboard() {
       <section className="space-y-4">
         <div className="flex items-center justify-between px-2">
           <h2 className="text-xs font-black uppercase text-muted-foreground flex items-center gap-2">
-            <FolderOpen className="w-4 h-4 text-primary" /> مشاريعك ({projects.length})
+            <FolderOpen className="w-4 h-4 text-primary" /> مشاريعك النشطة ({projects.length})
           </h2>
         </div>
         
@@ -179,7 +179,7 @@ export default function Dashboard() {
           {projects.length === 0 && (
             <div className="text-center p-10 border-2 border-dashed rounded-3xl opacity-40 bg-card/50">
               <p className="text-sm font-bold text-muted-foreground italic leading-relaxed">
-                لا توجد مشاريع حالياً.<br/>أضف مشروعك الأول لبدء التجربة.
+                لا توجد مشاريع حالياً.<br/>ابدأ بإنشاء مشروعك الأول.
               </p>
             </div>
           )}

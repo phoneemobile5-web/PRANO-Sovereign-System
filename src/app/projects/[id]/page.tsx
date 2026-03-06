@@ -14,7 +14,8 @@ import {
   Settings2,
   Trash2,
   Key,
-  ShieldCheck
+  ShieldCheck,
+  Info
 } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -28,6 +29,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function ProjectEditor() {
   const { id } = useParams();
@@ -136,12 +138,12 @@ export default function ProjectEditor() {
         </Button>
       </header>
 
-      {/* قسم إدارة المفاتيح - مخصص للمستخدم */}
+      {/* قسم إدارة المفاتيح - Gemini API Key */}
       <Collapsible open={showKeys} onOpenChange={setShowKeys} className="bg-card p-4 rounded-2xl border border-accent/20 shadow-sm space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Key className="w-4 h-4 text-accent" />
-            <Label className="text-[10px] font-black uppercase text-accent tracking-widest">إدارة مفاتيح التشغيل</Label>
+            <Label className="text-[10px] font-black uppercase text-accent tracking-widest">إدارة مفتاح Gemini</Label>
           </div>
           <CollapsibleTrigger asChild>
             <Button variant="ghost" size="sm" className="h-7 text-[10px] font-bold">
@@ -151,11 +153,17 @@ export default function ProjectEditor() {
         </div>
         
         <CollapsibleContent className="space-y-4 pt-2">
+          <Alert className="bg-accent/5 border-accent/20 p-2">
+            <Info className="h-3 w-3 text-accent" />
+            <AlertDescription className="text-[9px] text-accent leading-tight">
+              هذا هو مفتاح API Key الذي تحصل عليه من **Google AI Studio** فقط. لا تستخدم مفاتيح Firebase هنا.
+            </AlertDescription>
+          </Alert>
           <div className="space-y-1.5">
-            <span className="text-[10px] font-bold text-muted-foreground mr-1">Gemini API Key (من Google AI Studio)</span>
+            <span className="text-[10px] font-bold text-muted-foreground mr-1">Gemini API Key (من AI Studio)</span>
             <Input 
               type="password"
-              placeholder="الصق مفتاح API هنا..."
+              placeholder="الصق مفتاح Gemini هنا..."
               value={project.apiKeys?.[0] || ''}
               onChange={(e) => handleKeyChange(e.target.value)}
               className="h-12 bg-background font-mono text-xs border-2 focus:border-accent"
@@ -163,7 +171,7 @@ export default function ProjectEditor() {
           </div>
           <div className="flex items-center gap-2 p-2 bg-accent/5 rounded-lg border border-accent/10">
             <ShieldCheck className="w-4 h-4 text-accent shrink-0" />
-            <p className="text-[9px] text-accent font-bold leading-tight">يتم تخزين هذا المفتاح بأمان في مشروعك الخاص فقط.</p>
+            <p className="text-[9px] text-accent font-bold leading-tight">سيتم استخدام هذا المفتاح لتشغيل ردود الذكاء لهذا المشروع.</p>
           </div>
         </CollapsibleContent>
       </Collapsible>
@@ -186,8 +194,8 @@ export default function ProjectEditor() {
         <Textarea 
           value={project.prompt}
           onChange={(e) => setProject({ ...project, prompt: e.target.value })}
-          placeholder="أدخل تعليمات النظام هنا (مثلاً: أنت مساعد متخصص في...)"
-          className="min-h-[220px] text-sm leading-relaxed bg-background/50 rounded-xl border-dashed border-2 focus:border-solid transition-all"
+          placeholder="أدخل تعليمات النظام هنا..."
+          className="min-h-[220px] text-sm leading-relaxed bg-background/50 rounded-xl border-dashed border-2"
         />
         <Button onClick={handleSave} className="w-full h-14 font-black text-lg gap-3 shadow-lg rounded-2xl active:scale-95">
           <Save className="w-6 h-6" /> حفظ المشروع
@@ -200,14 +208,14 @@ export default function ProjectEditor() {
           <Label className="text-xs font-black text-muted-foreground uppercase">تجربة فورية (Sandbox)</Label>
         </div>
         <Textarea 
-          placeholder="اكتب سؤالاً أو طلباً لتجربة الموجه..."
+          placeholder="اكتب سؤالاً لتجربة الموجه..."
           className="min-h-[120px] bg-background border-none shadow-sm text-sm"
           value={testInput}
           onChange={(e) => setTestInput(e.target.value)}
         />
         <Button 
           variant="secondary" 
-          className="w-full h-14 font-black text-base rounded-xl gap-2 border-2 border-primary/10 hover:bg-primary/5" 
+          className="w-full h-14 font-black text-base rounded-xl gap-2 border-2 border-primary/10" 
           onClick={handleRunTest}
           disabled={isRunning || !testInput}
         >
@@ -216,7 +224,7 @@ export default function ProjectEditor() {
         </Button>
 
         {testOutput && (
-          <div className="p-4 bg-background rounded-2xl border-2 border-primary/10 text-sm whitespace-pre-wrap font-mono leading-relaxed shadow-sm animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <div className="p-4 bg-background rounded-2xl border-2 border-primary/10 text-sm whitespace-pre-wrap font-mono leading-relaxed shadow-sm">
             <div className="text-[9px] font-black text-primary mb-2 border-b pb-1">النتيجة المولدة:</div>
             {testOutput}
           </div>
@@ -229,7 +237,7 @@ export default function ProjectEditor() {
           <span className="text-sm font-bold text-accent">{project.model}</span>
         </div>
         <Button variant="outline" size="sm" className="h-9 gap-2 rounded-xl text-xs font-bold border-2">
-          <Settings2 className="w-4 h-4" /> خيارات الموديل
+          <Settings2 className="w-4 h-4" /> الخيارات
         </Button>
       </div>
     </div>
