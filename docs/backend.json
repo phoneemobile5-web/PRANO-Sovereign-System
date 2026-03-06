@@ -15,6 +15,11 @@
         "maxTokens": { "type": "number" },
         "inputSchema": { "type": "string" },
         "outputSchema": { "type": "string" },
+        "apiKeys": { 
+          "type": "array", 
+          "items": { "type": "string" },
+          "description": "List of associated keys or project hashes"
+        },
         "createdAt": { "type": "number" }
       },
       "required": ["name", "prompt", "model"]

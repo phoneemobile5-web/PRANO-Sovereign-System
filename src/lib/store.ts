@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
@@ -9,7 +10,6 @@ import {
   deleteDoc, 
   query, 
   orderBy,
-  Firestore
 } from 'firebase/firestore';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
@@ -25,6 +25,7 @@ export interface AIProject {
   maxTokens: number;
   inputSchema: string;
   outputSchema: string;
+  apiKeys?: string[]; // لدعم المفاتيح المتعددة للمشاريع الضخمة
   createdAt: number;
 }
 
@@ -37,18 +38,17 @@ export interface AISession {
   isBookmarked: boolean;
 }
 
-const STORAGE_KEY_PROJECTS = 'ai_workbench_projects';
-const STORAGE_KEY_SESSIONS = 'ai_workbench_sessions';
+const STORAGE_KEY_PROJECTS = 'ai_wb_p';
+const STORAGE_KEY_SESSIONS = 'ai_wb_s';
 
 export function useWorkbenchStore() {
-  const { user, loading: userLoading } = useUser();
+  const { user } = useUser();
   const db = useFirestore();
   
   const [localProjects, setLocalProjects] = useState<AIProject[]>([]);
   const [localSessions, setLocalSessions] = useState<AISession[]>([]);
   const [isLocalLoaded, setIsLocalLoaded] = useState(false);
 
-  // Firestore queries - only active when user is logged in
   const projectsQuery = useMemo(() => {
     if (!db || !user) return null;
     return query(collection(db, 'users', user.uid, 'projects'), orderBy('createdAt', 'desc'));
@@ -62,33 +62,11 @@ export function useWorkbenchStore() {
   const { data: remoteProjects, loading: projectsLoading } = useCollection<AIProject>(projectsQuery);
   const { data: remoteSessions, loading: sessionsLoading } = useCollection<AISession>(sessionsQuery);
 
-  // Load from LocalStorage on mount (fallback)
   useEffect(() => {
     const savedProjects = localStorage.getItem(STORAGE_KEY_PROJECTS);
     const savedSessions = localStorage.getItem(STORAGE_KEY_SESSIONS);
-
-    if (savedProjects) {
-      try { setLocalProjects(JSON.parse(savedProjects)); } catch (e) {}
-    } else {
-      const defaultProject: AIProject = {
-        id: '1',
-        name: 'AI Workbench Initial Project',
-        description: 'Default assistant configuration',
-        prompt: 'You are a helpful assistant.',
-        model: 'gemini-1.5-flash',
-        temperature: 0.7,
-        topP: 0.95,
-        maxTokens: 1024,
-        inputSchema: '',
-        outputSchema: '',
-        createdAt: Date.now(),
-      };
-      setLocalProjects([defaultProject]);
-    }
-
-    if (savedSessions) {
-      try { setLocalSessions(JSON.parse(savedSessions)); } catch (e) {}
-    }
+    if (savedProjects) try { setLocalProjects(JSON.parse(savedProjects)); } catch (e) {}
+    if (savedSessions) try { setLocalSessions(JSON.parse(savedSessions)); } catch (e) {}
     setIsLocalLoaded(true);
   }, []);
 
@@ -98,19 +76,13 @@ export function useWorkbenchStore() {
 
   const addProject = (project: Omit<AIProject, 'id' | 'createdAt'>) => {
     const id = Math.random().toString(36).substr(2, 9);
-    const newProject: AIProject = {
-      ...project,
-      id,
-      createdAt: Date.now(),
-    };
+    const newProject: AIProject = { ...project, id, createdAt: Date.now() };
 
     if (user && db) {
       const docRef = doc(db, 'users', user.uid, 'projects', id);
-      setDoc(docRef, newProject).catch(async () => {
+      setDoc(docRef, newProject).catch(() => {
         errorEmitter.emit('permission-error', new FirestorePermissionError({
-          path: docRef.path,
-          operation: 'create',
-          requestResourceData: newProject
+          path: docRef.path, operation: 'create', requestResourceData: newProject
         }));
       });
     } else {
@@ -124,11 +96,9 @@ export function useWorkbenchStore() {
   const updateProject = (id: string, updates: Partial<AIProject>) => {
     if (user && db) {
       const docRef = doc(db, 'users', user.uid, 'projects', id);
-      setDoc(docRef, updates, { merge: true }).catch(async () => {
+      setDoc(docRef, updates, { merge: true }).catch(() => {
         errorEmitter.emit('permission-error', new FirestorePermissionError({
-          path: docRef.path,
-          operation: 'update',
-          requestResourceData: updates
+          path: docRef.path, operation: 'update', requestResourceData: updates
         }));
       });
     } else {
@@ -141,10 +111,9 @@ export function useWorkbenchStore() {
   const deleteProject = (id: string) => {
     if (user && db) {
       const docRef = doc(db, 'users', user.uid, 'projects', id);
-      deleteDoc(docRef).catch(async () => {
+      deleteDoc(docRef).catch(() => {
         errorEmitter.emit('permission-error', new FirestorePermissionError({
-          path: docRef.path,
-          operation: 'delete'
+          path: docRef.path, operation: 'delete'
         }));
       });
     } else {
@@ -156,24 +125,10 @@ export function useWorkbenchStore() {
 
   const addSession = (projectId: string, input: string, output: string) => {
     const id = Math.random().toString(36).substr(2, 9);
-    const newSession: AISession = {
-      id,
-      projectId,
-      input,
-      output,
-      timestamp: Date.now(),
-      isBookmarked: false,
-    };
-
+    const newSession: AISession = { id, projectId, input, output, timestamp: Date.now(), isBookmarked: false };
     if (user && db) {
       const docRef = doc(db, 'users', user.uid, 'sessions', id);
-      setDoc(docRef, newSession).catch(async () => {
-        errorEmitter.emit('permission-error', new FirestorePermissionError({
-          path: docRef.path,
-          operation: 'create',
-          requestResourceData: newSession
-        }));
-      });
+      setDoc(docRef, newSession).catch(() => {});
     } else {
       const updated = [newSession, ...localSessions];
       setLocalSessions(updated);
@@ -182,52 +137,5 @@ export function useWorkbenchStore() {
     return newSession;
   };
 
-  const toggleBookmark = (sessionId: string) => {
-    const session = sessions.find(s => s.id === sessionId);
-    if (!session) return;
-
-    if (user && db) {
-      const docRef = doc(db, 'users', user.uid, 'sessions', sessionId);
-      setDoc(docRef, { isBookmarked: !session.isBookmarked }, { merge: true }).catch(async () => {
-        errorEmitter.emit('permission-error', new FirestorePermissionError({
-          path: docRef.path,
-          operation: 'update'
-        }));
-      });
-    } else {
-      const updated = localSessions.map((s) =>
-        s.id === sessionId ? { ...s, isBookmarked: !s.isBookmarked } : s
-      );
-      setLocalSessions(updated);
-      localStorage.setItem(STORAGE_KEY_SESSIONS, JSON.stringify(updated));
-    }
-  };
-
-  const deleteSession = (sessionId: string) => {
-    if (user && db) {
-      const docRef = doc(db, 'users', user.uid, 'sessions', sessionId);
-      deleteDoc(docRef).catch(async () => {
-        errorEmitter.emit('permission-error', new FirestorePermissionError({
-          path: docRef.path,
-          operation: 'delete'
-        }));
-      });
-    } else {
-      const updated = localSessions.filter((s) => s.id !== sessionId);
-      setLocalSessions(updated);
-      localStorage.setItem(STORAGE_KEY_SESSIONS, JSON.stringify(updated));
-    }
-  };
-
-  return {
-    projects,
-    sessions,
-    isLoaded,
-    addProject,
-    updateProject,
-    deleteProject,
-    addSession,
-    toggleBookmark,
-    deleteSession,
-  };
+  return { projects, sessions, isLoaded, addProject, updateProject, deleteProject, addSession };
 }

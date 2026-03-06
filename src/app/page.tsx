@@ -4,35 +4,31 @@
 import { useState } from 'react';
 import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
-import { Plus, Zap, Star, Import, Sparkles, FolderOpen, ArrowUpRight } from 'lucide-react';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Plus, Import, Sparkles, ArrowRight, FolderOpen, Zap } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogFooter
 } from "@/components/ui/dialog";
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
-import { SidebarNav } from '@/components/dashboard/SidebarNav';
 
 export default function Dashboard() {
-  const { projects, sessions, isLoaded, addProject } = useWorkbenchStore();
+  const { projects, isLoaded, addProject } = useWorkbenchStore();
   const router = useRouter();
-  const [isImportOpen, setIsImportOpen] = useState(false);
   const [importPrompt, setImportPrompt] = useState('');
   const [importName, setImportName] = useState('');
 
   const handleCreateProject = () => {
     const newProject = addProject({
       name: 'مشروع جديد',
-      description: 'إعدادات جديدة',
+      description: '',
       prompt: 'أنت مساعد ذكي.',
       model: 'gemini-1.5-flash',
       temperature: 0.7,
@@ -40,6 +36,7 @@ export default function Dashboard() {
       maxTokens: 1024,
       inputSchema: '',
       outputSchema: '',
+      apiKeys: []
     });
     router.push(`/projects/${newProject.id}`);
   };
@@ -56,88 +53,89 @@ export default function Dashboard() {
       maxTokens: 1024,
       inputSchema: '',
       outputSchema: '',
+      apiKeys: []
     });
-    setIsImportOpen(false);
     setImportPrompt('');
     setImportName('');
     router.push(`/projects/${newProject.id}`);
   };
 
-  if (!isLoaded) return null;
+  if (!isLoaded) return <div className="p-8 text-center">جاري التحميل...</div>;
 
   return (
-    <div className="flex flex-col md:flex-row h-screen overflow-hidden bg-background" dir="rtl">
-      <SidebarNav projects={projects} onAddProject={handleCreateProject} />
-      
-      <main className="flex-1 overflow-y-auto p-4 md:p-8 space-y-6">
-        <header className="flex flex-col gap-4">
-          <div className="text-right">
-            <h1 className="text-2xl font-bold flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-primary" />
-              مختبر AI
-            </h1>
-          </div>
-          <div className="grid grid-cols-2 gap-2">
-            <Dialog open={isImportOpen} onOpenChange={setIsImportOpen}>
-              <DialogTrigger asChild>
-                <Button variant="outline" className="h-12 text-xs md:text-sm gap-2">
-                  <Import className="w-4 h-4" />
-                  استيراد
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="w-[95%] rounded-xl" dir="rtl">
-                <DialogHeader className="text-right">
-                  <DialogTitle>استيراد سريع</DialogTitle>
-                  <DialogDescription>الصق System Prompt هنا.</DialogDescription>
-                </DialogHeader>
-                <div className="space-y-4 py-2">
-                  <Input 
-                    placeholder="اسم المشروع" 
-                    value={importName}
-                    onChange={(e) => setImportName(e.target.value)}
-                  />
-                  <Textarea 
-                    placeholder="الصق التعليمات هنا..." 
-                    className="min-h-[120px] text-xs"
-                    value={importPrompt}
-                    onChange={(e) => setImportPrompt(e.target.value)}
-                  />
-                </div>
-                <DialogFooter>
-                  <Button onClick={handleQuickImport} className="w-full h-12">إنشاء المشروع</Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-            <Button onClick={handleCreateProject} className="h-12 text-xs md:text-sm gap-2">
-              <Plus className="w-4 h-4" />
-              مشروع جديد
-            </Button>
-          </div>
-        </header>
+    <div className="min-h-screen bg-background p-4 space-y-6" dir="rtl">
+      <header className="flex flex-col gap-4 bg-card p-4 rounded-xl border border-primary/20">
+        <div className="flex items-center gap-2">
+          <Zap className="text-primary w-6 h-6 fill-current" />
+          <h1 className="text-xl font-bold">مختبر AI</h1>
+        </div>
+        <div className="grid grid-cols-1 gap-2">
+          <Button onClick={handleCreateProject} className="h-14 text-lg font-bold gap-2">
+            <Plus className="w-5 h-5" /> مشروع جديد
+          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="h-12 gap-2">
+                <Import className="w-4 h-4" /> استيراد من AI Studio
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="w-[95%] max-w-md rounded-xl">
+              <DialogHeader>
+                <DialogTitle>استيراد سريع</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 py-4">
+                <Input 
+                  placeholder="اسم المشروع" 
+                  value={importName}
+                  onChange={(e) => setImportName(e.target.value)}
+                  className="h-12"
+                />
+                <Textarea 
+                  placeholder="الصق System Prompt هنا..." 
+                  className="min-h-[150px] text-sm"
+                  value={importPrompt}
+                  onChange={(e) => setImportPrompt(e.target.value)}
+                />
+              </div>
+              <DialogFooter>
+                <Button onClick={handleQuickImport} className="w-full h-12">إنشاء الآن</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
+      </header>
 
-        <section className="space-y-4">
-          <h2 className="text-lg font-semibold text-right">المشاريع النشطة</h2>
-          <div className="grid gap-4">
-            {projects.map(project => (
-              <Card key={project.id} className="bg-card/40 border-primary/10">
-                <CardHeader className="p-4 pb-2">
-                  <div className="flex justify-between items-center">
-                    <Badge variant="secondary" className="text-[10px]">{project.model}</Badge>
-                    <CardTitle className="text-sm font-bold truncate max-w-[150px]">{project.name}</CardTitle>
+      <section className="space-y-3">
+        <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground px-2 flex items-center gap-2">
+          <FolderOpen className="w-4 h-4" /> مشاريعي ({projects.length})
+        </h2>
+        <div className="grid gap-2">
+          {projects.map(project => (
+            <Link key={project.id} href={`/projects/${project.id}`}>
+              <Card className="hover:border-primary active:scale-[0.98] transition-all bg-card/50">
+                <CardContent className="p-4 flex items-center justify-between">
+                  <div className="flex flex-col min-w-0">
+                    <span className="font-bold truncate text-lg">{project.name}</span>
+                    <span className="text-[10px] text-muted-foreground uppercase">{project.model}</span>
                   </div>
-                </CardHeader>
-                <CardFooter className="p-4 pt-2 flex justify-end">
-                  <Button variant="ghost" size="sm" asChild className="h-10 text-primary">
-                    <Link href={`/projects/${project.id}`} className="gap-1">
-                      <ArrowUpRight className="w-4 h-4" /> فتح
-                    </Link>
-                  </Button>
-                </CardFooter>
+                  <ArrowRight className="text-primary w-5 h-5" />
+                </CardContent>
               </Card>
-            ))}
-          </div>
-        </section>
-      </main>
+            </Link>
+          ))}
+          {projects.length === 0 && (
+            <div className="text-center p-12 border-2 border-dashed rounded-xl opacity-50">
+              <p>لا توجد مشاريع حالياً</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <footer className="pt-8 text-center">
+        <Button variant="ghost" size="sm" asChild className="text-muted-foreground h-12">
+          <Link href="/history">سجل التفاعلات</Link>
+        </Button>
+      </footer>
     </div>
   );
 }
