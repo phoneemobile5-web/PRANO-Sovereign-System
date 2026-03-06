@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { SidebarNav } from '@/components/dashboard/SidebarNav';
 import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
-import { Plus, Zap, Star, Clock, ArrowUpRight, Share2, MoreVertical, Trash2, Import } from 'lucide-react';
+import { Plus, Zap, Star, Clock, ArrowUpRight, Share2, MoreVertical, Trash2, Import, Sparkles } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useRouter } from 'next/navigation';
@@ -74,13 +74,16 @@ export default function Dashboard() {
   const recentSessions = sessions.slice(0, 5);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
+    <div className="flex h-screen overflow-hidden bg-background" dir="rtl">
       <SidebarNav projects={projects} onAddProject={handleCreateProject} />
       
       <main className="flex-1 overflow-y-auto p-8 space-y-8">
         <header className="flex items-center justify-between">
-          <div className="space-y-1">
-            <h1 className="text-3xl font-bold tracking-tight font-headline">نظرة عامة على المختبر</h1>
+          <div className="space-y-1 text-right">
+            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
+              نظرة عامة على المختبر
+              <Sparkles className="w-6 h-6 text-primary animate-pulse" />
+            </h1>
             <p className="text-muted-foreground">قم بإدارة إعدادات وتجارب الذكاء الاصطناعي الخاصة بك من Google AI Studio.</p>
           </div>
           <div className="flex gap-3">
@@ -91,113 +94,122 @@ export default function Dashboard() {
                   استيراد من AI Studio
                 </Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[500px]">
-                <DialogHeader>
+              <DialogContent className="sm:max-w-[500px]" dir="rtl">
+                <DialogHeader className="text-right">
                   <DialogTitle>استيراد سريع للمشروع</DialogTitle>
                   <DialogDescription>
                     انسخ "System Prompt" من Google AI Studio والصقه هنا لإنشاء مشروع جديد فوراً.
                   </DialogDescription>
                 </DialogHeader>
-                <div className="grid gap-4 py-4">
+                <div className="grid gap-4 py-4 text-right">
                   <div className="space-y-2">
                     <label className="text-sm font-medium">اسم المشروع</label>
                     <Input 
-                      placeholder="مثال: مصحح الأكواد" 
+                      placeholder="مثال: مصحح الأكواد أو محلل البيانات" 
                       value={importName}
                       onChange={(e) => setImportName(e.target.value)}
+                      className="text-right"
                     />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium">System Prompt</label>
                     <Textarea 
                       placeholder="الصق تعليمات AI Studio هنا..." 
-                      className="min-h-[150px] font-code text-xs"
+                      className="min-h-[150px] font-code text-xs text-right"
                       value={importPrompt}
                       onChange={(e) => setImportPrompt(e.target.value)}
                     />
                   </div>
                 </div>
-                <DialogFooter>
-                  <Button onClick={handleQuickImport} disabled={!importPrompt}>إنشاء واستيراد</Button>
+                <DialogFooter className="flex-row-reverse gap-2">
+                  <Button onClick={handleQuickImport} disabled={!importPrompt} className="w-full">إنشاء واستيراد المشروع</Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
             <Button onClick={handleCreateProject} className="gap-2 shadow-lg shadow-primary/20">
               <Plus className="w-4 h-4" />
-              إنشاء مشروع
+              مشروع جديد
             </Button>
           </div>
         </header>
 
         <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <div className="col-span-full lg:col-span-2 space-y-4">
-            <h2 className="text-lg font-semibold flex items-center gap-2">
+            <h2 className="text-lg font-semibold flex items-center gap-2 text-right">
               <Zap className="w-5 h-5 text-primary" />
               المشاريع النشطة
             </h2>
             <div className="grid gap-4 md:grid-cols-2">
-              {projects.map(project => (
-                <Card key={project.id} className="group hover:border-primary/50 transition-colors bg-card/40 backdrop-blur-md">
-                  <CardHeader className="flex flex-row items-center justify-between pb-2">
-                    <CardTitle className="text-md font-medium truncate pr-4">{project.name}</CardTitle>
-                    <Badge variant="secondary" className="text-[10px] uppercase">{project.model}</Badge>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-xs text-muted-foreground line-clamp-2 h-8">
-                      {project.description || 'لا يوجد وصف للمشروع.'}
-                    </p>
-                  </CardContent>
-                  <CardFooter className="flex justify-between border-t bg-muted/20 mt-2">
-                    <Button variant="ghost" size="sm" asChild>
-                      <Link href={`/projects/${project.id}`} className="flex items-center gap-1 text-xs">
-                        تعديل <ArrowUpRight className="w-3 h-3" />
-                      </Link>
-                    </Button>
-                    <div className="flex items-center gap-1">
-                      <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
-                        <Share2 className="w-3.5 h-3.5" />
+              {projects.length > 0 ? (
+                projects.map(project => (
+                  <Card key={project.id} className="group hover:border-primary/50 transition-colors bg-card/40 backdrop-blur-md">
+                    <CardHeader className="flex flex-row items-center justify-between pb-2">
+                      <Badge variant="secondary" className="text-[10px] uppercase">{project.model}</Badge>
+                      <CardTitle className="text-md font-medium truncate text-right">{project.name}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="text-right">
+                      <p className="text-xs text-muted-foreground line-clamp-2 h-8">
+                        {project.description || 'لا يوجد وصف مضاف لهذا المشروع.'}
+                      </p>
+                    </CardContent>
+                    <CardFooter className="flex justify-between border-t bg-muted/20 mt-2">
+                      <div className="flex items-center gap-1">
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
+                          <Share2 className="w-3.5 h-3.5" />
+                        </Button>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon" className="h-8 w-8">
+                              <MoreVertical className="w-3.5 h-3.5" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem 
+                              className="text-destructive focus:text-destructive flex flex-row-reverse gap-2"
+                              onClick={() => deleteProject(project.id)}
+                            >
+                              <Trash2 className="w-4 h-4" />
+                              حذف المشروع
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                      <Button variant="ghost" size="sm" asChild>
+                        <Link href={`/projects/${project.id}`} className="flex items-center gap-1 text-xs">
+                          <ArrowUpRight className="w-3 h-3" /> تعديل الإعدادات
+                        </Link>
                       </Button>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-8 w-8">
-                            <MoreVertical className="w-3.5 h-3.5" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem 
-                            className="text-destructive focus:text-destructive"
-                            onClick={() => deleteProject(project.id)}
-                          >
-                            <Trash2 className="w-4 h-4 mr-2" />
-                            حذف المشروع
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </div>
-                  </CardFooter>
-                </Card>
-              ))}
+                    </CardFooter>
+                  </Card>
+                ))
+              ) : (
+                <div className="col-span-full py-12 border-2 border-dashed rounded-xl flex flex-col items-center justify-center gap-4 bg-muted/5">
+                  <Zap className="w-12 h-12 text-muted/20" />
+                  <p className="text-muted-foreground text-sm font-medium">لم تقم بإنشاء أي مشاريع بعد.</p>
+                  <Button variant="outline" size="sm" onClick={handleCreateProject}>ابدأ بمشروعك الأول</Button>
+                </div>
+              )}
             </div>
           </div>
 
           <div className="space-y-4">
-            <h2 className="text-lg font-semibold flex items-center gap-2">
+            <h2 className="text-lg font-semibold flex items-center gap-2 text-right">
               <Star className="w-5 h-5 text-accent" />
-              المميزة
+              التفاعلات المميزة
             </h2>
             <div className="space-y-3">
               {bookmarkedSessions.length > 0 ? (
                 bookmarkedSessions.map(session => (
-                  <Card key={session.id} className="bg-card/30 border-dashed hover:border-accent/50 transition-all cursor-pointer">
+                  <Card key={session.id} className="bg-card/30 border-dashed hover:border-accent/50 transition-all cursor-pointer text-right">
                     <CardHeader className="p-3 pb-0">
                       <div className="flex justify-between items-start">
-                        <span className="text-[10px] text-muted-foreground font-mono">
-                          {new Date(session.timestamp).toLocaleDateString()}
-                        </span>
                         <Star 
                           className="w-3.5 h-3.5 fill-accent text-accent" 
                           onClick={(e) => { e.stopPropagation(); toggleBookmark(session.id); }}
                         />
+                        <span className="text-[10px] text-muted-foreground font-mono">
+                          {new Date(session.timestamp).toLocaleDateString('ar-EG')}
+                        </span>
                       </div>
                     </CardHeader>
                     <CardContent className="p-3 pt-1">
@@ -209,9 +221,9 @@ export default function Dashboard() {
                   </Card>
                 ))
               ) : (
-                <div className="bg-muted/10 border-2 border-dashed rounded-xl p-8 text-center">
-                  <Star className="w-8 h-8 text-muted/30 mx-auto mb-2" />
-                  <p className="text-sm text-muted-foreground">التجارب الناجحة التي تميزها ستظهر هنا.</p>
+                <div className="bg-muted/10 border-2 border-dashed rounded-xl p-8 text-center flex flex-col items-center">
+                  <Star className="w-8 h-8 text-muted/30 mb-2" />
+                  <p className="text-sm text-muted-foreground">التجارب التي تضع لها "نجمة" ستظهر هنا للرجوع إليها لاحقاً.</p>
                 </div>
               )}
             </div>
@@ -219,7 +231,7 @@ export default function Dashboard() {
         </section>
 
         <section className="space-y-4 pt-4">
-          <h2 className="text-lg font-semibold flex items-center gap-2">
+          <h2 className="text-lg font-semibold flex items-center gap-2 text-right">
             <Clock className="w-5 h-5 text-muted-foreground" />
             النشاط الأخير
           </h2>
@@ -228,26 +240,26 @@ export default function Dashboard() {
               <div className="divide-y divide-border">
                 {recentSessions.length > 0 ? (
                   recentSessions.map(session => (
-                    <div key={session.id} className="p-4 flex items-center justify-between hover:bg-muted/10 transition-colors">
-                      <div className="flex flex-col gap-0.5 max-w-[70%]">
+                    <div key={session.id} className="p-4 flex items-center justify-between hover:bg-muted/10 transition-colors flex-row-reverse">
+                      <div className="flex flex-col gap-0.5 text-right max-w-[70%]">
                         <span className="text-sm font-medium truncate">{session.input}</span>
                         <span className="text-xs text-muted-foreground truncate opacity-70">
-                          {projects.find(p => p.id === session.projectId)?.name || 'مشروع محذوف'}
+                          {projects.find(p => p.id === session.projectId)?.name || 'مشروع مجهول'}
                         </span>
                       </div>
                       <div className="flex items-center gap-4 shrink-0">
-                        <span className="text-xs text-muted-foreground">
-                          {new Date(session.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                        </span>
                         <Button variant="outline" size="sm" asChild>
-                          <Link href="/history">عرض</Link>
+                          <Link href="/history">تفاصيل</Link>
                         </Button>
+                        <span className="text-xs text-muted-foreground font-mono">
+                          {new Date(session.timestamp).toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' })}
+                        </span>
                       </div>
                     </div>
                   ))
                 ) : (
                   <div className="p-12 text-center text-muted-foreground">
-                    <p className="text-sm">لا توجد تفاعلات أخيرة. ابدأ من المختبر!</p>
+                    <p className="text-sm">لا توجد تفاعلات مسجلة حالياً. جرب المختبر الآن!</p>
                   </div>
                 )}
               </div>

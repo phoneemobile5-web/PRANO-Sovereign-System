@@ -1,6 +1,5 @@
 'use client';
 
-import type { Metadata } from 'next';
 import './globals.css';
 import { FirebaseClientProvider } from '@/firebase';
 
@@ -15,7 +14,8 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet" />
-        <title>AI Workbench | مختبر الذكاء الاصطناعي</title>
+        <title>AI Workbench | مختبر تطوير الذكاء الاصطناعي</title>
+        <meta name="description" content="بيئة عمل متكاملة لإدارة وتحسين موجهات الذكاء الاصطناعي المستوردة من Google AI Studio." />
       </head>
       <body className="font-body antialiased bg-background text-foreground">
         <FirebaseClientProvider>
