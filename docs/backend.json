@@ -1,0 +1,49 @@
+
+{
+  "entities": {
+    "AIProject": {
+      "title": "AI Project",
+      "description": "Configuration for an AI prompt experiment",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "prompt": { "type": "string" },
+        "model": { "type": "string" },
+        "temperature": { "type": "number" },
+        "topP": { "type": "number" },
+        "maxTokens": { "type": "number" },
+        "inputSchema": { "type": "string" },
+        "outputSchema": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["name", "prompt", "model"]
+    },
+    "AISession": {
+      "title": "AI Session",
+      "description": "A record of an AI interaction",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "input": { "type": "string" },
+        "output": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "isBookmarked": { "type": "boolean" }
+      },
+      "required": ["projectId", "input", "output", "timestamp"]
+    }
+  },
+  "auth": {
+    "providers": ["google.com"]
+  },
+  "firestore": {
+    "/users/{userId}/projects/{projectId}": {
+      "schema": "AIProject",
+      "description": "User's AI project configurations"
+    },
+    "/users/{userId}/sessions/{sessionId}": {
+      "schema": "AISession",
+      "description": "User's interaction history"
+    }
+  }
+}

@@ -12,12 +12,18 @@ import {
   Code,
   Zap,
   ChevronRight,
-  FolderOpen
+  FolderOpen,
+  LogIn,
+  LogOut,
+  User
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { AIProject } from '@/lib/store';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useUser, useAuth } from '@/firebase';
+import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 interface SidebarNavProps {
   projects: AIProject[];
@@ -26,6 +32,23 @@ interface SidebarNavProps {
 
 export function SidebarNav({ projects, onAddProject }: SidebarNavProps) {
   const pathname = usePathname();
+  const { user } = useUser();
+  const auth = useAuth();
+
+  const handleLogin = async () => {
+    if (!auth) return;
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (error) {
+      console.error("Login failed", error);
+    }
+  };
+
+  const handleLogout = async () => {
+    if (!auth) return;
+    await signOut(auth);
+  };
 
   const navItems = [
     { name: 'Dashboard', icon: LayoutDashboard, href: '/' },
@@ -101,16 +124,30 @@ export function SidebarNav({ projects, onAddProject }: SidebarNavProps) {
                 </Button>
               </Link>
             ))}
-            {projects.length === 0 && (
-              <div className="px-3 py-4 text-center">
-                <p className="text-xs text-muted-foreground italic">No projects yet</p>
-              </div>
-            )}
           </div>
         </ScrollArea>
       </div>
 
-      <div className="p-4 border-t mt-auto">
+      <div className="p-4 border-t mt-auto space-y-2">
+        {user ? (
+          <div className="flex items-center gap-3 px-3 py-2 rounded-md bg-secondary/50 border border-border/50">
+            <Avatar className="h-8 w-8 border">
+              <AvatarImage src={user.photoURL || ''} />
+              <AvatarFallback><User className="w-4 h-4" /></AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col min-w-0">
+              <span className="text-xs font-medium truncate">{user.displayName || 'User'}</span>
+              <button onClick={handleLogout} className="text-[10px] text-muted-foreground hover:text-destructive flex items-center gap-1">
+                <LogOut className="w-3 h-3" /> Logout
+              </button>
+            </div>
+          </div>
+        ) : (
+          <Button variant="outline" className="w-full justify-start gap-3 text-muted-foreground" onClick={handleLogin}>
+            <LogIn className="w-4 h-4" />
+            Login to Sync
+          </Button>
+        )}
         <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground">
           <Settings className="w-4 h-4" />
           Settings
