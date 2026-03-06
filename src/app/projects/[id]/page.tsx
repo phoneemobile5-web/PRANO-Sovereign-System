@@ -13,10 +13,7 @@ import {
   ArrowRight,
   Trash2,
   Key,
-  Info,
-  CheckCircle2,
-  Cpu,
-  HelpCircle
+  Cpu
 } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -30,7 +27,6 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function ProjectEditor() {
   const { id } = useParams();
@@ -60,7 +56,7 @@ export default function ProjectEditor() {
       updateProject(project.id, project);
       toast({
         title: "تم الحفظ بنجاح ✅",
-        description: "تم تحديث إعدادات العقل (الموجه).",
+        description: "تم تحديث إعدادات العقل.",
       });
     }
   };
@@ -80,13 +76,11 @@ export default function ProjectEditor() {
       setProject({ ...project, prompt: result.refinedPrompt });
       toast({
         title: "تم التحسين الذكي ✨",
-        description: "تم تطوير التعليمات لتكون أكثر دقة.",
       });
     } catch (error) {
       toast({
         variant: "destructive",
         title: "فشل التحسين",
-        description: "تأكد من الاتصال بالإنترنت.",
       });
     } finally {
       setIsRefining(false);
@@ -138,93 +132,80 @@ export default function ProjectEditor() {
         </Button>
       </header>
 
-      {/* القسم الأول: عقل الذكاء (الموجه) */}
-      <div className="bg-card p-5 rounded-[24px] border-2 shadow-lg space-y-4">
+      <div className="bg-card p-4 rounded-3xl border-2 shadow-lg space-y-4">
         <div className="flex items-center justify-between">
-          <div className="space-y-1">
-            <Label className="text-[10px] font-black uppercase text-primary tracking-widest">١. تعليمات النظام (الموجه)</Label>
-            <p className="text-[10px] text-muted-foreground font-bold">هنا تحدد "من هو" هذا الذكاء</p>
-          </div>
+          <Label className="text-[10px] font-black uppercase text-primary tracking-widest">الموجه (تعليمات النظام)</Label>
           <Button 
             variant="secondary" 
             size="sm" 
-            className="h-10 px-3 bg-primary/10 rounded-xl border border-primary/20"
+            className="h-8 px-3 rounded-xl"
             onClick={handleRefinePrompt}
             disabled={isRefining}
           >
-            {isRefining ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
-            <span className="text-xs font-black mr-1">{isRefining ? 'جاري...' : 'تحسين'}</span>
+            {isRefining ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
+            <span className="text-[10px] font-black mr-1">تحسين</span>
           </Button>
         </div>
 
         <Textarea 
           value={project.prompt}
           onChange={(e) => setProject({ ...project, prompt: e.target.value })}
-          placeholder="مثال: أنت مساعد ذكي متخصص في تلخيص الكتب العربية..."
-          className="min-h-[200px] text-lg leading-relaxed rounded-xl border-2 p-4 shadow-inner"
+          className="min-h-[180px] text-base leading-relaxed rounded-xl border-2 p-3 shadow-inner"
         />
 
-        <Button onClick={handleSave} className="w-full h-14 font-black text-lg gap-2 shadow-lg rounded-xl">
-          <Save className="w-6 h-6" /> حفظ التعليمات
+        <Button onClick={handleSave} className="w-full h-14 font-black text-lg gap-2 rounded-2xl">
+          <Save className="w-5 h-5" /> حفظ التعليمات
         </Button>
       </div>
 
-      {/* القسم الثاني: المفتاح */}
-      <Collapsible open={showKeys} onOpenChange={setShowKeys} className="bg-card p-4 rounded-[24px] border-2 border-accent/20">
+      <Collapsible open={showKeys} onOpenChange={setShowKeys} className="bg-card p-4 rounded-3xl border-2 border-accent/20">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Key className="w-6 h-6 text-accent" />
-            <Label className="text-xs font-black uppercase text-accent tracking-tighter">مفتاح Gemini API</Label>
+          <div className="flex items-center gap-2">
+            <Key className="w-5 h-5 text-accent" />
+            <Label className="text-[10px] font-black uppercase text-accent">مفتاح Gemini API</Label>
           </div>
           <CollapsibleTrigger asChild>
-            <Button variant="outline" size="sm" className="h-8 text-[10px] font-black rounded-lg">
-              {showKeys ? 'إخفاء' : 'تعديل'}
+            <Button variant="outline" size="sm" className="h-7 text-[9px] font-black rounded-lg">
+              تعديل
             </Button>
           </CollapsibleTrigger>
         </div>
-        
-        <CollapsibleContent className="space-y-3 pt-3">
+        <CollapsibleContent className="pt-3">
           <Input 
             type="password"
-            placeholder="الصق المفتاح من AI Studio..."
+            placeholder="الصق المفتاح هنا..."
             value={project.apiKeys?.[0] || ''}
             onChange={(e) => setProject({ ...project, apiKeys: [e.target.value] })}
-            className="h-12 bg-background font-mono text-lg border-2 rounded-xl px-4"
+            className="h-10 font-mono text-sm border-2 rounded-xl"
           />
         </CollapsibleContent>
       </Collapsible>
 
-      {/* القسم الثالث: التجربة والسؤال */}
-      <div className="bg-muted/30 p-5 rounded-[24px] border-2 border-dashed border-primary/20 space-y-4">
+      <div className="bg-muted/30 p-4 rounded-3xl border-2 border-dashed border-primary/20 space-y-4">
         <div className="flex items-center justify-between">
-          <div className="space-y-1">
-            <Label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">٢. تجربة العقل (السؤال)</Label>
-            <p className="text-[10px] text-muted-foreground font-bold italic leading-none">اسأل هذا الذكاء لترى كيف سيتصرف</p>
-          </div>
-          <Cpu className="w-5 h-5 text-primary opacity-50" />
+          <Label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">تجربة العقل (السؤال)</Label>
+          <Cpu className="w-4 h-4 text-primary opacity-50" />
         </div>
 
         <Textarea 
-          placeholder="اكتب سؤالك هنا ليجيب عليه الذكاء بناءً على التعليمات أعلاه..."
-          className="min-h-[100px] bg-background border-2 border-primary/5 rounded-xl text-lg p-4"
+          placeholder="اكتب سؤالك هنا..."
+          className="min-h-[80px] bg-background border-2 rounded-xl text-base p-3"
           value={testInput}
           onChange={(e) => setTestInput(e.target.value)}
         />
         
         <Button 
-          className="w-full h-14 font-black text-xl rounded-xl gap-3 shadow-xl active:translate-y-1 transition-all" 
+          className="w-full h-14 font-black text-lg rounded-2xl gap-3 shadow-xl" 
           onClick={handleRunTest}
           disabled={isRunning || !testInput}
         >
-          {isRunning ? <RefreshCw className="w-6 h-6 animate-spin" /> : <Play className="w-6 h-6 fill-current" />}
+          {isRunning ? <RefreshCw className="w-5 h-5 animate-spin" /> : <Play className="w-5 h-5 fill-current" />}
           {isRunning ? 'جاري التحليل...' : 'اسأل الذكاء'}
         </Button>
 
         {testOutput && (
-          <div className="p-4 bg-card rounded-2xl border-2 border-primary/20 text-lg whitespace-pre-wrap font-medium leading-relaxed animate-in zoom-in-95">
-            <div className="text-[10px] font-black text-primary mb-2 border-b border-primary/10 pb-2 flex items-center gap-2">
-              <Sparkles className="w-3 h-3" /> رد الذكاء الاصطناعي:
-            </div>
+          <div className="p-4 bg-card rounded-2xl border-2 border-primary/20 text-base whitespace-pre-wrap leading-relaxed animate-in zoom-in-95">
+            <div className="text-[9px] font-black text-primary mb-2 border-b border-primary/10 pb-1">رد الذكاء:</div>
             {testOutput}
           </div>
         )}

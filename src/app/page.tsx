@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
-import { Plus, Import, FolderOpen, Zap, History, Terminal, AlertCircle, CheckCircle2, ChevronLeft } from 'lucide-react';
+import { Plus, Import, FolderOpen, Zap, History, Terminal, CheckCircle2, ChevronLeft } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function Dashboard() {
   const { projects, isLoaded, addProject } = useWorkbenchStore();
@@ -86,52 +85,52 @@ export default function Dashboard() {
         </div>
         
         <div className="grid gap-3">
-          <Button onClick={handleCreateProject} className="h-16 text-xl font-bold rounded-2xl w-full shadow-md active:translate-y-0.5 transition-transform">
+          <Button onClick={handleCreateProject} className="h-16 text-xl font-bold rounded-2xl w-full shadow-md">
             <Plus className="ml-2 w-6 h-6" /> مشروع جديد
           </Button>
           
           <Dialog>
             <DialogTrigger asChild>
               <Button variant="outline" className="h-16 text-xl font-bold rounded-2xl w-full border-2 border-primary/20">
-                <Import className="ml-2 w-6 h-6" /> استيراد سريع
+                <Import className="ml-2 w-6 h-6" /> استيراد من AI Studio
               </Button>
             </DialogTrigger>
-            <DialogContent className="w-[95%] max-w-xs rounded-2xl p-5 overflow-y-auto max-h-[90vh] bg-card border-2">
+            <DialogContent className="w-[95%] max-w-xs rounded-2xl p-5 bg-card border-2">
               <DialogHeader>
-                <DialogTitle className="text-right text-xl font-black">استيراد من AI Studio</DialogTitle>
+                <DialogTitle className="text-right text-xl font-black">ربط مشروع جوجل</DialogTitle>
               </DialogHeader>
               
-              <div className="space-y-4 py-4 text-right">
+              <div className="space-y-4 py-4 text-right overflow-y-auto max-h-[60vh]">
                 <div className="space-y-1">
-                  <span className="text-xs font-black text-muted-foreground">اسم المشروع</span>
+                  <span className="text-xs font-black text-muted-foreground">١. اسم المشروع</span>
                   <Input 
                     placeholder="مثال: خبير البرمجة" 
                     value={importName}
                     onChange={(e) => setImportName(e.target.value)}
-                    className="h-14 rounded-xl border-2 text-lg"
+                    className="h-12 rounded-xl border-2"
                   />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-xs font-black text-muted-foreground">مفتاح جيميناي (API Key)</span>
+                  <span className="text-xs font-black text-muted-foreground">٢. مفتاح التشغيل (API Key)</span>
                   <Input 
-                    placeholder="الصق المفتاح هنا" 
+                    placeholder="الصق المفتاح من AI Studio" 
                     value={importKey}
                     onChange={(e) => setImportKey(e.target.value)}
-                    className="h-14 rounded-xl font-mono text-sm border-2"
+                    className="h-12 rounded-xl font-mono text-xs border-2"
                   />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-xs font-black text-muted-foreground">الموجه (System Prompt)</span>
+                  <span className="text-xs font-black text-muted-foreground">٣. الموجه (System Instructions)</span>
                   <Textarea 
-                    placeholder="ما هي وظيفة هذا الذكاء؟" 
-                    className="min-h-[140px] rounded-xl text-lg border-2 p-3"
+                    placeholder="انسخ التعليمات من AI Studio وضعها هنا" 
+                    className="min-h-[120px] rounded-xl text-base border-2 p-3"
                     value={importPrompt}
                     onChange={(e) => setImportPrompt(e.target.value)}
                   />
                 </div>
               </div>
               <DialogFooter>
-                <Button onClick={handleQuickImport} className="w-full h-16 font-black text-xl rounded-2xl shadow-lg">إنشاء المشروع</Button>
+                <Button onClick={handleQuickImport} className="w-full h-14 font-black text-lg rounded-2xl">إنشاء الربط فوراً</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -139,11 +138,9 @@ export default function Dashboard() {
       </header>
 
       <section className="space-y-4">
-        <div className="flex items-center justify-between px-2">
-          <h2 className="text-sm font-black uppercase text-muted-foreground flex items-center gap-2">
-            <FolderOpen className="w-4 h-4 text-primary" /> قائمة مشاريعك ({projects.length})
-          </h2>
-        </div>
+        <h2 className="text-sm font-black uppercase text-muted-foreground flex items-center gap-2 px-2">
+          <FolderOpen className="w-4 h-4 text-primary" /> مشاريعك النشطة ({projects.length})
+        </h2>
         
         <div className="grid gap-4">
           {projects.map(project => (
@@ -152,58 +149,49 @@ export default function Dashboard() {
                 <CardContent className="p-5 flex flex-col gap-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="font-black truncate text-xl leading-tight">{project.name}</span>
+                      <span className="font-black truncate text-lg">{project.name}</span>
                       {project.apiKeys?.[0] && (
-                        <CheckCircle2 className="w-5 h-5 text-accent fill-accent/20" />
+                        <CheckCircle2 className="w-4 h-4 text-accent fill-accent/20" />
                       )}
                     </div>
-                    <ChevronLeft className="w-5 h-5 text-muted-foreground opacity-30" />
+                    <ChevronLeft className="w-4 h-4 text-muted-foreground opacity-30" />
                   </div>
                   
-                  <div className="bg-secondary/20 p-3 rounded-xl border border-secondary/10">
-                    <span className="text-[10px] font-black uppercase text-muted-foreground block mb-1">الموجه (النظام):</span>
-                    <p className="text-xs font-medium text-muted-foreground line-clamp-2 italic leading-relaxed">
+                  <div className="bg-secondary/20 p-2 rounded-xl border border-secondary/10">
+                    <p className="text-[10px] font-medium text-muted-foreground line-clamp-1 italic">
                       "{project.prompt}"
                     </p>
                   </div>
 
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="text-[10px] bg-primary/10 px-2 py-1 rounded-lg font-black text-primary uppercase">
+                    <span className="text-[9px] bg-primary/10 px-2 py-0.5 rounded-lg font-black text-primary uppercase">
                       {project.model}
                     </span>
                     {project.apiKeys?.[0] ? (
-                      <span className="text-[10px] font-black text-accent bg-accent/5 px-2 py-1 rounded-lg border border-accent/20">جاهز للعمل ✅</span>
+                      <span className="text-[9px] font-black text-accent bg-accent/5 px-2 py-0.5 rounded-lg border border-accent/20">المفتاح جاهز ✅</span>
                     ) : (
-                      <span className="text-[10px] font-black text-destructive bg-destructive/5 px-2 py-1 rounded-lg border border-destructive/20">يحتاج مفتاح ❌</span>
+                      <span className="text-[9px] font-black text-destructive bg-destructive/5 px-2 py-0.5 rounded-lg border border-destructive/20">يحتاج مفتاح ❌</span>
                     )}
                   </div>
                 </CardContent>
               </Card>
             </Link>
           ))}
-          
-          {projects.length === 0 && (
-            <div className="text-center p-12 border-4 border-dashed rounded-[40px] opacity-40 bg-card/50">
-              <p className="text-lg font-bold text-muted-foreground italic leading-relaxed">
-                لا توجد مشاريع حتى الآن.<br/>أنشئ أول "عقل" للذكاء الآن!
-              </p>
-            </div>
-          )}
         </div>
       </section>
 
-      <nav className="fixed bottom-0 left-0 right-0 h-20 bg-card/95 backdrop-blur-md border-t flex items-center justify-around px-6 shadow-[0_-10px_30px_rgba(0,0,0,0.3)] z-50 rounded-t-[32px]">
-        <Link href="/" className="flex flex-col items-center gap-1 text-primary scale-110">
-          <Zap className="w-7 h-7 fill-current" />
-          <span className="text-[10px] font-black">الرئيسية</span>
+      <nav className="fixed bottom-0 left-0 right-0 h-16 bg-card/95 backdrop-blur-md border-t flex items-center justify-around px-6 shadow-2xl z-50 rounded-t-3xl">
+        <Link href="/" className="flex flex-col items-center gap-1 text-primary">
+          <Zap className="w-6 h-6 fill-current" />
+          <span className="text-[9px] font-black">الرئيسية</span>
         </Link>
-        <Link href="/playground" className="flex flex-col items-center gap-1 text-muted-foreground/60 hover:text-primary transition-colors">
-          <Terminal className="w-7 h-7" />
-          <span className="text-[10px] font-bold">المختبر</span>
+        <Link href="/playground" className="flex flex-col items-center gap-1 text-muted-foreground/60">
+          <Terminal className="w-6 h-6" />
+          <span className="text-[9px] font-bold">المختبر</span>
         </Link>
-        <Link href="/history" className="flex flex-col items-center gap-1 text-muted-foreground/60 hover:text-primary transition-colors">
-          <History className="w-7 h-7" />
-          <span className="text-[10px] font-bold">السجل</span>
+        <Link href="/history" className="flex flex-col items-center gap-1 text-muted-foreground/60">
+          <History className="w-6 h-6" />
+          <span className="text-[9px] font-bold">السجل</span>
         </Link>
       </nav>
     </div>
