@@ -1,5 +1,17 @@
-# Firebase Studio
+# AI Workbench
 
-This is a NextJS starter in Firebase Studio.
+AI Workbench هو تطبيق متطور مبني باستخدام Next.js و Genkit، مصمم لمساعدة المطورين على إدارة واختبار وتحسين موجهات الذكاء الاصطناعي (AI Prompts).
 
-To get started, take a look at src/app/page.tsx.
+## المميزات الرئيسية
+
+- **إدارة المشاريع**: تنظيم إعدادات نماذج الذكاء الاصطناعي المختلفة في مشاريع مستقلة.
+- **تحسين الموجهات (Refinement)**: استخدام قدرات AI لتحويل التعليمات البسيطة إلى موجهات معقدة وفعالة.
+- **المختبر (Playground)**: واجهة تفاعلية لتجربة النماذج واختبار جودة الاستجابات.
+- **سجل التفاعلات**: أرشفة تلقائية لجميع التجارب مع ميزات البحث والتمييز (Bookmarking).
+
+## التقنيات المستخدمة
+
+- **Framework**: Next.js (App Router)
+- **Styling**: Tailwind CSS & ShadCN UI
+- **AI Engine**: Google Genkit (Gemini Models)
+- **Icons**: Lucide React
