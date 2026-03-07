@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, Loader2, Sparkles, ChevronRight, BrainCircuit, Activity, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { Send, Bot, User, Loader2, Sparkles, ChevronRight, BrainCircuit, Activity, ShieldCheck, AlertTriangle, Leaf, Globe, Zap } from 'lucide-react';
 import { gemmaChat } from '@/ai/flows/gemma-chat-flow';
 import { Button } from '@/components/ui/button';
 import { useWorkbenchStore } from '@/lib/store';
@@ -15,7 +15,12 @@ const GemmaChat: React.FC = () => {
   const [isReady, setIsReady] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // التحقق من "نفخة الروح": هل هناك مشروع نشط يحتوي على مفتاح وتشغيل وتعليمات؟
+  const starterPrompts = [
+    { text: "يا نواة Gemma، قدمي لي تحليلاً معمارياً لحالة الربط السينابتي في أنظمة الاستدامة الأرضية.", icon: Globe },
+    { text: "كيف يمكن للعمارة المفتوحة حماية الچينيوم الوراثي للموارد الطبيعية بحلول 2030؟", icon: Leaf },
+    { text: "اقترحي بروتوكولاً لمنع الهلوسة التقنية في إدارة الأزمات البيئية العالمية.", icon: ShieldCheck }
+  ];
+
   useEffect(() => {
     const activeProject = projects.find(p => p.apiKeys?.[0]?.startsWith('AIza') && p.prompt);
     setIsReady(!!activeProject);
@@ -27,17 +32,18 @@ const GemmaChat: React.FC = () => {
     }
   }, [sessions, isLoading]);
 
-  const handleSend = async () => {
-    if (!input.trim() || isLoading || !isReady) return;
+  const handleSend = async (customInput?: string) => {
+    const textToSend = customInput || input;
+    if (!textToSend.trim() || isLoading || !isReady) return;
 
-    const userMessage = { role: 'user' as const, text: input };
+    const userMessage = { role: 'user' as const, text: textToSend };
     await addMessage(userMessage);
-    setInput('');
+    if (!customInput) setInput('');
     setIsLoading(true);
 
     try {
       const result = await gemmaChat({ 
-        message: input, 
+        message: textToSend, 
         history: sessions.map(m => ({ role: m.role, text: m.text }))
       });
       await addMessage({ role: 'model', text: result.response });
@@ -114,15 +120,31 @@ const GemmaChat: React.FC = () => {
             )}
 
             {isReady && sessions.length === 0 && (
-              <div className="h-full flex flex-col items-center justify-center text-center space-y-6 opacity-40">
-                <div className="p-8 bg-white/5 rounded-full border border-white/10 synaptic-pulse">
-                  <Sparkles className="w-14 h-14 text-[#d4af37]" />
+              <div className="h-full flex flex-col items-center justify-center space-y-8">
+                <div className="text-center space-y-4 opacity-40">
+                  <div className="p-8 bg-white/5 rounded-full border border-white/10 synaptic-pulse inline-block">
+                    <Sparkles className="w-12 h-12 text-[#d4af37]" />
+                  </div>
+                  <div className="space-y-2">
+                    <p className="text-[#fffcf2] max-w-sm text-sm font-black uppercase tracking-widest leading-relaxed mx-auto">
+                      بانتظار الإخراج الإدراكي الأول بحذر معماري ⚖️
+                    </p>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <p className="text-[#fffcf2] max-w-sm text-sm font-black uppercase tracking-widest leading-relaxed">
-                    جاهز للإخراج الإدراكي الأول بحذر معماري ⚖️
-                  </p>
-                  <p className="text-[10px] text-primary/60 font-bold">النواة بانتظار توجيهات الملاح لخدمة الكوكب</p>
+
+                <div className="grid gap-3 w-full max-w-md mx-auto">
+                  <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] text-center mb-2">مقترحات ملاح الأرض 📿</p>
+                  {starterPrompts.map((prompt, idx) => (
+                    <Button 
+                      key={idx}
+                      variant="outline"
+                      className="justify-start text-right h-auto py-4 px-6 rounded-2xl border-primary/20 bg-primary/5 hover:bg-primary/10 transition-all text-xs font-medium gap-3 whitespace-normal"
+                      onClick={() => handleSend(prompt.text)}
+                    >
+                      <prompt.icon className="w-5 h-5 text-primary shrink-0" />
+                      {prompt.text}
+                    </Button>
+                  ))}
                 </div>
               </div>
             )}
@@ -169,7 +191,7 @@ const GemmaChat: React.FC = () => {
                 className="w-full bg-[#002d2d] border-2 border-[#d4af37]/30 rounded-full py-5 px-6 md:px-8 pl-24 md:pl-28 text-[#fffcf2] focus:outline-none focus:border-[#d4af37] transition-all placeholder:text-white/10 text-sm md:text-base font-medium shadow-inner disabled:opacity-30"
               />
               <button 
-                onClick={handleSend}
+                onClick={() => handleSend()}
                 disabled={isLoading || !input.trim() || !isReady}
                 className="absolute left-2 md:left-3 top-2 md:top-3 bottom-2 md:bottom-3 bg-gradient-to-r from-[#d4af37] to-[#ffdf00] text-[#002d2d] px-6 md:px-8 rounded-full font-black hover:scale-105 active:scale-95 transition-all flex items-center gap-2 disabled:opacity-30 shadow-lg"
               >
