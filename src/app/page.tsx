@@ -29,7 +29,7 @@ export default function Dashboard() {
 
   const handleCreateProject = () => {
     const newProject = addProject({
-      name: 'مشروع ذكاء جديد',
+      name: 'مسودة مشروع جديد',
       description: '',
       prompt: 'أنت مساعد ذكي ومفيد.',
       model: 'gemini-2.0-flash',
@@ -47,7 +47,7 @@ export default function Dashboard() {
     if (!importPrompt) return;
     const newProject = addProject({
       name: importName || 'مشروع مستورد من جوجل',
-      description: 'تم الاستيراد بنجاح',
+      description: 'تم النقل من AI Studio',
       prompt: importPrompt,
       model: 'gemini-2.0-flash',
       temperature: 0.7,
@@ -84,15 +84,15 @@ export default function Dashboard() {
             <Zap className="text-primary-foreground w-8 h-8 fill-current" />
           </div>
           <div>
-            <h1 className="text-3xl font-black text-foreground leading-none">مركز التحكم</h1>
-            <p className="text-[11px] text-muted-foreground font-bold uppercase tracking-widest mt-1">إدارة مشاريعك الضخمة من جوجل</p>
+            <h1 className="text-3xl font-black text-foreground leading-none">مختبر الذكاء</h1>
+            <p className="text-[11px] text-muted-foreground font-bold uppercase tracking-widest mt-1">إدارة مشاريعك من Google AI Studio</p>
           </div>
         </div>
 
         <Alert className="bg-accent/10 border-accent/20 py-3 rounded-2xl relative z-10">
           <Info className="w-5 h-5 text-accent" />
           <AlertDescription className="text-xs font-black text-accent mr-2">
-            هذه هي مرحلة ربط خدمات Google AI Studio بهاتفك.
+            انقل "الوصفة" و"المفتاح" من جوجل إلى هاتفك لتبدأ.
           </AlertDescription>
         </Alert>
         
@@ -104,7 +104,7 @@ export default function Dashboard() {
                   <Import className="w-6 h-6 group-hover:scale-110 transition-transform" /> 
                   <span>استيراد مشروع من جوجل</span>
                 </div>
-                <span className="text-[10px] opacity-70 font-bold">انقل "وصفة" الذكاء هنا</span>
+                <span className="text-[10px] opacity-70 font-bold">نقل تعليمات النظام ومفتاح API</span>
               </Button>
             </DialogTrigger>
             <DialogContent className="w-[95%] max-w-xs rounded-3xl p-6 bg-card border-4 border-primary/20 shadow-2xl">
@@ -125,7 +125,7 @@ export default function Dashboard() {
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black text-primary uppercase">٢. مفتاح Gemini (API Key)</label>
                   <Input 
-                    placeholder="المفتاح الذي وجدته بـ AI Studio" 
+                    placeholder="المفتاح من صفحة Get API Key" 
                     value={importKey}
                     onChange={(e) => setImportKey(e.target.value)}
                     className="h-12 rounded-xl font-mono text-sm border-2"
@@ -139,7 +139,7 @@ export default function Dashboard() {
                     value={importPrompt}
                     onChange={(e) => setImportPrompt(e.target.value)}
                   />
-                  <p className="text-[9px] text-muted-foreground font-bold">هذه هي "الوصفة" التي تحدد شخصية الذكاء.</p>
+                  <p className="text-[9px] text-muted-foreground font-bold">هذه هي الوصفة التي تحدد شخصية الذكاء.</p>
                 </div>
               </div>
               <DialogFooter>
@@ -149,7 +149,7 @@ export default function Dashboard() {
           </Dialog>
 
           <Button variant="outline" onClick={handleCreateProject} className="h-16 text-lg font-bold rounded-2xl w-full border-2 border-dashed border-primary/30">
-            <Plus className="ml-2 w-5 h-5" /> إنشاء مسودة جديدة
+            <Plus className="ml-2 w-5 h-5" /> إنشاء مسودة فارغة
           </Button>
         </div>
       </header>
@@ -177,7 +177,7 @@ export default function Dashboard() {
                     
                     <div className="bg-secondary/30 p-3 rounded-2xl border border-secondary/20">
                       <p className="text-[11px] font-bold text-muted-foreground line-clamp-2 leading-relaxed italic">
-                        "{project.prompt}"
+                        الموجه (النظام): "{project.prompt}"
                       </p>
                     </div>
 
@@ -188,7 +188,7 @@ export default function Dashboard() {
                         </span>
                         {project.apiKeys?.[0] ? (
                           <span className="text-[10px] font-black text-accent bg-accent/10 px-3 py-1 rounded-full flex items-center gap-1">
-                            <CheckCircle2 className="w-3 h-3" /> المفتاح جاهز
+                            <CheckCircle2 className="w-3 h-3" /> مفتاح نشط ✅
                           </span>
                         ) : (
                           <span className="text-[10px] font-black text-destructive bg-destructive/10 px-3 py-1 rounded-full">يحتاج مفتاح ⚠️</span>

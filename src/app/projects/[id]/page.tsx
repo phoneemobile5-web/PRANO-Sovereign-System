@@ -172,8 +172,8 @@ export default function ProjectEditor() {
               <Key className="w-6 h-6 text-accent" />
             </div>
             <div>
-              <Label className="text-[11px] font-black uppercase text-accent leading-none">إعدادات الاتصال</Label>
-              <p className="text-[9px] text-muted-foreground font-bold mt-1">مفتاح Gemini API والنموذج</p>
+              <Label className="text-[11px] font-black uppercase text-accent leading-none">إدارة مفتاح Gemini</Label>
+              <p className="text-[9px] text-muted-foreground font-bold mt-1">مفتاح API لتشغيل هذا المشروع</p>
             </div>
           </div>
           <CollapsibleTrigger asChild>
@@ -184,10 +184,10 @@ export default function ProjectEditor() {
         </div>
         <CollapsibleContent className="pt-5 space-y-4">
           <div className="space-y-1.5">
-            <label className="text-[10px] font-black text-muted-foreground uppercase mr-1">مفتاح جيميناي النشط</label>
+            <label className="text-[10px] font-black text-muted-foreground uppercase mr-1">مفتاح جيميناي النشط (Gemini API Key)</label>
             <Input 
               type="password"
-              placeholder="الصق مفتاح API الخاص بك هنا..."
+              placeholder="الصق مفتاح API من Google AI Studio..."
               value={project.apiKeys?.[0] || ''}
               onChange={(e) => setProject({ ...project, apiKeys: [e.target.value] })}
               className="h-12 font-mono text-sm border-2 rounded-xl bg-background"
@@ -196,7 +196,7 @@ export default function ProjectEditor() {
           <Alert className="bg-accent/5 border-accent/10 py-2">
             <Info className="w-4 h-4 text-accent" />
             <AlertDescription className="text-[10px] font-bold text-accent mr-1 leading-relaxed">
-              تأكد من أن المفتاح هو Gemini API Key من Google AI Studio.
+              هذا هو المفتاح الذي نسخته من صفحة "Get API Key" في جوجل.
             </AlertDescription>
           </Alert>
         </CollapsibleContent>
@@ -206,7 +206,7 @@ export default function ProjectEditor() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Cpu className="w-5 h-5 text-primary" />
-            <Label className="text-[11px] font-black uppercase text-muted-foreground tracking-widest">٢. اختبار النظام (السؤال)</Label>
+            <Label className="text-[11px] font-black uppercase text-muted-foreground tracking-widest">٢. تجربة العقل (السؤال)</Label>
           </div>
         </div>
 
@@ -229,7 +229,7 @@ export default function ProjectEditor() {
         {testOutput && (
           <div className="p-6 bg-card rounded-[32px] border-2 border-primary/20 text-base font-medium whitespace-pre-wrap leading-relaxed animate-in zoom-in-95 shadow-lg relative overflow-hidden">
             <div className="absolute top-0 right-0 left-0 h-1 bg-primary/20"></div>
-            <div className="text-[10px] font-black text-primary mb-3 border-b border-primary/10 pb-2 uppercase tracking-widest">رد الذكاء الاصطناعي:</div>
+            <div className="text-[10px] font-black text-primary mb-3 border-b border-primary/10 pb-2 uppercase tracking-widest">رد جيميناي:</div>
             {testOutput}
           </div>
         )}
