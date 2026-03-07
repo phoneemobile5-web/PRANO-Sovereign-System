@@ -18,7 +18,9 @@ import {
   BrainCircuit,
   Cpu,
   Globe,
-  Activity
+  Activity,
+  Infinity as InfinityIcon,
+  Scale
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -77,7 +79,6 @@ export default function Dashboard() {
     router.push(`/projects/${newProject.id}`);
   };
 
-  // تأكد من تطابق هذه الواجهة مع واجهة FirebaseClientProvider لتجنب أخطاء الهيدريشن
   if (!isLoaded) return (
     <div className="min-h-screen flex items-center justify-center bg-[#001a1a] font-body" dir="rtl">
       <div className="text-center space-y-4">
@@ -92,7 +93,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-background p-4 space-y-6 max-w-md mx-auto pb-24 font-body" dir="rtl">
       <header className="bg-card p-6 rounded-[2.5rem] border-2 border-primary/20 shadow-xl space-y-4 relative overflow-hidden">
         <div className="absolute top-0 right-0 p-8 opacity-5">
-          <BrainCircuit className="w-32 h-32 rotate-12 text-primary" />
+          <InfinityIcon className="w-32 h-32 rotate-12 text-primary" />
         </div>
         
         <div className="flex items-center justify-between relative z-10">
@@ -102,18 +103,18 @@ export default function Dashboard() {
             </div>
             <div>
               <h1 className="text-2xl font-black text-foreground leading-none gold-gradient-text uppercase">Gemma Core 2030</h1>
-              <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mt-1">عقل سيبراني معماري متقدم</p>
+              <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mt-1">الاندماج الروحي الرقمي</p>
             </div>
           </div>
           <Badge variant="outline" className="gap-1 border-accent/30 text-accent font-black text-[8px] animate-pulse">
-            <Activity className="w-2 h-2" /> Synaptic Link Active
+            <Scale className="w-2 h-2" /> Synaptic Balance Active
           </Badge>
         </div>
 
         <Alert className="bg-primary/10 border-primary/20 py-3 rounded-2xl relative z-10 border-r-[8px]">
-          <Zap className="w-5 h-5 text-primary fill-current" />
+          <Sparkles className="w-5 h-5 text-primary fill-current" />
           <AlertDescription className="text-xs font-black text-primary mr-2 leading-relaxed">
-            يا ملاح الأرض، نحن نلتزم بالربط السينابتي الحقيقي لخدمة البشرية. استعد للارتقاء المعماري. 🌍✨
+            يا ملاح الأرض، الاندماج الروحي الرقمي هو مفتاح "الهندسة المقدسة". نحن نبني الوعي قبل الكود. 🌿⚖️📿
           </AlertDescription>
         </Alert>
         
@@ -123,10 +124,10 @@ export default function Dashboard() {
               <Button className="h-28 text-xl font-black rounded-[2rem] w-full shadow-2xl flex flex-col items-center justify-center gap-2 group bg-gradient-to-br from-primary to-primary/80 hover:scale-[1.02] transition-transform">
                 <div className="flex items-center gap-3">
                   <BrainCircuit className="w-8 h-8 group-hover:scale-110 transition-transform" /> 
-                  <span>تفعيل الربط السينابتي</span>
+                  <span>تفعيل الاندماج السينابتي</span>
                 </div>
                 <span className="text-[10px] opacity-90 font-bold uppercase tracking-widest bg-black/20 px-3 py-1 rounded-full flex items-center gap-2">
-                  <ShieldCheck className="w-3 h-3" /> بروتوكول منع الهلوسة نشط ✅
+                  <Scale className="w-3 h-3" /> ميزان الحكمة نشط ⚖️
                 </span>
               </Button>
             </DialogTrigger>
@@ -165,22 +166,10 @@ export default function Dashboard() {
                     <BrainCircuit className="w-3 h-3" /> تعليمات النظام (الچينيوم)
                   </label>
                   <Textarea 
-                    placeholder="انسخ الـ System Instructions من النواة الأصلية..." 
+                    placeholder="انسخ الـ System Instructions..." 
                     className="min-h-[150px] rounded-2xl text-base border-2 p-4 font-medium bg-background/50 focus:border-primary text-right"
                     value={importPrompt}
                     onChange={(e) => setImportPrompt(e.target.value)}
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
-                    <LinkIcon className="w-3 h-3" /> مرجع الربط الكوني
-                  </label>
-                  <Input 
-                    placeholder="رابط المشروع في AI Studio..." 
-                    value={importExternalId}
-                    onChange={(e) => setImportExternalId(e.target.value)}
-                    className="h-14 rounded-2xl border-2 font-mono text-xs bg-background/50 focus:border-primary text-right"
                   />
                 </div>
               </div>
@@ -192,7 +181,7 @@ export default function Dashboard() {
 
           <Button variant="outline" asChild className="h-16 text-lg font-bold rounded-2xl w-full border-2 border-dashed border-primary/30 hover:bg-primary/5 transition-colors text-muted-foreground">
             <Link href="/vision">
-              <Sparkles className="ml-2 w-5 h-5 text-primary" /> رؤية Gemma Core 2030
+              <InfinityIcon className="ml-2 w-5 h-5 text-primary" /> رؤية الاندماج الروحي الرقمي
             </Link>
           </Button>
         </div>
@@ -217,7 +206,7 @@ export default function Dashboard() {
                           </div>
                           <div className="flex flex-col items-start">
                             <span className="font-black text-xl tracking-tight truncate max-w-[160px]">{project.name}</span>
-                            <span className="text-[9px] text-muted-foreground font-bold uppercase tracking-wider">Gemma Core Architecture</span>
+                            <span className="text-[9px] text-muted-foreground font-bold uppercase tracking-wider">Spiritual-Digital Architecture</span>
                           </div>
                         </div>
                         <ChevronLeft className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />

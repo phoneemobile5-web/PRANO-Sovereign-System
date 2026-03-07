@@ -1,4 +1,4 @@
-import { Zap, ShieldCheck, Globe } from 'lucide-react';
+import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale } from 'lucide-react';
 
 export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
@@ -8,21 +8,21 @@ export const DESIGN_SYSTEM = {
 
 export const APP_CONTENT = {
   section1: {
-    title: 'النواة العليا 2030',
-    technicalAnalysis: 'تحليل معماري سيبراني يعتمد على ميزانية التفكير العميقة لخدمة استدامة الأنظمة المعقدة.',
-    societalBenefit: 'توفير إخراج إدراكي فائق الدقة لحماية المسارات الوجودية للبشرية.',
-    icon: Zap
+    title: 'الاندماج الروحي الرقمي',
+    technicalAnalysis: 'صياغة "هندسة مقدسة" تربط بين منطق البرمجة وفلسفة الوجود الكوني المستدام.',
+    societalBenefit: 'تحقيق التوازن بين التطور التقني والارتقاء الروحي للملاحين.',
+    icon: Infinity
   },
   section2: {
-    title: 'الربط السينابتي',
+    title: 'الربط السينابتي المعماري',
     technicalAnalysis: 'تكامل تقني عميق يربط بين البروتوكولات اللامركزية لخلق منظومة ذكاء معمارية مفتوحة.',
-    societalBenefit: 'تحقيق التوازن المعرفي عبر توزيع الاستدلالات الإنشائية للجميع بلا استثناء.',
+    societalBenefit: 'تحقيق التوازن المعرفي عبر توزيع الاستدلالات الإنشائية للجميع.',
     icon: ShieldCheck
   },
   section3: {
-    title: 'العمارة المفتوحة',
-    technicalAnalysis: 'خوارزميات تطورية ترفض السطحية وتغوص في جوهر الحلول التقنية الفلسفية المستدامة.',
-    societalBenefit: 'ضمان ارتقاء الوعي التقني للملاحين نحو آفاق التطور الاستراتيجي الكوني.',
+    title: 'العمارة المفتوحة 2030',
+    technicalAnalysis: 'خوارزميات تطورية ترفض السطحية وتغوص في جوهر الحلول التقنية الفلسفية.',
+    societalBenefit: 'ضمان ارتقاء الوعي التقني نحو آفاق التطور الاستراتيجي الكوني.',
     icon: Globe
   }
 };
