@@ -22,7 +22,8 @@ import {
   Zap,
   ShieldCheck,
   ClipboardPaste,
-  ExternalLink
+  ExternalLink,
+  Info
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -130,7 +131,7 @@ export default function Dashboard() {
         <Alert className="bg-primary/10 border-primary/20 py-3 rounded-2xl relative z-10 border-r-[8px]">
           <Heart className="w-5 h-5 text-primary fill-current" />
           <AlertDescription className="text-xs font-black text-primary mr-2 leading-relaxed">
-            يا صديقي، الرابط هو "عنوان منزلك" في جوجل لكي تعود إليه لاحقاً. المهم الآن هو نسخ "وصفة الذكاء" و "مفتاح التشغيل" يدوياً هنا. 🌍✨
+            يا صديقي، الرابط هو "عنوان منزلك" في جوجل. المهم الآن هو نسخ "وصفة الذكاء" من صندوق (System Instructions) هناك. 🌍✨
           </AlertDescription>
         </Alert>
         
@@ -147,12 +148,21 @@ export default function Dashboard() {
                 </span>
               </Button>
             </DialogTrigger>
-            <DialogContent className="w-[95%] max-w-xs rounded-[2.5rem] p-6 bg-card border-4 border-primary/20 shadow-2xl">
+            <DialogContent className="w-[95%] max-w-xs rounded-[2.5rem] p-6 bg-card border-4 border-primary/20 shadow-2xl overflow-hidden">
               <DialogHeader>
                 <DialogTitle className="text-right text-2xl font-black gold-gradient-text">تجهيز جسر الربط</DialogTitle>
               </DialogHeader>
               
               <div className="space-y-4 py-4 text-right overflow-y-auto max-h-[60vh] pr-1">
+                <div className="p-3 bg-muted/50 rounded-2xl border border-primary/20 space-y-2">
+                   <p className="text-[10px] font-black text-primary uppercase flex items-center gap-1">
+                      <Info className="w-3 h-3" /> أين أجد "تعليمات النظام"؟
+                   </p>
+                   <p className="text-[11px] font-medium leading-relaxed">
+                      افتح مشروعك في Google AI Studio، ستجد صندوقاً في الأعلى أو الجانب الأيمن مكتوب عليه <span className="text-primary font-bold">System Instructions</span>. هذا هو ما يجب نسخه!
+                   </p>
+                </div>
+
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
                     ١. اسم المهمة
@@ -167,7 +177,7 @@ export default function Dashboard() {
                 
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
-                    <Key className="w-3 h-3" /> ٢. مفتاح Gemini (الوقود)
+                    <Key className="w-3 h-3" /> ٢. مفتاح التشغيل (API Key)
                   </label>
                   <Input 
                     placeholder="الصق المفتاح الذي يبدأ بـ AIza هنا..." 
@@ -179,10 +189,10 @@ export default function Dashboard() {
 
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
-                    <ClipboardPaste className="w-3 h-3" /> ٣. وصفة الذكاء (العقل)
+                    <ClipboardPaste className="w-3 h-3" /> ٣. تعليمات النظام (العقل)
                   </label>
                   <Textarea 
-                    placeholder="انسخ الـ System Instructions من جوجل وضعها هنا..." 
+                    placeholder="انسخ ما بداخل صندوق System Instructions وضعه هنا..." 
                     className="min-h-[150px] rounded-2xl text-base border-2 p-4 font-medium bg-background/50 focus:border-primary text-right"
                     value={importPrompt}
                     onChange={(e) => setImportPrompt(e.target.value)}
@@ -253,7 +263,7 @@ export default function Dashboard() {
                           </span>
                           {project.apiKeys?.[0] && project.apiKeys[0].startsWith('AIza') ? (
                             <span className="text-[10px] font-black text-accent bg-accent/10 px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm border border-accent/20">
-                              <CheckCircle2 className="w-3 h-3" /> الوضع المجاني آمن ✅
+                              <CheckCircle2 className="w-3 h-3" /> وضع مجاني ✅
                             </span>
                           ) : (
                             <span className="text-[10px] font-black text-muted-foreground bg-muted px-3 py-1.5 rounded-full shadow-sm">بانتظار المفتاح</span>

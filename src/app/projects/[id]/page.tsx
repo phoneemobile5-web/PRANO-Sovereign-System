@@ -46,7 +46,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function ProjectEditor() {
   const { id } = useParams();
@@ -250,8 +250,8 @@ export default function ProjectEditor() {
               <ClipboardPaste className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <Label className="text-[12px] font-black uppercase text-primary tracking-[0.2em]">وصفة المهمة (العقل)</Label>
-              <p className="text-[9px] text-muted-foreground font-bold uppercase mt-1">System Instructions</p>
+              <Label className="text-[12px] font-black uppercase text-primary tracking-[0.2em]">تعليمات النظام (العقل)</Label>
+              <p className="text-[9px] text-muted-foreground font-bold uppercase mt-1">تجدها في AI Studio بصندوق System Instructions</p>
             </div>
           </div>
           <Button 
@@ -270,7 +270,7 @@ export default function ProjectEditor() {
           value={project.prompt}
           onChange={(e) => setProject({ ...project, prompt: e.target.value })}
           className="min-h-[220px] text-lg font-medium leading-relaxed rounded-2xl border-2 p-5 shadow-inner bg-background/30 focus:border-primary/50 transition-all text-right"
-          placeholder="انسخ 'عقل' المشروع من جوجل (System Instructions) وضعه هنا..."
+          placeholder="انسخ ما بداخل صندوق System Instructions وضعه هنا..."
         />
 
         <Button onClick={handleSave} className="w-full h-20 font-black text-2xl gap-4 rounded-[1.5rem] shadow-2xl active:scale-95 transition-transform bg-primary text-primary-foreground hover:bg-primary/90">
