@@ -1,9 +1,10 @@
+
 'use client';
 
 import { useState } from 'react';
 import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
-import { Plus, Import, FolderOpen, Zap, History, Terminal, CheckCircle2, ChevronLeft, Info, Settings2, Link as LinkIcon, Trash2, Key, Sparkles, AlertTriangle } from 'lucide-react';
+import { Plus, Import, FolderOpen, Zap, History, Terminal, CheckCircle2, ChevronLeft, Info, Settings2, Link as LinkIcon, Trash2, Key, Sparkles, AlertTriangle, Heart } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -92,13 +93,18 @@ export default function Dashboard() {
           <Settings2 className="w-32 h-32 rotate-12 text-primary" />
         </div>
         
-        <div className="flex items-center gap-4 relative z-10">
-          <div className="p-4 bg-primary rounded-2xl shadow-lg transform -rotate-3">
-            <Zap className="text-primary-foreground w-8 h-8 fill-current" />
+        <div className="flex items-center justify-between relative z-10">
+          <div className="flex items-center gap-4">
+            <div className="p-4 bg-primary rounded-2xl shadow-lg transform -rotate-3">
+              <Zap className="text-primary-foreground w-8 h-8 fill-current" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-black text-foreground leading-none gold-gradient-text">مختبر الذكاء</h1>
+              <p className="text-[11px] text-muted-foreground font-bold uppercase tracking-widest mt-1">إدارة مشاريع Gamma 2026</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-3xl font-black text-foreground leading-none gold-gradient-text">مختبر الذكاء</h1>
-            <p className="text-[11px] text-muted-foreground font-bold uppercase tracking-widest mt-1">إدارة مشاريع Gamma 2026</p>
+          <div className="bg-primary/10 p-2 rounded-full animate-pulse">
+            <Heart className="w-5 h-5 text-primary fill-current" />
           </div>
         </div>
 
@@ -299,3 +305,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
