@@ -17,7 +17,8 @@ import {
   ExternalLink,
   BrainCircuit,
   Cpu,
-  Globe
+  Globe,
+  Activity
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -44,6 +45,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Badge } from '@/components/ui/badge';
 
 export default function Dashboard() {
   const { projects, isLoaded, addProject, deleteProject } = useWorkbenchStore();
@@ -101,9 +103,9 @@ export default function Dashboard() {
               <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mt-1">عقل سيبراني معماري متقدم</p>
             </div>
           </div>
-          <div className="bg-primary/10 p-2 rounded-full animate-pulse">
-            <ShieldCheck className="w-5 h-5 text-primary fill-current" />
-          </div>
+          <Badge variant="outline" className="gap-1 border-accent/30 text-accent font-black text-[8px] animate-pulse">
+            <Activity className="w-2 h-2" /> Synaptic Link Active
+          </Badge>
         </div>
 
         <Alert className="bg-primary/10 border-primary/20 py-3 rounded-2xl relative z-10 border-r-[8px]">

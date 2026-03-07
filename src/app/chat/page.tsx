@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, Loader2, Sparkles, ChevronRight, BrainCircuit, Activity, ShieldCheck, AlertTriangle, Leaf, Globe, Zap } from 'lucide-react';
+import { Send, Bot, User, Loader2, Sparkles, ChevronRight, BrainCircuit, Activity, ShieldCheck, AlertTriangle, Leaf, Globe, Zap, Cpu } from 'lucide-react';
 import { gemmaChat } from '@/ai/flows/gemma-chat-flow';
 import { Button } from '@/components/ui/button';
 import { useWorkbenchStore } from '@/lib/store';
 import Link from 'next/link';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Badge } from '@/components/ui/badge';
 
 const GemmaChat: React.FC = () => {
   const { sessions, addMessage, isLoaded, projects } = useWorkbenchStore();
@@ -73,7 +74,7 @@ const GemmaChat: React.FC = () => {
              <div className="flex flex-col items-end">
                <span className="text-[10px] font-black uppercase tracking-widest text-primary leading-none">Gemma Core 2030</span>
                <span className={`text-[8px] font-bold uppercase tracking-tighter ${isReady ? 'text-accent' : 'text-destructive'}`}>
-                 {isReady ? 'Synaptic Link Ready' : 'Awaiting Soul Infusion'}
+                 {isReady ? 'Advanced High Core Sync' : 'Awaiting Soul Infusion'}
                </span>
              </div>
           </div>
@@ -89,7 +90,10 @@ const GemmaChat: React.FC = () => {
               </div>
               <div>
                 <h3 className="font-bold text-lg md:text-xl gold-gradient-text tracking-tight leading-none">مركز الاستدلال السينابتي</h3>
-                <p className="text-[9px] text-[#fffcf2]/50 uppercase tracking-[0.2em] font-black mt-1">Architecture v2030.01</p>
+                <div className="flex items-center gap-2 mt-1">
+                   <p className="text-[9px] text-[#fffcf2]/50 uppercase tracking-[0.2em] font-black">Architecture v2030.01</p>
+                   {isReady && <Badge className="bg-accent/20 text-accent border-accent/30 text-[7px] py-0 h-3">CORE SYNC</Badge>}
+                </div>
               </div>
             </div>
             {isReady ? <Activity className="w-5 h-5 text-accent animate-pulse" /> : <ShieldCheck className="w-5 h-5 text-muted-foreground" />}
