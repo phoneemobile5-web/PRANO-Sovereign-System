@@ -16,7 +16,9 @@ import {
   Info,
   ChevronDown,
   Link as LinkIcon,
-  ExternalLink
+  ExternalLink,
+  Plus,
+  CheckCircle2
 } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -53,7 +55,7 @@ export default function ProjectEditor() {
   const [isRunning, setIsRunning] = useState(false);
   const [testInput, setTestInput] = useState('');
   const [testOutput, setTestOutput] = useState('');
-  const [showKeys, setShowKeys] = useState(false);
+  const [showKeys, setShowKeys] = useState(true);
 
   useEffect(() => {
     if (isLoaded) {
@@ -71,7 +73,7 @@ export default function ProjectEditor() {
       updateProject(project.id, project);
       toast({
         title: "تم الحفظ بنجاح ✅",
-        description: "تم تحديث وصفة المشروع بدقة.",
+        description: "تم تحديث وصفة المشروع ومفاتيحه بدقة.",
       });
     }
   };
@@ -112,7 +114,7 @@ export default function ProjectEditor() {
     try {
       const result = await testAIProjectResponses({ 
         prompt: `${project.prompt}\n\nالسؤال: ${testInput}`,
-        apiKey: project.apiKeys?.[0],
+        apiKey: project.apiKeys?.[0], // نستخدم أول مفتاح متوفر
         model: project.model
       });
       setTestOutput(result.response);
@@ -121,165 +123,193 @@ export default function ProjectEditor() {
       toast({
         variant: "destructive",
         title: "فشل التشغيل ⚠️",
-        description: "تحقق من مفتاح Gemini API ومن اتصال الإنترنت.",
+        description: "تحقق من أحد مفاتيحك الستة ومن اتصال الإنترنت.",
       });
     } finally {
       setIsRunning(false);
     }
   };
 
-  if (!isLoaded || !project) return null;
+  if (!isLoaded || !project) return (
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <RefreshCw className="w-10 h-10 animate-spin text-primary" />
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-background p-4 pb-32 space-y-6 max-w-md mx-auto" dir="rtl">
       <Toaster />
       
-      <header className="flex items-center justify-between bg-card p-5 rounded-3xl border-2 border-primary/20 shadow-xl">
-        <Button variant="ghost" size="icon" onClick={() => router.push('/')} className="h-12 w-12 bg-secondary rounded-2xl">
-          <ArrowRight className="w-8 h-8" />
+      <header className="flex items-center justify-between bg-card p-5 rounded-[2.5rem] border-2 border-primary/20 shadow-xl">
+        <Button variant="ghost" size="icon" onClick={() => router.push('/')} className="h-14 w-14 bg-secondary rounded-2xl hover:bg-secondary/80">
+          <ArrowRight className="w-10 h-10" />
         </Button>
         <div className="flex-1 px-4">
           <input 
             value={project.name}
             onChange={(e) => setProject({ ...project, name: e.target.value })}
-            className="bg-transparent font-black text-right w-full border-none focus:ring-0 text-xl truncate"
+            className="bg-transparent font-black text-right w-full border-none focus:ring-0 text-2xl gold-gradient-text truncate"
           />
         </div>
         
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="ghost" size="icon" className="text-destructive h-12 w-12 bg-destructive/10 rounded-2xl">
-              <Trash2 className="w-6 h-6" />
+            <Button variant="ghost" size="icon" className="text-destructive h-14 w-14 bg-destructive/10 rounded-2xl hover:bg-destructive/20">
+              <Trash2 className="w-7 h-7" />
             </Button>
           </AlertDialogTrigger>
-          <AlertDialogContent className="w-[90%] rounded-3xl" dir="rtl">
+          <AlertDialogContent className="w-[90%] rounded-[2.5rem] border-4" dir="rtl">
             <AlertDialogHeader>
-              <AlertDialogTitle className="text-right">تأكيد الحذف</AlertDialogTitle>
-              <AlertDialogDescription className="text-right">
-                هل أنت متأكد من حذف هذا المشروع نهائياً؟ لا يمكن التراجع عن هذا القرار.
+              <AlertDialogTitle className="text-right text-2xl font-black">حذف مشروع جوجل؟</AlertDialogTitle>
+              <AlertDialogDescription className="text-right text-lg leading-relaxed font-medium">
+                هل أنت متأكد من حذف هذا المشروع نهائياً؟ ستفقد كافة تعليمات الربط التي وضعتها.
               </AlertDialogDescription>
             </AlertDialogHeader>
-            <AlertDialogFooter className="flex-row-reverse gap-2">
+            <AlertDialogFooter className="flex-row-reverse gap-3 pt-4">
               <AlertDialogAction 
-                className="bg-destructive text-destructive-foreground rounded-xl flex-1"
+                className="bg-destructive text-destructive-foreground rounded-2xl flex-1 h-14 font-black text-xl shadow-lg"
                 onClick={handleConfirmDelete}
               >
-                حذف الآن
+                نعم، احذف
               </AlertDialogAction>
-              <AlertDialogCancel className="rounded-xl flex-1 mt-0">إلغاء</AlertDialogCancel>
+              <AlertDialogCancel className="rounded-2xl flex-1 mt-0 h-14 font-bold border-2">إلغاء</AlertDialogCancel>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
       </header>
 
       {project.externalAppId && (
-        <Alert className="bg-accent/10 border-accent/20 rounded-2xl flex items-center gap-3">
-          <LinkIcon className="w-5 h-5 text-accent" />
-          <AlertDescription className="text-[10px] font-black text-accent mr-2 flex-1 flex items-center justify-between">
-            مشروع مربوط بـ Google AI Studio
-            <a href={project.externalAppId} target="_blank" className="bg-accent text-accent-foreground px-2 py-1 rounded flex items-center gap-1">
-              فتح هناك <ExternalLink className="w-3 h-3" />
-            </a>
+        <Alert className="bg-accent/10 border-accent/20 rounded-[1.5rem] flex items-center gap-4 py-4 shadow-sm">
+          <LinkIcon className="w-6 h-6 text-accent" />
+          <AlertDescription className="text-[11px] font-black text-accent mr-2 flex-1 flex flex-col gap-2">
+            <span className="uppercase tracking-widest">مشروع مربوط بـ Google AI Studio</span>
+            <div className="flex items-center justify-between gap-2">
+              <span className="font-mono text-[9px] truncate bg-accent/20 px-2 py-1 rounded">{project.externalAppId}</span>
+              <a 
+                href={project.externalAppId} 
+                target="_blank" 
+                className="bg-accent text-accent-foreground px-4 py-2 rounded-xl flex items-center gap-2 text-xs font-black shadow-lg hover:scale-105 transition-transform"
+              >
+                فتح في جوجل <ExternalLink className="w-4 h-4" />
+              </a>
+            </div>
           </AlertDescription>
         </Alert>
       )}
 
-      <section className="bg-card p-5 rounded-[40px] border-4 border-primary/10 shadow-2xl space-y-5">
-        <div className="flex items-center justify-between border-b-2 border-primary/10 pb-3">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-primary" />
-            <Label className="text-[11px] font-black uppercase text-primary tracking-widest">١. وصفة النظام (تعليمات جوجل)</Label>
+      <Collapsible open={showKeys} onOpenChange={setShowKeys} className="bg-card p-6 rounded-[2.5rem] border-2 border-primary/20 shadow-xl relative overflow-hidden">
+        <div className="absolute top-0 left-0 p-6 opacity-5">
+           <Key className="w-24 h-24 text-primary" />
+        </div>
+        <div className="flex items-center justify-between relative z-10">
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-primary/10 rounded-2xl shadow-inner">
+              <Key className="w-7 h-7 text-primary" />
+            </div>
+            <div>
+              <Label className="text-[12px] font-black uppercase text-primary leading-none tracking-widest">إدارة مفاتيح التشغيل (API Keys)</Label>
+              <p className="text-[10px] text-muted-foreground font-bold mt-2">يمكنك وضع مفاتيحك الستة هنا للتبديل بينها</p>
+            </div>
+          </div>
+          <CollapsibleTrigger asChild>
+            <Button variant="outline" size="sm" className="h-10 px-4 font-black rounded-xl border-2">
+              {showKeys ? 'إخفاء' : 'عرض'} <ChevronDown className={`w-4 h-4 mr-1 transition-transform ${showKeys ? 'rotate-180' : ''}`} />
+            </Button>
+          </CollapsibleTrigger>
+        </div>
+        <CollapsibleContent className="pt-6 space-y-5 relative z-10">
+          <div className="space-y-2">
+            <Label className="text-[10px] font-black text-primary uppercase mr-1">المفتاح النشط حالياً</Label>
+            <Input 
+              type="password"
+              placeholder="ضع أحد مفاتيحك الستة هنا..."
+              value={project.apiKeys?.[0] || ''}
+              onChange={(e) => setProject({ ...project, apiKeys: [e.target.value] })}
+              className="h-14 font-mono text-sm border-2 rounded-2xl bg-background/50 text-right focus:border-primary"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label className="text-[10px] font-black text-primary uppercase mr-1">رابط المشروع في AI Studio</Label>
+            <Input 
+              placeholder="https://ai.studio/apps/..."
+              value={project.externalAppId || ''}
+              onChange={(e) => setProject({ ...project, externalAppId: e.target.value })}
+              className="h-14 border-2 rounded-2xl bg-background/50 text-right text-xs font-mono focus:border-primary"
+            />
+          </div>
+          <Button variant="outline" className="w-full h-12 rounded-xl border-dashed border-2 text-[11px] font-black uppercase text-muted-foreground hover:bg-primary/5">
+            <Plus className="w-4 h-4 ml-2" /> إضافة مفتاح إضافي من الستة
+          </Button>
+        </CollapsibleContent>
+      </Collapsible>
+
+      <section className="bg-card p-6 rounded-[3rem] border-4 border-primary/10 shadow-2xl space-y-6">
+        <div className="flex items-center justify-between border-b-2 border-primary/10 pb-4">
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-primary/10 rounded-2xl">
+              <Sparkles className="w-6 h-6 text-primary" />
+            </div>
+            <Label className="text-[12px] font-black uppercase text-primary tracking-[0.2em]">وصفة النظام (الـ System Instructions)</Label>
           </div>
           <Button 
             variant="secondary" 
             size="sm" 
-            className="h-8 px-4 rounded-full bg-primary/10 hover:bg-primary/20 text-primary border-none"
+            className="h-10 px-5 rounded-full bg-primary/10 hover:bg-primary/20 text-primary border-none shadow-sm"
             onClick={handleRefinePrompt}
             disabled={isRefining}
           >
-            {isRefining ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
-            <span className="text-[10px] font-black mr-1">تحسين</span>
+            {isRefining ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+            <span className="text-[11px] font-black mr-2">تحسين ذكي</span>
           </Button>
         </div>
 
         <Textarea 
           value={project.prompt}
           onChange={(e) => setProject({ ...project, prompt: e.target.value })}
-          className="min-h-[180px] text-base font-medium leading-relaxed rounded-2xl border-2 p-4 shadow-inner bg-background/50 focus:border-primary/40 transition-all"
-          placeholder="انسخ الـ System Instructions من جوجل وضعها هنا..."
+          className="min-h-[220px] text-lg font-medium leading-relaxed rounded-2xl border-2 p-5 shadow-inner bg-background/30 focus:border-primary/50 transition-all placeholder:text-muted-foreground/30"
+          placeholder="انسخ الـ System Instructions من جوجل وضعها هنا بدقة..."
         />
 
-        <Button onClick={handleSave} className="w-full h-16 font-black text-xl gap-3 rounded-2xl shadow-lg active:scale-95 transition-transform">
-          <Save className="w-6 h-6" /> حفظ التغييرات
+        <Button onClick={handleSave} className="w-full h-20 font-black text-2xl gap-4 rounded-[1.5rem] shadow-2xl active:scale-95 transition-transform bg-primary text-primary-foreground hover:bg-primary/90">
+          <Save className="w-8 h-8" /> حفظ بيانات المشروع 💾
         </Button>
       </section>
 
-      <Collapsible open={showKeys} onOpenChange={setShowKeys} className="bg-card p-5 rounded-[32px] border-2 border-accent/20 shadow-md">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-accent/10 rounded-xl">
-              <Key className="w-6 h-6 text-accent" />
-            </div>
-            <div>
-              <Label className="text-[11px] font-black uppercase text-accent leading-none">مفتاح الربط (API Key)</Label>
-              <p className="text-[9px] text-muted-foreground font-bold mt-1">تأكد أن المفتاح يدعم الموديل المختار</p>
-            </div>
-          </div>
-          <CollapsibleTrigger asChild>
-            <Button variant="outline" size="sm" className="h-10 px-4 font-black rounded-xl border-2">
-              تعديل <ChevronDown className={`w-4 h-4 mr-1 transition-transform ${showKeys ? 'rotate-180' : ''}`} />
-            </Button>
-          </CollapsibleTrigger>
+      <section className="bg-muted/30 p-8 rounded-[4rem] border-4 border-dashed border-primary/20 space-y-6 relative overflow-hidden">
+        <div className="absolute -bottom-10 -left-10 p-10 opacity-5">
+           <Cpu className="w-40 h-40 text-primary" />
         </div>
-        <CollapsibleContent className="pt-5 space-y-4">
-          <div className="space-y-1.5">
-            <Input 
-              type="password"
-              placeholder="ضع مفتاح Gemini هنا..."
-              value={project.apiKeys?.[0] || ''}
-              onChange={(e) => setProject({ ...project, apiKeys: [e.target.value] })}
-              className="h-12 font-mono text-sm border-2 rounded-xl bg-background text-right"
-            />
-          </div>
-          <div className="space-y-1.5">
-            <Label className="text-[10px] font-black text-muted-foreground uppercase mr-1">رابط المشروع في AI Studio</Label>
-            <Input 
-              placeholder="https://ai.studio/apps/..."
-              value={project.externalAppId || ''}
-              onChange={(e) => setProject({ ...project, externalAppId: e.target.value })}
-              className="h-12 border-2 rounded-xl bg-background text-right text-xs"
-            />
-          </div>
-        </CollapsibleContent>
-      </Collapsible>
-
-      <section className="bg-muted/40 p-6 rounded-[48px] border-4 border-dashed border-primary/20 space-y-5">
-        <div className="flex items-center gap-2">
-          <Cpu className="w-5 h-5 text-primary" />
-          <Label className="text-[11px] font-black uppercase text-muted-foreground tracking-widest">٢. تجربة العقل المستورد</Label>
+        <div className="flex items-center gap-3 relative z-10">
+          <Cpu className="w-6 h-6 text-primary animate-pulse" />
+          <Label className="text-[12px] font-black uppercase text-muted-foreground tracking-widest">تجربة عقل المشروع الضخم</Label>
         </div>
 
         <Textarea 
-          placeholder="اكتب أي سؤال لاختبار قوة الموجه..."
-          className="min-h-[100px] bg-background border-2 border-primary/10 rounded-2xl text-lg p-4 shadow-sm"
+          placeholder="اكتب سؤالاً لاختبار قوة موجهك الجديد..."
+          className="min-h-[120px] bg-background/80 border-2 border-primary/10 rounded-2xl text-xl p-5 shadow-lg focus:border-primary"
           value={testInput}
           onChange={(e) => setTestInput(e.target.value)}
         />
         
         <Button 
-          className="w-full h-18 text-xl font-black rounded-3xl gap-4 shadow-2xl active:scale-95 transition-all bg-primary hover:bg-primary/90" 
+          className="w-full h-20 text-2xl font-black rounded-[2rem] gap-5 shadow-2xl active:scale-95 transition-all bg-primary hover:bg-primary/90 relative z-10" 
           onClick={handleRunTest}
           disabled={isRunning || !testInput}
         >
-          {isRunning ? <RefreshCw className="w-7 h-7 animate-spin" /> : <Play className="w-7 h-7 fill-current" />}
-          {isRunning ? 'جاري التحليل...' : 'تشغيل الاختبار'}
+          {isRunning ? <RefreshCw className="w-8 h-8 animate-spin" /> : <Play className="w-8 h-8 fill-current" />}
+          {isRunning ? 'جاري التحليل الإدراكي...' : 'تشغيل الاختبار الفوري'}
         </Button>
 
         {testOutput && (
-          <div className="p-6 bg-card rounded-[32px] border-2 border-primary/20 text-base font-medium whitespace-pre-wrap leading-relaxed animate-in zoom-in-95 shadow-lg relative overflow-hidden">
-            <div className="absolute top-0 right-0 left-0 h-1 bg-primary/20"></div>
-            <div className="text-[10px] font-black text-primary mb-3 border-b border-primary/10 pb-2 uppercase tracking-widest text-right">الرد الإدراكي:</div>
-            {testOutput}
+          <div className="p-8 bg-card rounded-[2.5rem] border-2 border-primary/20 text-lg font-medium whitespace-pre-wrap leading-relaxed animate-in zoom-in-95 shadow-2xl relative overflow-hidden z-10">
+            <div className="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
+            <div className="flex items-center justify-between mb-4 border-b border-primary/10 pb-3">
+              <span className="text-[11px] font-black text-primary uppercase tracking-widest flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4" /> الرد الإدراكي لـ Gemini:
+              </span>
+              <span className="text-[10px] bg-primary/10 px-3 py-1 rounded-full font-black text-primary">{project.model}</span>
+            </div>
+            <div className="text-foreground/90">{testOutput}</div>
           </div>
         )}
       </section>
