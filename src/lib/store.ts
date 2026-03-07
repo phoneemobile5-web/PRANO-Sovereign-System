@@ -20,19 +20,21 @@ export interface ChatMessage {
   timestamp: number;
 }
 
-export interface CustomPrompt {
+export interface AIProject {
   id: string;
-  label: string;
+  name: string;
+  description: string;
   prompt: string;
-  category: string;
-  createdAt: number;
+  model: string;
+  temperature: number;
+  apiKeys: string[];
+  externalAppId?: string;
 }
 
 export function useWorkbenchStore() {
   const { user } = useUser();
   const db = useFirestore();
 
-  // مراجع الوثائق بناءً على المخطط المعماري الجديد
   const userRef = useMemo(() => (db && user ? doc(db, 'users', user.uid) : null), [db, user]);
   const chatRef = useMemo(() => (db && user ? doc(db, 'chatHistories', user.uid) : null), [db, user]);
   const promptsRef = useMemo(() => (db && user ? doc(db, 'customPrompts', user.uid) : null), [db, user]);
@@ -43,7 +45,6 @@ export function useWorkbenchStore() {
 
   const isLoaded = !userLoading && !chatLoading && !promptsLoading;
 
-  // إضافة رسالة إلى سجل الربط السينابتي
   const addMessage = async (message: Omit<ChatMessage, 'timestamp'>) => {
     if (!chatRef) return;
     const newMessage = { ...message, timestamp: Date.now() };
@@ -55,29 +56,57 @@ export function useWorkbenchStore() {
       }, { merge: true });
     } catch (e) {
       errorEmitter.emit('permission-error', new FirestorePermissionError({
-        path: chatRef.path, operation: 'update', requestResourceData: newMessage
+        path: chatRef.path, operation: 'write', requestResourceData: newMessage
       }));
     }
   };
 
-  // إضافة أمر مخصص جديد (الچينيوم)
-  const addPrompt = async (prompt: Omit<CustomPrompt, 'id' | 'createdAt'>) => {
+  const addProject = async (projectData: Omit<AIProject, 'id'>) => {
     if (!promptsRef) return;
     const id = Math.random().toString(36).substr(2, 9);
-    const newPrompt = { ...prompt, id, createdAt: Date.now() };
+    const newProject = { ...projectData, id };
 
     try {
       await setDoc(promptsRef, {
-        prompts: arrayUnion(newPrompt)
+        prompts: arrayUnion(newProject)
       }, { merge: true });
+      return newProject;
     } catch (e) {
       errorEmitter.emit('permission-error', new FirestorePermissionError({
-        path: promptsRef.path, operation: 'update', requestResourceData: newPrompt
+        path: promptsRef.path, operation: 'write', requestResourceData: newProject
+      }));
+      return null;
+    }
+  };
+
+  const updateProject = async (projectId: string, updatedData: Partial<AIProject>) => {
+    if (!promptsRef || !promptsData) return;
+    const updatedPrompts = (promptsData.prompts || []).map((p: AIProject) => 
+      p.id === projectId ? { ...p, ...updatedData } : p
+    );
+
+    try {
+      await updateDoc(promptsRef, { prompts: updatedPrompts });
+    } catch (e) {
+      errorEmitter.emit('permission-error', new FirestorePermissionError({
+        path: promptsRef.path, operation: 'update', requestResourceData: updatedData
       }));
     }
   };
 
-  // تحديث بيانات المستخدم عند تسجيل الدخول
+  const deleteProject = async (projectId: string) => {
+    if (!promptsRef || !promptsData) return;
+    const filteredPrompts = (promptsData.prompts || []).filter((p: AIProject) => p.id !== projectId);
+
+    try {
+      await updateDoc(promptsRef, { prompts: filteredPrompts });
+    } catch (e) {
+      errorEmitter.emit('permission-error', new FirestorePermissionError({
+        path: promptsRef.path, operation: 'update'
+      }));
+    }
+  };
+
   useEffect(() => {
     if (user && userRef && !userLoading && !userData) {
       setDoc(userRef, {
@@ -92,9 +121,11 @@ export function useWorkbenchStore() {
   return {
     userProfile: userData,
     sessions: chatData?.messages || [],
-    projects: promptsData?.prompts || [],
+    projects: (promptsData?.prompts as AIProject[]) || [],
     isLoaded,
     addMessage,
-    addPrompt
+    addProject,
+    updateProject,
+    deleteProject
   };
 }
