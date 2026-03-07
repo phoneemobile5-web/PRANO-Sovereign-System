@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
-import { Plus, Import, FolderOpen, Zap, History, Terminal, CheckCircle2, ChevronLeft, Info, Settings2, Link as LinkIcon, Trash2, Key, Sparkles, AlertTriangle, Heart } from 'lucide-react';
+import { Plus, Import, FolderOpen, Zap, History, Terminal, CheckCircle2, ChevronLeft, Info, Settings2, Link as LinkIcon, Trash2, Key, Sparkles, AlertTriangle, Heart, Lightbulb } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -109,9 +109,9 @@ export default function Dashboard() {
         </div>
 
         <Alert className="bg-primary/10 border-primary/20 py-3 rounded-2xl relative z-10 border-r-[8px]">
-          <Info className="w-5 h-5 text-primary" />
+          <Lightbulb className="w-5 h-5 text-primary" />
           <AlertDescription className="text-xs font-black text-primary mr-2 leading-relaxed">
-            تنبيه الإطلاق: تأكد من استخدام "API Key" وليس رموز الاسترداد ليعمل المحرك! 🔑
+            يا صديقي، كل مجهود تبذله اليوم هو حجر أساس في مستقبلك التقني. استمر فالنتائج مذهلة! ✨
           </AlertDescription>
         </Alert>
         
@@ -135,7 +135,7 @@ export default function Dashboard() {
                 <Alert variant="destructive" className="bg-destructive/10 border-destructive/20 rounded-xl mb-2">
                    <AlertTriangle className="w-4 h-4" />
                    <AlertDescription className="text-[10px] font-bold">
-                     ملاحظة: مفتاح API يبدأ بـ <code className="bg-black/20 px-1 rounded">AIza...</code> وليس رموز Recovery.
+                     تأكد من استخدام API Key (يبدأ بـ AIza) وليس رموز الاسترداد.
                    </AlertDescription>
                 </Alert>
 
@@ -305,4 +305,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
