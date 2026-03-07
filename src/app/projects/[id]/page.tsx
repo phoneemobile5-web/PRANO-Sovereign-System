@@ -18,7 +18,8 @@ import {
   Link as LinkIcon,
   ExternalLink,
   Plus,
-  CheckCircle2
+  CheckCircle2,
+  AlertTriangle
 } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -43,7 +44,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function ProjectEditor() {
   const { id } = useParams();
@@ -123,7 +124,7 @@ export default function ProjectEditor() {
       toast({
         variant: "destructive",
         title: "فشل التشغيل ⚠️",
-        description: "تحقق من المفاتيح الستة ومن اتصال الإنترنت.",
+        description: "تحقق من مفتاح Gemini (يجب أن يبدأ بـ AIza) ومن اتصال الإنترنت.",
       });
     } finally {
       setIsRunning(false);
@@ -135,6 +136,8 @@ export default function ProjectEditor() {
       <RefreshCw className="w-10 h-10 animate-spin text-primary" />
     </div>
   );
+
+  const isKeyCorrect = project.apiKeys?.[0]?.startsWith('AIza');
 
   return (
     <div className="min-h-screen bg-background p-4 pb-32 space-y-6 max-w-md mx-auto font-body" dir="rtl">
@@ -179,7 +182,7 @@ export default function ProjectEditor() {
       </header>
 
       {project.externalAppId && (
-        <Alert className="bg-accent/10 border-accent/20 rounded-[1.5rem] flex items-center gap-4 py-4 shadow-sm">
+        <Alert className="bg-accent/10 border-accent/20 rounded-[1.5rem] flex items-center gap-4 py-4 shadow-sm border-r-[8px]">
           <LinkIcon className="w-6 h-6 text-accent shrink-0" />
           <AlertDescription className="text-[11px] font-black text-accent mr-2 flex-1 flex flex-col gap-2">
             <span className="uppercase tracking-widest text-right">مشروع مربوط بـ Google AI Studio</span>
@@ -207,8 +210,8 @@ export default function ProjectEditor() {
               <Key className="w-7 h-7 text-primary" />
             </div>
             <div>
-              <Label className="text-[12px] font-black uppercase text-primary leading-none tracking-widest">مفاتيح التشغيل الستة</Label>
-              <p className="text-[10px] text-muted-foreground font-bold mt-2">ضع أحد مفاتيحك للبدء بالعمل</p>
+              <Label className="text-[12px] font-black uppercase text-primary leading-none tracking-widest">مفاتيح التشغيل (API Keys)</Label>
+              <p className="text-[10px] text-muted-foreground font-bold mt-2">استخدم مفتاحاً يبدأ بـ AIza ليعمل النظام</p>
             </div>
           </div>
           <CollapsibleTrigger asChild>
@@ -218,14 +221,24 @@ export default function ProjectEditor() {
           </CollapsibleTrigger>
         </div>
         <CollapsibleContent className="pt-6 space-y-5 relative z-10 text-right">
+          {!isKeyCorrect && project.apiKeys?.[0] && (
+            <Alert variant="destructive" className="bg-destructive/10 border-destructive/20 rounded-xl">
+              <AlertTriangle className="w-4 h-4" />
+              <AlertTitle className="text-xs font-black">خطأ في نوع المفتاح!</AlertTitle>
+              <AlertDescription className="text-[10px] leading-relaxed">
+                يبدو أنك أدخلت رمز استرداد أو Recovery code. يرجى استخدام <strong>API Key</strong> من Google AI Studio (يبدأ دائماً بـ <code className="bg-black/20 px-1">AIza</code>).
+              </AlertDescription>
+            </Alert>
+          )}
+
           <div className="space-y-2">
-            <Label className="text-[10px] font-black text-primary uppercase mr-1">المفتاح النشط حالياً</Label>
+            <Label className="text-[10px] font-black text-primary uppercase mr-1">المفتاح النشط (Gemini API Key)</Label>
             <Input 
               type="password"
-              placeholder="ضع أحد مفاتيحك الستة هنا..."
+              placeholder="الصق المفتاح الذي يبدأ بـ AIza هنا..."
               value={project.apiKeys?.[0] || ''}
               onChange={(e) => setProject({ ...project, apiKeys: [e.target.value] })}
-              className="h-14 font-mono text-sm border-2 rounded-2xl bg-background/50 text-right focus:border-primary"
+              className={`h-14 font-mono text-sm border-2 rounded-2xl bg-background/50 text-right focus:border-primary ${!isKeyCorrect && project.apiKeys?.[0] ? 'border-destructive' : ''}`}
             />
           </div>
           <div className="space-y-2">
@@ -291,11 +304,17 @@ export default function ProjectEditor() {
         <Button 
           className="w-full h-20 text-2xl font-black rounded-[2rem] gap-5 shadow-2xl active:scale-95 transition-all bg-primary hover:bg-primary/90 relative z-10" 
           onClick={handleRunTest}
-          disabled={isRunning || !testInput}
+          disabled={isRunning || !testInput || !isKeyCorrect}
         >
           {isRunning ? <RefreshCw className="w-8 h-8 animate-spin" /> : <Play className="w-8 h-8 fill-current" />}
           {isRunning ? 'جاري التحليل...' : 'تشغيل الاختبار'}
         </Button>
+
+        {!isKeyCorrect && project.apiKeys?.[0] && (
+          <p className="text-[10px] text-center text-destructive font-black uppercase animate-pulse">
+            ⚠️ الاختبار متوقف: المفتاح الحالي ليس مفتاح API صحيح.
+          </p>
+        )}
 
         {testOutput && (
           <div className="p-8 bg-card rounded-[2.5rem] border-2 border-primary/20 text-lg font-medium whitespace-pre-wrap leading-relaxed animate-in zoom-in-95 shadow-2xl relative overflow-hidden z-10 text-right">

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
-import { Plus, Import, FolderOpen, Zap, History, Terminal, CheckCircle2, ChevronLeft, Info, Settings2, Link as LinkIcon, Trash2, Key, Sparkles } from 'lucide-react';
+import { Plus, Import, FolderOpen, Zap, History, Terminal, CheckCircle2, ChevronLeft, Info, Settings2, Link as LinkIcon, Trash2, Key, Sparkles, AlertTriangle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function Dashboard() {
   const { projects, isLoaded, addProject, deleteProject } = useWorkbenchStore();
@@ -102,10 +102,10 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <Alert className="bg-primary/10 border-primary/20 py-3 rounded-2xl relative z-10">
+        <Alert className="bg-primary/10 border-primary/20 py-3 rounded-2xl relative z-10 border-r-[8px]">
           <Info className="w-5 h-5 text-primary" />
           <AlertDescription className="text-xs font-black text-primary mr-2 leading-relaxed">
-            أهلاً بك! استخدم "الرابط" و "أحد مفاتيحك الستة" لربط مشروعك الضخم الآن.
+            تنبيه الإطلاق: تأكد من استخدام "API Key" وليس رموز الاسترداد ليعمل المحرك! 🔑
           </AlertDescription>
         </Alert>
         
@@ -117,7 +117,7 @@ export default function Dashboard() {
                   <Import className="w-8 h-8 group-hover:scale-110 transition-transform" /> 
                   <span>استيراد مشروعك الضخم</span>
                 </div>
-                <span className="text-[10px] opacity-90 font-bold uppercase tracking-widest bg-black/20 px-3 py-1 rounded-full">اربط وصفة جوجل ومفاتيحك 🔑</span>
+                <span className="text-[10px] opacity-90 font-bold uppercase tracking-widest bg-black/20 px-3 py-1 rounded-full">اربط وصفة جوجل ومفاتيحك ✨</span>
               </Button>
             </DialogTrigger>
             <DialogContent className="w-[95%] max-w-xs rounded-[2.5rem] p-6 bg-card border-4 border-primary/20 shadow-2xl">
@@ -126,6 +126,13 @@ export default function Dashboard() {
               </DialogHeader>
               
               <div className="space-y-4 py-4 text-right overflow-y-auto max-h-[60vh] pr-1">
+                <Alert variant="destructive" className="bg-destructive/10 border-destructive/20 rounded-xl mb-2">
+                   <AlertTriangle className="w-4 h-4" />
+                   <AlertDescription className="text-[10px] font-bold">
+                     ملاحظة: مفتاح API يبدأ بـ <code className="bg-black/20 px-1 rounded">AIza...</code> وليس رموز Recovery.
+                   </AlertDescription>
+                </Alert>
+
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
                     <Sparkles className="w-3 h-3" /> ١. اسم المشروع
@@ -150,10 +157,10 @@ export default function Dashboard() {
                 </div>
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
-                    <Key className="w-3 h-3" /> ٣. أحد مفاتيحك الستة
+                    <Key className="w-3 h-3" /> ٣. مفتاح Gemini (API Key)
                   </label>
                   <Input 
-                    placeholder="ضع مفتاح Gemini هنا..." 
+                    placeholder="ضع المفتاح الذي يبدأ بـ AIza هنا..." 
                     value={importKey}
                     onChange={(e) => setImportKey(e.target.value)}
                     className="h-14 rounded-2xl font-mono text-sm border-2 bg-background/50 focus:border-primary text-right"
@@ -220,12 +227,14 @@ export default function Dashboard() {
                           <span className="text-[10px] bg-primary/20 px-3 py-1.5 rounded-full font-black text-primary uppercase tracking-widest shadow-sm">
                             {project.model}
                           </span>
-                          {project.apiKeys?.[0] ? (
+                          {project.apiKeys?.[0] && project.apiKeys[0].startsWith('AIza') ? (
                             <span className="text-[10px] font-black text-accent bg-accent/10 px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm border border-accent/20">
-                              <CheckCircle2 className="w-3 h-3" /> جاهز ✅
+                              <CheckCircle2 className="w-3 h-3" /> مفتاح صحيح ✅
                             </span>
+                          ) : project.apiKeys?.[0] ? (
+                            <span className="text-[10px] font-black text-destructive bg-destructive/10 px-3 py-1.5 rounded-full border border-destructive/20 shadow-sm">تنبيه: مفتاح خطأ ⚠️</span>
                           ) : (
-                            <span className="text-[10px] font-black text-destructive bg-destructive/10 px-3 py-1.5 rounded-full border border-destructive/20 shadow-sm">بدون مفتاح ⚠️</span>
+                            <span className="text-[10px] font-black text-muted-foreground bg-muted px-3 py-1.5 rounded-full shadow-sm">بدون مفتاح</span>
                           )}
                         </div>
                       </div>
