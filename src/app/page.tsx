@@ -21,7 +21,8 @@ import {
   Leaf,
   Zap,
   ShieldCheck,
-  ClipboardPaste
+  ClipboardPaste,
+  ExternalLink
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -129,7 +130,7 @@ export default function Dashboard() {
         <Alert className="bg-primary/10 border-primary/20 py-3 rounded-2xl relative z-10 border-r-[8px]">
           <Heart className="w-5 h-5 text-primary fill-current" />
           <AlertDescription className="text-xs font-black text-primary mr-2 leading-relaxed">
-            يا صديقي، لربط مشروعك الضخم، قم بنسخ "التعليمات" و "المفتاح" يدوياً من جوجل لمرة واحدة فقط هنا. 🌍✨
+            يا صديقي، الرابط هو "عنوان منزلك" في جوجل لكي تعود إليه لاحقاً. المهم الآن هو نسخ "وصفة الذكاء" و "مفتاح التشغيل" يدوياً هنا. 🌍✨
           </AlertDescription>
         </Alert>
         
@@ -152,13 +153,6 @@ export default function Dashboard() {
               </DialogHeader>
               
               <div className="space-y-4 py-4 text-right overflow-y-auto max-h-[60vh] pr-1">
-                <Alert className="bg-accent/10 border-accent/20 rounded-xl mb-2">
-                   <Zap className="w-4 h-4 text-accent" />
-                   <AlertDescription className="text-[10px] font-bold text-accent leading-tight">
-                     انقل البيانات يدوياً من مشروعك في AI Studio لكي تعمل المهمة هنا.
-                   </AlertDescription>
-                </Alert>
-
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
                     ١. اسم المهمة
@@ -173,10 +167,10 @@ export default function Dashboard() {
                 
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
-                    <Key className="w-3 h-3" /> ٢. مفتاح Gemini (API Key)
+                    <Key className="w-3 h-3" /> ٢. مفتاح Gemini (الوقود)
                   </label>
                   <Input 
-                    placeholder="ضع المفتاح الذي يبدأ بـ AIza هنا..." 
+                    placeholder="الصق المفتاح الذي يبدأ بـ AIza هنا..." 
                     value={importKey}
                     onChange={(e) => setImportKey(e.target.value)}
                     className="h-14 rounded-2xl font-mono text-sm border-2 bg-background/50 focus:border-primary text-right"
@@ -185,10 +179,10 @@ export default function Dashboard() {
 
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
-                    <ClipboardPaste className="w-3 h-3" /> ٣. وصفة الذكاء (انسخها من جوجل)
+                    <ClipboardPaste className="w-3 h-3" /> ٣. وصفة الذكاء (العقل)
                   </label>
                   <Textarea 
-                    placeholder="الصق الـ System Instructions هنا لكي يظهر عقل المشروع..." 
+                    placeholder="انسخ الـ System Instructions من جوجل وضعها هنا..." 
                     className="min-h-[150px] rounded-2xl text-base border-2 p-4 font-medium bg-background/50 focus:border-primary text-right"
                     value={importPrompt}
                     onChange={(e) => setImportPrompt(e.target.value)}
@@ -197,10 +191,10 @@ export default function Dashboard() {
 
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
-                    <LinkIcon className="w-3 h-3" /> ٤. رابط المشروع (للمرجعية فقط)
+                    <LinkIcon className="w-3 h-3" /> ٤. رابط المشروع (المرجع)
                   </label>
                   <Input 
-                    placeholder="الصق الرابط b0300d9d... هنا" 
+                    placeholder="الصق رابط b0300d9d... للعودة إليه لاحقاً" 
                     value={importExternalId}
                     onChange={(e) => setImportExternalId(e.target.value)}
                     className="h-14 rounded-2xl border-2 font-mono text-xs bg-background/50 focus:border-primary text-right"
@@ -248,6 +242,7 @@ export default function Dashboard() {
                         <div className="flex items-center gap-2 text-[10px] text-accent font-black bg-accent/5 p-2 rounded-xl border border-accent/10 shadow-sm">
                           <LinkIcon className="w-3 h-3 shrink-0" />
                           <span className="truncate flex-1 text-left" dir="ltr">{project.externalAppId.split('/').pop()}</span>
+                          <ExternalLink className="w-3 h-3 opacity-40" />
                         </div>
                       )}
 

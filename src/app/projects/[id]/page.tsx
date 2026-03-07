@@ -183,13 +183,22 @@ export default function ProjectEditor() {
         </AlertDialog>
       </header>
 
-      <Alert className="bg-primary/5 border-primary/20 rounded-[1.5rem] flex items-center gap-4 py-4 shadow-sm border-r-[8px]">
-        <ShieldCheck className="w-6 h-6 text-primary shrink-0" />
-        <AlertDescription className="text-[11px] font-black text-primary mr-2 flex-1 flex flex-col gap-1">
-          <span className="uppercase tracking-widest text-right">وضع التشغيل الآمن (الطبقة المجانية)</span>
-          <span className="text-[9px] opacity-70">أنت تملك التحكم الكامل. انسخ "عقل" المشروع من جوجل وضعه هنا.</span>
-        </AlertDescription>
-      </Alert>
+      {project.externalAppId && (
+        <Alert className="bg-accent/10 border-accent/20 rounded-2xl py-4 shadow-sm border-r-[8px]">
+          <LinkIcon className="w-5 h-5 text-accent shrink-0" />
+          <AlertDescription className="mr-2 flex-1 flex flex-col gap-2">
+            <span className="text-[10px] font-black text-accent uppercase tracking-widest text-right">جسر الربط مع جوجل نشط 🌐</span>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="w-full h-10 rounded-xl border-accent/30 text-accent font-bold gap-2 text-xs"
+              onClick={() => window.open(project.externalAppId, '_blank')}
+            >
+              <ExternalLink className="w-3 h-3" /> فتح في Google AI Studio
+            </Button>
+          </AlertDescription>
+        </Alert>
+      )}
 
       <Collapsible open={showKeys} onOpenChange={setShowKeys} className="bg-card p-6 rounded-[2.5rem] border-2 border-primary/20 shadow-xl relative overflow-hidden">
         <div className="absolute top-0 left-0 p-6 opacity-5 pointer-events-none">
@@ -201,8 +210,8 @@ export default function ProjectEditor() {
               <Key className="w-7 h-7 text-primary" />
             </div>
             <div>
-              <Label className="text-[12px] font-black uppercase text-primary leading-none tracking-widest">مفاتيح التشغيل (الوقود)</Label>
-              <p className="text-[10px] text-muted-foreground font-bold mt-2">استخدم مفتاح API Key فقط ليعمل النظام بنجاح</p>
+              <Label className="text-[12px] font-black uppercase text-primary leading-none tracking-widest">مفتاح التشغيل (الوقود)</Label>
+              <p className="text-[10px] text-muted-foreground font-bold mt-2">ضع مفتاح API Key فقط ليعمل النظام بنجاح</p>
             </div>
           </div>
           <CollapsibleTrigger asChild>
@@ -212,16 +221,6 @@ export default function ProjectEditor() {
           </CollapsibleTrigger>
         </div>
         <CollapsibleContent className="pt-6 space-y-5 relative z-10 text-right">
-          {!isKeyCorrect && project.apiKeys?.[0] && (
-            <Alert variant="destructive" className="bg-destructive/10 border-destructive/20 rounded-xl">
-              <AlertTriangle className="w-4 h-4" />
-              <AlertTitle className="text-xs font-black">تحذير من المفتاح!</AlertTitle>
-              <AlertDescription className="text-[10px] leading-relaxed">
-                هذا ليس مفتاح تشغيل. يرجى إحضار <strong>Gemini API Key</strong> من Google AI Studio (يبدأ بـ AIza).
-              </AlertDescription>
-            </Alert>
-          )}
-
           <div className="space-y-2">
             <Label className="text-[10px] font-black text-primary uppercase mr-1">المفتاح النشط (API Key)</Label>
             <Input 
@@ -233,7 +232,7 @@ export default function ProjectEditor() {
             />
           </div>
           <div className="space-y-2">
-            <Label className="text-[10px] font-black text-primary uppercase mr-1">رابط المشروع للمرجعية</Label>
+            <Label className="text-[10px] font-black text-primary uppercase mr-1">رابط المشروع (المرجع)</Label>
             <Input 
               placeholder="https://ai.studio/apps/..."
               value={project.externalAppId || ''}
@@ -271,7 +270,7 @@ export default function ProjectEditor() {
           value={project.prompt}
           onChange={(e) => setProject({ ...project, prompt: e.target.value })}
           className="min-h-[220px] text-lg font-medium leading-relaxed rounded-2xl border-2 p-5 shadow-inner bg-background/30 focus:border-primary/50 transition-all text-right"
-          placeholder="انسخ 'عقل' المشروع من جوجل (System Instructions) وضعه هنا لكي تعمل المهمة..."
+          placeholder="انسخ 'عقل' المشروع من جوجل (System Instructions) وضعه هنا..."
         />
 
         <Button onClick={handleSave} className="w-full h-20 font-black text-2xl gap-4 rounded-[1.5rem] shadow-2xl active:scale-95 transition-transform bg-primary text-primary-foreground hover:bg-primary/90">
@@ -289,7 +288,7 @@ export default function ProjectEditor() {
         </div>
 
         <Textarea 
-          placeholder="اطرح سؤالاً يخدم كوكب الأرض لنرى كيف سيفكر النظام..."
+          placeholder="اطرح سؤالاً لنرى كيف سيفكر النظام بناءً على الوصفة..."
           className="min-h-[120px] bg-background/80 border-2 border-primary/10 rounded-2xl text-xl p-5 shadow-lg focus:border-primary text-right"
           value={testInput}
           onChange={(e) => setTestInput(e.target.value)}
