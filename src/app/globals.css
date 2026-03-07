@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -34,7 +33,7 @@
   }
   
   .gold-gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#d4af37] via-[#f7e48b] to-[#d4af37] animate-pulse;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#d4af37] via-[#f7e48b] to-[#d4af37];
   }
 
   .teal-gradient {

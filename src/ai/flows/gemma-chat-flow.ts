@@ -44,10 +44,9 @@ export async function gemmaChat(input: ChatInput): Promise<ChatOutput> {
     config: {
       temperature: 0.7,
       // تفعيل ميزانية التفكير لتعزيز القدرة التحليلية (Thinking Budget)
-      // ملاحظة: يتم تمريرها في النسخة الحديثة كجزء من التكوين
       version: 'gemini-2.0-flash-thinking-preview-01-21'
     }
   });
 
-  return { response: text };
+  return { response: text || "عذراً، لم أتمكن من استحضار الاستدلال المطلوب حالياً." };
 }
