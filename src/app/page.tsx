@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
-import { Plus, Import, FolderOpen, Zap, History, Terminal, CheckCircle2, ChevronLeft, Info, Settings2, Link as LinkIcon } from 'lucide-react';
+import { Plus, Import, FolderOpen, Zap, History, Terminal, CheckCircle2, ChevronLeft, Info, Settings2, Link as LinkIcon, Trash2 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -15,12 +15,23 @@ import {
   DialogTrigger,
   DialogFooter
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function Dashboard() {
-  const { projects, isLoaded, addProject } = useWorkbenchStore();
+  const { projects, isLoaded, addProject, deleteProject } = useWorkbenchStore();
   const router = useRouter();
   const [importPrompt, setImportPrompt] = useState('');
   const [importName, setImportName] = useState('');
@@ -172,43 +183,75 @@ export default function Dashboard() {
         <div className="grid gap-4">
           {projects.length > 0 ? (
             projects.map(project => (
-              <Link key={project.id} href={`/projects/${project.id}`}>
-                <Card className="active:scale-95 transition-all bg-card border-primary/10 rounded-3xl overflow-hidden shadow-lg border-r-[12px] border-r-primary group">
-                  <CardContent className="p-6 flex flex-col gap-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 bg-secondary rounded-lg">
-                          <Terminal className="w-5 h-5 text-primary" />
+              <div key={project.id} className="relative group">
+                <Link href={`/projects/${project.id}`}>
+                  <Card className="active:scale-95 transition-all bg-card border-primary/10 rounded-3xl overflow-hidden shadow-lg border-r-[12px] border-r-primary">
+                    <CardContent className="p-6 flex flex-col gap-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="p-2 bg-secondary rounded-lg">
+                            <Terminal className="w-5 h-5 text-primary" />
+                          </div>
+                          <span className="font-black text-xl tracking-tight truncate max-w-[150px]">{project.name}</span>
                         </div>
-                        <span className="font-black text-xl tracking-tight truncate max-w-[150px]">{project.name}</span>
+                        <ChevronLeft className="w-5 h-5 text-muted-foreground" />
                       </div>
-                      <ChevronLeft className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                    </div>
-                    
-                    {project.externalAppId && (
-                      <div className="flex items-center gap-2 text-[10px] text-accent font-black bg-accent/5 p-2 rounded-lg border border-accent/10">
-                        <LinkIcon className="w-3 h-3" />
-                        <span className="truncate">مرتبط بـ: {project.externalAppId.split('/').pop()}</span>
-                      </div>
-                    )}
+                      
+                      {project.externalAppId && (
+                        <div className="flex items-center gap-2 text-[10px] text-accent font-black bg-accent/5 p-2 rounded-lg border border-accent/10">
+                          <LinkIcon className="w-3 h-3" />
+                          <span className="truncate">مرتبط بـ: {project.externalAppId.split('/').pop()}</span>
+                        </div>
+                      )}
 
-                    <div className="flex items-center justify-between mt-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] bg-primary/20 px-3 py-1 rounded-full font-black text-primary uppercase">
-                          {project.model}
-                        </span>
-                        {project.apiKeys?.[0] ? (
-                          <span className="text-[10px] font-black text-accent bg-accent/10 px-3 py-1 rounded-full flex items-center gap-1">
-                            <CheckCircle2 className="w-3 h-3" /> جاهز ✅
+                      <div className="flex items-center justify-between mt-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] bg-primary/20 px-3 py-1 rounded-full font-black text-primary uppercase">
+                            {project.model}
                           </span>
-                        ) : (
-                          <span className="text-[10px] font-black text-destructive bg-destructive/10 px-3 py-1 rounded-full">بدون مفتاح ⚠️</span>
-                        )}
+                          {project.apiKeys?.[0] ? (
+                            <span className="text-[10px] font-black text-accent bg-accent/10 px-3 py-1 rounded-full flex items-center gap-1">
+                              <CheckCircle2 className="w-3 h-3" /> جاهز ✅
+                            </span>
+                          ) : (
+                            <span className="text-[10px] font-black text-destructive bg-destructive/10 px-3 py-1 rounded-full">بدون مفتاح ⚠️</span>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
+                    </CardContent>
+                  </Card>
+                </Link>
+                
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="absolute left-4 top-1/2 -translate-y-1/2 h-10 w-10 text-destructive/40 hover:text-destructive hover:bg-destructive/10 rounded-full z-10"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <Trash2 className="w-5 h-5" />
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent className="w-[90%] rounded-3xl" dir="rtl">
+                    <AlertDialogHeader>
+                      <AlertDialogTitle className="text-right">حذف المشروع؟</AlertDialogTitle>
+                      <AlertDialogDescription className="text-right">
+                        سيتم حذف "{project.name}" نهائياً. لا يمكن التراجع عن هذا الإجراء.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter className="flex-row-reverse gap-2">
+                      <AlertDialogAction 
+                        className="bg-destructive text-destructive-foreground rounded-xl flex-1"
+                        onClick={() => deleteProject(project.id)}
+                      >
+                        نعم، احذف
+                      </AlertDialogAction>
+                      <AlertDialogCancel className="rounded-xl flex-1 mt-0">تراجع</AlertDialogCancel>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </div>
             ))
           ) : (
             <div className="py-16 text-center border-4 border-dashed rounded-[40px] opacity-40 bg-muted/5">

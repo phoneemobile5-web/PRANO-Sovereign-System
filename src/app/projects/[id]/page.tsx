@@ -30,6 +30,17 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function ProjectEditor() {
@@ -60,15 +71,18 @@ export default function ProjectEditor() {
       updateProject(project.id, project);
       toast({
         title: "تم الحفظ بنجاح ✅",
-        description: "تم تحديث وصفة المختبر.",
+        description: "تم تحديث وصفة المشروع.",
       });
     }
   };
 
-  const handleDelete = () => {
-    if (confirm('هل أنت متأكد من حذف هذا المشروع نهائياً؟')) {
+  const handleConfirmDelete = () => {
+    if (id) {
       deleteProject(id as string);
       router.push('/');
+      toast({
+        title: "تم الحذف بنجاح",
+      });
     }
   };
 
@@ -131,9 +145,31 @@ export default function ProjectEditor() {
             className="bg-transparent font-black text-right w-full border-none focus:ring-0 text-xl truncate"
           />
         </div>
-        <Button variant="ghost" size="icon" onClick={handleDelete} className="text-destructive h-12 w-12 bg-destructive/10 rounded-2xl">
-          <Trash2 className="w-6 h-6" />
-        </Button>
+        
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="ghost" size="icon" className="text-destructive h-12 w-12 bg-destructive/10 rounded-2xl">
+              <Trash2 className="w-6 h-6" />
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent className="w-[90%] rounded-3xl" dir="rtl">
+            <AlertDialogHeader>
+              <AlertDialogTitle className="text-right">تأكيد الحذف</AlertDialogTitle>
+              <AlertDialogDescription className="text-right">
+                هل أنت متأكد من حذف هذا المشروع نهائياً؟ لا يمكن التراجع عن هذا القرار.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter className="flex-row-reverse gap-2">
+              <AlertDialogAction 
+                className="bg-destructive text-destructive-foreground rounded-xl flex-1"
+                onClick={handleConfirmDelete}
+              >
+                حذف الآن
+              </AlertDialogAction>
+              <AlertDialogCancel className="rounded-xl flex-1 mt-0">إلغاء</AlertDialogCancel>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </header>
 
       {project.externalAppId && (
