@@ -1,54 +1,70 @@
 
 {
   "entities": {
-    "AIProject": {
-      "title": "AI Project",
-      "description": "Configuration for an AI prompt experiment",
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "بيانات ملاح الأرض الأساسية",
       "type": "object",
       "properties": {
         "name": { "type": "string" },
-        "description": { "type": "string" },
-        "prompt": { "type": "string" },
-        "model": { "type": "string" },
-        "temperature": { "type": "number" },
-        "topP": { "type": "number" },
-        "maxTokens": { "type": "number" },
-        "inputSchema": { "type": "string" },
-        "outputSchema": { "type": "string" },
-        "apiKeys": { 
-          "type": "array", 
-          "items": { "type": "string" },
-          "description": "List of associated keys or project hashes"
-        },
-        "createdAt": { "type": "number" }
+        "email": { "type": "string" },
+        "lastLogin": { "type": "number" },
+        "avatar": { "type": "string" }
       },
-      "required": ["name", "prompt", "model"]
+      "required": ["name", "email"]
     },
-    "AISession": {
-      "title": "AI Session",
-      "description": "A record of an AI interaction",
+    "CustomPrompt": {
+      "title": "Custom Prompt",
+      "description": "الأوامر المخصصة (الچينيوم الوراثي)",
       "type": "object",
       "properties": {
-        "projectId": { "type": "string" },
-        "input": { "type": "string" },
-        "output": { "type": "string" },
-        "timestamp": { "type": "number" },
-        "isBookmarked": { "type": "boolean" }
+        "label": { "type": "string" },
+        "prompt": { "type": "string" },
+        "category": { "type": "string" },
+        "createdAt": { "type": "number" }
       },
-      "required": ["projectId", "input", "output", "timestamp"]
+      "required": ["label", "prompt"]
+    },
+    "ChatMessage": {
+      "title": "Chat Message",
+      "description": "عنصر إخراج إدراكي منفرد",
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "model"] },
+        "feedback": { "type": "string", "enum": ["up", "down", "none"] },
+        "timestamp": { "type": "number" }
+      },
+      "required": ["text", "role", "timestamp"]
+    },
+    "ChatHistory": {
+      "title": "Chat History",
+      "description": "سجل الربط السينابتي المتكامل",
+      "type": "object",
+      "properties": {
+        "messages": { 
+          "type": "array", 
+          "items": { "$ref": "#/backend/entities/ChatMessage" } 
+        },
+        "lastUpdated": { "type": "number" }
+      }
     }
   },
   "auth": {
     "providers": ["google.com"]
   },
   "firestore": {
-    "/users/{userId}/projects/{projectId}": {
-      "schema": "AIProject",
-      "description": "User's AI project configurations"
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "بيانات المستخدمين الأساسية"
     },
-    "/users/{userId}/sessions/{sessionId}": {
-      "schema": "AISession",
-      "description": "User's interaction history"
+    "/customPrompts/{userId}": {
+      "schema": "CustomPrompt",
+      "description": "مجموعة الأوامر المخصصة لملاح الأرض"
+    },
+    "/chatHistories/{userId}": {
+      "schema": "ChatHistory",
+      "description": "سجلات الدردشة والاستدلال السينابتي"
     }
   }
 }

@@ -1,24 +1,16 @@
+
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, Loader2, Sparkles, ChevronRight, BrainCircuit, Cpu } from 'lucide-react';
+import { Send, Bot, User, Loader2, Sparkles, ChevronRight, BrainCircuit } from 'lucide-react';
 import { gemmaChat } from '@/ai/flows/gemma-chat-flow';
 import { Button } from '@/components/ui/button';
+import { useWorkbenchStore } from '@/lib/store';
 import Link from 'next/link';
 
-enum MessageRole {
-  USER = 'user',
-  MODEL = 'model'
-}
-
-interface ChatMessage {
-  role: MessageRole;
-  text: string;
-}
-
 const GemmaChat: React.FC = () => {
+  const { sessions, addMessage, isLoaded } = useWorkbenchStore();
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -26,30 +18,30 @@ const GemmaChat: React.FC = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [messages, isLoading]);
+  }, [sessions, isLoading]);
 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
-    const userMessage: ChatMessage = { role: MessageRole.USER, text: input };
-    const currentHistory = [...messages];
-    setMessages(prev => [...prev, userMessage]);
+    const userMessage = { role: 'user' as const, text: input };
+    await addMessage(userMessage);
     setInput('');
     setIsLoading(true);
 
     try {
       const result = await gemmaChat({ 
         message: input, 
-        history: currentHistory 
+        history: sessions.map(m => ({ role: m.role, text: m.text }))
       });
-      const aiMessage: ChatMessage = { role: MessageRole.MODEL, text: result.response };
-      setMessages(prev => [...prev, aiMessage]);
+      await addMessage({ role: 'model', text: result.response });
     } catch (error) {
       // Errors handled by global listener
     } finally {
       setIsLoading(false);
     }
   };
+
+  if (!isLoaded) return null;
 
   return (
     <div className="min-h-screen bg-background p-2 md:p-8 flex items-center justify-center font-body" dir="rtl">
@@ -62,7 +54,7 @@ const GemmaChat: React.FC = () => {
           </Link>
           <div className="flex items-center gap-2">
              <BrainCircuit className="w-5 h-5 text-primary animate-pulse" />
-             <span className="text-[10px] font-black uppercase tracking-widest text-primary">المعالج الإدراكي 2030 نشط</span>
+             <span className="text-[10px] font-black uppercase tracking-widest text-primary">المعالج Gemma 2030 نشط</span>
           </div>
         </div>
 
@@ -82,25 +74,25 @@ const GemmaChat: React.FC = () => {
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-8 scrollbar-hide" ref={scrollRef}>
-            {messages.length === 0 && (
+            {sessions.length === 0 && (
               <div className="h-full flex flex-col items-center justify-center text-center space-y-6 opacity-40">
                 <div className="p-6 bg-white/5 rounded-full border border-white/10">
                   <Sparkles className="w-12 h-12 text-[#d4af37]" />
                 </div>
                 <p className="text-[#fffcf2] max-w-sm text-sm font-medium leading-relaxed">
-                  يا ملاح الأرض، النواة العليا جاهزة للربط السينابتي. اطرح تساؤلك المعماري لنبدأ الإخراج الإدراكي.
+                  يا ملاح الأرض، النواة العليا جاهزة للربط السينابتي. سجل الدردشة الآن فارغ في شجرة البيانات.
                 </p>
               </div>
             )}
-            {messages.map((msg, i) => (
-              <div key={i} className={`flex ${msg.role === MessageRole.USER ? 'justify-start' : 'justify-end animate-in fade-in zoom-in-95'}`}>
+            {sessions.map((msg, i) => (
+              <div key={i} className={`flex ${msg.role === 'user' ? 'justify-start' : 'justify-end animate-in fade-in zoom-in-95'}`}>
                 <div className={`max-w-[90%] p-5 rounded-3xl flex gap-4 shadow-xl border ${
-                  msg.role === MessageRole.USER 
+                  msg.role === 'user' 
                     ? 'bg-[#004d4d] border-white/10 rounded-tr-none text-white' 
                     : 'bg-[#fffcf2]/5 border-[#d4af37]/20 rounded-tl-none text-[#fffcf2]'
                 }`}>
                   <div className="shrink-0 mt-1">
-                    {msg.role === MessageRole.USER ? <User className="w-5 h-5 text-accent" /> : <Bot className="w-5 h-5 text-primary" />}
+                    {msg.role === 'user' ? <User className="w-5 h-5 text-accent" /> : <Bot className="w-5 h-5 text-primary" />}
                   </div>
                   <div className="text-sm md:text-base leading-relaxed whitespace-pre-wrap font-medium">
                     {msg.text}

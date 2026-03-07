@@ -1,169 +1,100 @@
+
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { useUser, useCollection, useFirestore } from '@/firebase';
+import { useUser, useFirestore, useDoc } from '@/firebase';
 import { 
-  collection, 
   doc, 
   setDoc, 
-  deleteDoc, 
-  query, 
-  orderBy,
+  updateDoc, 
+  arrayUnion, 
+  serverTimestamp 
 } from 'firebase/firestore';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 
-export interface AIProject {
+export interface ChatMessage {
+  text: string;
+  role: 'user' | 'model';
+  feedback?: 'up' | 'down' | 'none';
+  timestamp: number;
+}
+
+export interface CustomPrompt {
   id: string;
-  name: string;
-  description: string;
+  label: string;
   prompt: string;
-  model: string;
-  temperature: number;
-  topP: number;
-  maxTokens: number;
-  inputSchema: string;
-  outputSchema: string;
-  apiKeys?: string[];
-  externalAppId?: string; // الرابط أو المعرف من Google AI Studio
+  category: string;
   createdAt: number;
 }
-
-export interface AISession {
-  id: string;
-  projectId: string;
-  input: string;
-  output: string;
-  timestamp: number;
-  isBookmarked: boolean;
-}
-
-const STORAGE_KEY_PROJECTS = 'ai_wb_p';
-const STORAGE_KEY_SESSIONS = 'ai_wb_s';
 
 export function useWorkbenchStore() {
   const { user } = useUser();
   const db = useFirestore();
-  
-  const [localProjects, setLocalProjects] = useState<AIProject[]>([]);
-  const [localSessions, setLocalSessions] = useState<AISession[]>([]);
-  const [isLocalLoaded, setIsLocalLoaded] = useState(false);
 
-  // Queries for remote data
-  const projectsQuery = useMemo(() => {
-    if (!db || !user) return null;
-    return query(collection(db, 'users', user.uid, 'projects'), orderBy('createdAt', 'desc'));
-  }, [db, user]);
+  // مراجع الوثائق بناءً على المخطط المعماري الجديد
+  const userRef = useMemo(() => (db && user ? doc(db, 'users', user.uid) : null), [db, user]);
+  const chatRef = useMemo(() => (db && user ? doc(db, 'chatHistories', user.uid) : null), [db, user]);
+  const promptsRef = useMemo(() => (db && user ? doc(db, 'customPrompts', user.uid) : null), [db, user]);
 
-  const sessionsQuery = useMemo(() => {
-    if (!db || !user) return null;
-    return query(collection(db, 'users', user.uid, 'sessions'), orderBy('timestamp', 'desc'));
-  }, [db, user]);
+  const { data: userData, loading: userLoading } = useDoc(userRef);
+  const { data: chatData, loading: chatLoading } = useDoc(chatRef);
+  const { data: promptsData, loading: promptsLoading } = useDoc(promptsRef);
 
-  const { data: remoteProjects, loading: projectsLoading } = useCollection<AIProject>(projectsQuery);
-  const { data: remoteSessions, loading: sessionsLoading } = useCollection<AISession>(sessionsQuery);
+  const isLoaded = !userLoading && !chatLoading && !promptsLoading;
 
-  // Load local data on mount
+  // إضافة رسالة إلى سجل الربط السينابتي
+  const addMessage = async (message: Omit<ChatMessage, 'timestamp'>) => {
+    if (!chatRef) return;
+    const newMessage = { ...message, timestamp: Date.now() };
+
+    try {
+      await setDoc(chatRef, {
+        messages: arrayUnion(newMessage),
+        lastUpdated: Date.now()
+      }, { merge: true });
+    } catch (e) {
+      errorEmitter.emit('permission-error', new FirestorePermissionError({
+        path: chatRef.path, operation: 'update', requestResourceData: newMessage
+      }));
+    }
+  };
+
+  // إضافة أمر مخصص جديد (الچينيوم)
+  const addPrompt = async (prompt: Omit<CustomPrompt, 'id' | 'createdAt'>) => {
+    if (!promptsRef) return;
+    const id = Math.random().toString(36).substr(2, 9);
+    const newPrompt = { ...prompt, id, createdAt: Date.now() };
+
+    try {
+      await setDoc(promptsRef, {
+        prompts: arrayUnion(newPrompt)
+      }, { merge: true });
+    } catch (e) {
+      errorEmitter.emit('permission-error', new FirestorePermissionError({
+        path: promptsRef.path, operation: 'update', requestResourceData: newPrompt
+      }));
+    }
+  };
+
+  // تحديث بيانات المستخدم عند تسجيل الدخول
   useEffect(() => {
-    const savedProjects = localStorage.getItem(STORAGE_KEY_PROJECTS);
-    const savedSessions = localStorage.getItem(STORAGE_KEY_SESSIONS);
-    if (savedProjects) try { setLocalProjects(JSON.parse(savedProjects)); } catch (e) {}
-    if (savedSessions) try { setLocalSessions(JSON.parse(savedSessions)); } catch (e) {}
-    setIsLocalLoaded(true);
-  }, []);
-
-  const projects = user ? (remoteProjects || []) : localProjects;
-  const sessions = user ? (remoteSessions || []) : localSessions;
-  const isLoaded = user ? (!projectsLoading && !sessionsLoading) : isLocalLoaded;
-
-  const addProject = (project: Omit<AIProject, 'id' | 'createdAt'>) => {
-    const id = Math.random().toString(36).substr(2, 9);
-    const newProject: AIProject = { ...project, id, createdAt: Date.now() };
-
-    if (user && db) {
-      const docRef = doc(db, 'users', user.uid, 'projects', id);
-      setDoc(docRef, newProject).catch(() => {
-        errorEmitter.emit('permission-error', new FirestorePermissionError({
-          path: docRef.path, operation: 'create', requestResourceData: newProject
-        }));
-      });
-    } else {
-      const updated = [...localProjects, newProject];
-      setLocalProjects(updated);
-      localStorage.setItem(STORAGE_KEY_PROJECTS, JSON.stringify(updated));
+    if (user && userRef && !userLoading && !userData) {
+      setDoc(userRef, {
+        name: user.displayName,
+        email: user.email,
+        lastLogin: Date.now(),
+        avatar: user.photoURL
+      }, { merge: true });
     }
-    return newProject;
-  };
+  }, [user, userRef, userLoading, userData]);
 
-  const updateProject = (id: string, updates: Partial<AIProject>) => {
-    if (user && db) {
-      const docRef = doc(db, 'users', user.uid, 'projects', id);
-      setDoc(docRef, updates, { merge: true }).catch(() => {
-        errorEmitter.emit('permission-error', new FirestorePermissionError({
-          path: docRef.path, operation: 'update', requestResourceData: updates
-        }));
-      });
-    } else {
-      const updated = localProjects.map((p) => (p.id === id ? { ...p, ...updates } : p));
-      setLocalProjects(updated);
-      localStorage.setItem(STORAGE_KEY_PROJECTS, JSON.stringify(updated));
-    }
+  return {
+    userProfile: userData,
+    sessions: chatData?.messages || [],
+    projects: promptsData?.prompts || [],
+    isLoaded,
+    addMessage,
+    addPrompt
   };
-
-  const deleteProject = (id: string) => {
-    if (user && db) {
-      const docRef = doc(db, 'users', user.uid, 'projects', id);
-      deleteDoc(docRef).catch(() => {
-        errorEmitter.emit('permission-error', new FirestorePermissionError({
-          path: docRef.path, operation: 'delete'
-        }));
-      });
-    } else {
-      const updated = localProjects.filter((p) => p.id !== id);
-      setLocalProjects(updated);
-      localStorage.setItem(STORAGE_KEY_PROJECTS, JSON.stringify(updated));
-    }
-  };
-
-  const addSession = (projectId: string, input: string, output: string) => {
-    const id = Math.random().toString(36).substr(2, 9);
-    const newSession: AISession = { id, projectId, input, output, timestamp: Date.now(), isBookmarked: false };
-    if (user && db) {
-      const docRef = doc(db, 'users', user.uid, 'sessions', id);
-      setDoc(docRef, newSession).catch(() => {});
-    } else {
-      const updated = [newSession, ...localSessions];
-      setLocalSessions(updated);
-      localStorage.setItem(STORAGE_KEY_SESSIONS, JSON.stringify(updated));
-    }
-    return newSession;
-  };
-
-  const toggleBookmark = (sessionId: string) => {
-    const session = sessions.find(s => s.id === sessionId);
-    if (!session) return;
-    
-    const updates = { isBookmarked: !session.isBookmarked };
-    if (user && db) {
-      const docRef = doc(db, 'users', user.uid, 'sessions', sessionId);
-      setDoc(docRef, updates, { merge: true }).catch(() => {});
-    } else {
-      const updated = localSessions.map(s => s.id === sessionId ? { ...s, ...updates } : s);
-      setLocalSessions(updated);
-      localStorage.setItem(STORAGE_KEY_SESSIONS, JSON.stringify(updated));
-    }
-  };
-
-  const deleteSession = (sessionId: string) => {
-    if (user && db) {
-      const docRef = doc(db, 'users', user.uid, 'sessions', sessionId);
-      deleteDoc(docRef).catch(() => {});
-    } else {
-      const updated = localSessions.filter(s => s.id !== sessionId);
-      setLocalSessions(updated);
-      localStorage.setItem(STORAGE_KEY_SESSIONS, JSON.stringify(updated));
-    }
-  };
-
-  return { projects, sessions, isLoaded, addProject, updateProject, deleteProject, addSession, toggleBookmark, deleteSession };
 }
