@@ -1,45 +1,46 @@
-
 {
   "entities": {
     "UserProfile": {
       "title": "User Profile",
-      "description": "بيانات ملاح الأرض الأساسية",
+      "description": "بيانات ملاح الأرض في عمارة Gemma Core 2030",
       "type": "object",
       "properties": {
         "name": { "type": "string" },
         "email": { "type": "string" },
         "lastLogin": { "type": "number" },
-        "avatar": { "type": "string" }
+        "avatar": { "type": "string" },
+        "mission": { "type": "string" }
       },
       "required": ["name", "email"]
     },
     "CustomPrompt": {
       "title": "Custom Prompt",
-      "description": "الأوامر المخصصة (الچينيوم الوراثي)",
+      "description": "تعليمات النظام (الچينيوم الوراثي للمهام)",
       "type": "object",
       "properties": {
-        "label": { "type": "string" },
+        "id": { "type": "string" },
+        "name": { "type": "string" },
         "prompt": { "type": "string" },
-        "category": { "type": "string" },
-        "createdAt": { "type": "number" }
+        "model": { "type": "string" },
+        "apiKeys": { "type": "array", "items": { "type": "string" } },
+        "isSustainable": { "type": "boolean" }
       },
-      "required": ["label", "prompt"]
+      "required": ["name", "prompt"]
     },
     "ChatMessage": {
       "title": "Chat Message",
-      "description": "عنصر إخراج إدراكي منفرد",
+      "description": "إخراج إدراكي سينابتي فردي",
       "type": "object",
       "properties": {
         "text": { "type": "string" },
         "role": { "type": "string", "enum": ["user", "model"] },
-        "feedback": { "type": "string", "enum": ["up", "down", "none"] },
         "timestamp": { "type": "number" }
       },
       "required": ["text", "role", "timestamp"]
     },
     "ChatHistory": {
       "title": "Chat History",
-      "description": "سجل الربط السينابتي المتكامل",
+      "description": "سجل الاستدلال السينابتي المتكامل للملاح",
       "type": "object",
       "properties": {
         "messages": { 
@@ -56,15 +57,15 @@
   "firestore": {
     "/users/{userId}": {
       "schema": "UserProfile",
-      "description": "بيانات المستخدمين الأساسية"
+      "description": "قاعدة بيانات ملاحي الأرض"
     },
     "/customPrompts/{userId}": {
       "schema": "CustomPrompt",
-      "description": "مجموعة الأوامر المخصصة لملاح الأرض"
+      "description": "مستودع الچينيوم الوراثي للمهام"
     },
     "/chatHistories/{userId}": {
       "schema": "ChatHistory",
-      "description": "سجلات الدردشة والاستدلال السينابتي"
+      "description": "أرشيف الاستدلال السينابتي"
     }
   }
 }
