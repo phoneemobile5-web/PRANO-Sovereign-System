@@ -77,11 +77,13 @@ export default function Dashboard() {
     router.push(`/projects/${newProject.id}`);
   };
 
+  // تأكد من تطابق هذه الواجهة مع واجهة FirebaseClientProvider لتجنب أخطاء الهيدريشن
   if (!isLoaded) return (
-    <div className="min-h-screen flex items-center justify-center bg-[#001a1a]">
+    <div className="min-h-screen flex items-center justify-center bg-[#001a1a] font-body" dir="rtl">
       <div className="text-center space-y-4">
         <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
         <p className="text-sm font-black text-primary tracking-widest uppercase">جاري استحضار Gemma Core 2030...</p>
+        <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Initial Synaptic Sync</p>
       </div>
     </div>
   );

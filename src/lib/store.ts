@@ -18,9 +18,10 @@ import { FirestorePermissionError } from '@/firebase/errors';
  */
 
 export interface ChatMessage {
+  id?: string;
   text: string;
   role: 'user' | 'model';
-  feedback?: 'up' | 'down' | 'none';
+  isBookmarked?: boolean;
   timestamp: number;
 }
 
@@ -40,7 +41,6 @@ export function useWorkbenchStore() {
   const { user } = useUser();
   const db = useFirestore();
 
-  // مراجع الربط السينابتي حسب المخطط المعماري 2030
   const userRef = useMemo(() => (db && user ? doc(db, 'users', user.uid) : null), [db, user]);
   const chatRef = useMemo(() => (db && user ? doc(db, 'chatHistories', user.uid) : null), [db, user]);
   const promptsRef = useMemo(() => (db && user ? doc(db, 'customPrompts', user.uid) : null), [db, user]);
@@ -51,10 +51,14 @@ export function useWorkbenchStore() {
 
   const isLoaded = !userLoading && !chatLoading && !promptsLoading;
 
-  // إضافة مخرج إدراكي لسجل الدردشة
   const addMessage = async (message: Omit<ChatMessage, 'timestamp'>) => {
     if (!chatRef) return;
-    const newMessage = { ...message, timestamp: Date.now() };
+    const newMessage = { 
+      ...message, 
+      id: Math.random().toString(36).substr(2, 9),
+      timestamp: Date.now(),
+      isBookmarked: false 
+    };
 
     setDoc(chatRef, {
       messages: arrayUnion(newMessage),
@@ -67,7 +71,32 @@ export function useWorkbenchStore() {
     });
   };
 
-  // تفعيل مهمة أرضية جديدة
+  const deleteSession = async (messageId: string) => {
+    if (!chatRef || !chatData) return;
+    const updatedMessages = (chatData.messages || []).filter((m: any) => m.id !== messageId);
+    
+    updateDoc(chatRef, { messages: updatedMessages })
+    .catch(async (e) => {
+      errorEmitter.emit('permission-error', new FirestorePermissionError({
+        path: chatRef.path, operation: 'delete'
+      }));
+    });
+  };
+
+  const toggleBookmark = async (messageId: string) => {
+    if (!chatRef || !chatData) return;
+    const updatedMessages = (chatData.messages || []).map((m: any) => 
+      m.id === messageId ? { ...m, isBookmarked: !m.isBookmarked } : m
+    );
+
+    updateDoc(chatRef, { messages: updatedMessages })
+    .catch(async (e) => {
+      errorEmitter.emit('permission-error', new FirestorePermissionError({
+        path: chatRef.path, operation: 'update'
+      }));
+    });
+  };
+
   const addProject = async (projectData: Omit<AIProject, 'id'>) => {
     if (!promptsRef) return;
     const id = Math.random().toString(36).substr(2, 9);
@@ -130,6 +159,8 @@ export function useWorkbenchStore() {
     addMessage,
     addProject,
     updateProject,
-    deleteProject
+    deleteProject,
+    deleteSession,
+    toggleBookmark
   };
 }
