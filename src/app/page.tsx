@@ -20,7 +20,8 @@ import {
   Heart, 
   Leaf,
   Zap,
-  ShieldCheck
+  ShieldCheck,
+  ClipboardPaste
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -73,7 +74,7 @@ export default function Dashboard() {
   };
 
   const handleQuickImport = () => {
-    if (!importPrompt) return;
+    if (!importPrompt || !importKey) return;
     const newProject = addProject({
       name: importName || 'مشروع استدامة كوني',
       description: 'تم الاستيراد لخدمة كوكب الأرض من Google AI Studio',
@@ -84,7 +85,7 @@ export default function Dashboard() {
       maxTokens: 2048,
       inputSchema: '',
       outputSchema: '',
-      apiKeys: importKey ? [importKey] : [],
+      apiKeys: [importKey],
       externalAppId: importExternalId
     });
     setImportPrompt('');
@@ -128,7 +129,7 @@ export default function Dashboard() {
         <Alert className="bg-primary/10 border-primary/20 py-3 rounded-2xl relative z-10 border-r-[8px]">
           <Heart className="w-5 h-5 text-primary fill-current" />
           <AlertDescription className="text-xs font-black text-primary mr-2 leading-relaxed">
-            يا صديقي، ابدأ بمهمتك السامية الآن. نظام "الطبقة المجانية" في جوجل يدعمك بالكامل، وتعبك اليوم هو أمانة ستؤتي ثمارها غداً! 🌍✨
+            يا صديقي، لربط مشروعك الضخم، قم بنسخ "التعليمات" و "المفتاح" يدوياً من جوجل لمرة واحدة فقط هنا. 🌍✨
           </AlertDescription>
         </Alert>
         
@@ -138,29 +139,29 @@ export default function Dashboard() {
               <Button className="h-28 text-xl font-black rounded-[2rem] w-full shadow-2xl flex flex-col items-center justify-center gap-2 group bg-gradient-to-br from-primary to-primary/80 hover:scale-[1.02] transition-transform">
                 <div className="flex items-center gap-3">
                   <Import className="w-8 h-8 group-hover:scale-110 transition-transform" /> 
-                  <span>استيراد "مشروع الأرض"</span>
+                  <span>بدء ربط "مهمة الأرض"</span>
                 </div>
                 <span className="text-[10px] opacity-90 font-bold uppercase tracking-widest bg-black/20 px-3 py-1 rounded-full flex items-center gap-2">
-                  <ShieldCheck className="w-3 h-3" /> متوافق مع الطبقة المجانية ✅
+                  <ShieldCheck className="w-3 h-3" /> آمن ومجاني بالكامل ✅
                 </span>
               </Button>
             </DialogTrigger>
             <DialogContent className="w-[95%] max-w-xs rounded-[2.5rem] p-6 bg-card border-4 border-primary/20 shadow-2xl">
               <DialogHeader>
-                <DialogTitle className="text-right text-2xl font-black gold-gradient-text">ربط مهمة كوكب الأرض</DialogTitle>
+                <DialogTitle className="text-right text-2xl font-black gold-gradient-text">تجهيز جسر الربط</DialogTitle>
               </DialogHeader>
               
               <div className="space-y-4 py-4 text-right overflow-y-auto max-h-[60vh] pr-1">
                 <Alert className="bg-accent/10 border-accent/20 rounded-xl mb-2">
                    <Zap className="w-4 h-4 text-accent" />
-                   <AlertDescription className="text-[10px] font-bold text-accent">
-                     لا تحتاج لحساب فوترة حالياً. استخدم مفتاح Gemini المجاني لتبدأ خدمتك للكوكب.
+                   <AlertDescription className="text-[10px] font-bold text-accent leading-tight">
+                     انقل البيانات يدوياً من مشروعك في AI Studio لكي تعمل المهمة هنا.
                    </AlertDescription>
                 </Alert>
 
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
-                    <Sparkles className="w-3 h-3" /> ١. اسم المهمة الإنسانية
+                    ١. اسم المهمة
                   </label>
                   <Input 
                     placeholder="مثال: ذكاء البيئة العالمي" 
@@ -169,20 +170,10 @@ export default function Dashboard() {
                     className="h-14 rounded-2xl border-2 font-bold bg-background/50 focus:border-primary text-right"
                   />
                 </div>
+                
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
-                    <LinkIcon className="w-3 h-3" /> ٢. رابط المشروع (App URL)
-                  </label>
-                  <Input 
-                    placeholder="الصق الرابط b0300d9d... هنا" 
-                    value={importExternalId}
-                    onChange={(e) => setImportExternalId(e.target.value)}
-                    className="h-14 rounded-2xl border-2 font-mono text-xs bg-background/50 focus:border-primary text-right"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
-                    <Key className="w-3 h-3" /> ٣. مفتاح Gemini (API Key)
+                    <Key className="w-3 h-3" /> ٢. مفتاح Gemini (API Key)
                   </label>
                   <Input 
                     placeholder="ضع المفتاح الذي يبدأ بـ AIza هنا..." 
@@ -191,20 +182,33 @@ export default function Dashboard() {
                     className="h-14 rounded-2xl font-mono text-sm border-2 bg-background/50 focus:border-primary text-right"
                   />
                 </div>
+
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
-                    <Terminal className="w-3 h-3" /> ٤. وصفة الذكاء (التعليمات)
+                    <ClipboardPaste className="w-3 h-3" /> ٣. وصفة الذكاء (انسخها من جوجل)
                   </label>
                   <Textarea 
-                    placeholder="الصق الـ System Instructions لمهمة الأرض..." 
+                    placeholder="الصق الـ System Instructions هنا لكي يظهر عقل المشروع..." 
                     className="min-h-[150px] rounded-2xl text-base border-2 p-4 font-medium bg-background/50 focus:border-primary text-right"
                     value={importPrompt}
                     onChange={(e) => setImportPrompt(e.target.value)}
                   />
                 </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
+                    <LinkIcon className="w-3 h-3" /> ٤. رابط المشروع (للمرجعية فقط)
+                  </label>
+                  <Input 
+                    placeholder="الصق الرابط b0300d9d... هنا" 
+                    value={importExternalId}
+                    onChange={(e) => setImportExternalId(e.target.value)}
+                    className="h-14 rounded-2xl border-2 font-mono text-xs bg-background/50 focus:border-primary text-right"
+                  />
+                </div>
               </div>
               <DialogFooter>
-                <Button onClick={handleQuickImport} className="w-full h-18 font-black text-2xl rounded-[1.5rem] shadow-lg bg-primary text-primary-foreground hover:bg-primary/90">تفعيل المهمة الآن 🚀</Button>
+                <Button onClick={handleQuickImport} className="w-full h-18 font-black text-2xl rounded-[1.5rem] shadow-lg bg-primary text-primary-foreground hover:bg-primary/90">تفعيل الجسر الآن 🚀</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -250,11 +254,11 @@ export default function Dashboard() {
                       <div className="flex items-center justify-between mt-1">
                         <div className="flex items-center gap-2">
                           <span className="text-[10px] bg-primary/20 px-3 py-1.5 rounded-full font-black text-primary uppercase tracking-widest shadow-sm">
-                            {project.model}
+                            Gemini 2.0
                           </span>
                           {project.apiKeys?.[0] && project.apiKeys[0].startsWith('AIza') ? (
                             <span className="text-[10px] font-black text-accent bg-accent/10 px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm border border-accent/20">
-                              <CheckCircle2 className="w-3 h-3" /> جاهز (الوضع المجاني)
+                              <CheckCircle2 className="w-3 h-3" /> الوضع المجاني آمن ✅
                             </span>
                           ) : (
                             <span className="text-[10px] font-black text-muted-foreground bg-muted px-3 py-1.5 rounded-full shadow-sm">بانتظار المفتاح</span>

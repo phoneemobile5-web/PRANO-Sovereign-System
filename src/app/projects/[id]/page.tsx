@@ -20,7 +20,8 @@ import {
   ExternalLink,
   CheckCircle2,
   AlertTriangle,
-  ShieldCheck
+  ShieldCheck,
+  ClipboardPaste
 } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -186,7 +187,7 @@ export default function ProjectEditor() {
         <ShieldCheck className="w-6 h-6 text-primary shrink-0" />
         <AlertDescription className="text-[11px] font-black text-primary mr-2 flex-1 flex flex-col gap-1">
           <span className="uppercase tracking-widest text-right">وضع التشغيل الآمن (الطبقة المجانية)</span>
-          <span className="text-[9px] opacity-70">تعمل حالياً بدون أي تكاليف مادية، بفضل دعم جوجل للمطورين المبدعين.</span>
+          <span className="text-[9px] opacity-70">أنت تملك التحكم الكامل. انسخ "عقل" المشروع من جوجل وضعه هنا.</span>
         </AlertDescription>
       </Alert>
 
@@ -200,8 +201,8 @@ export default function ProjectEditor() {
               <Key className="w-7 h-7 text-primary" />
             </div>
             <div>
-              <Label className="text-[12px] font-black uppercase text-primary leading-none tracking-widest">مفاتيح التشغيل (Gemini Key)</Label>
-              <p className="text-[10px] text-muted-foreground font-bold mt-2">استخدم مفتاحاً يبدأ بـ AIza ليعمل النظام</p>
+              <Label className="text-[12px] font-black uppercase text-primary leading-none tracking-widest">مفاتيح التشغيل (الوقود)</Label>
+              <p className="text-[10px] text-muted-foreground font-bold mt-2">استخدم مفتاح API Key فقط ليعمل النظام بنجاح</p>
             </div>
           </div>
           <CollapsibleTrigger asChild>
@@ -214,9 +215,9 @@ export default function ProjectEditor() {
           {!isKeyCorrect && project.apiKeys?.[0] && (
             <Alert variant="destructive" className="bg-destructive/10 border-destructive/20 rounded-xl">
               <AlertTriangle className="w-4 h-4" />
-              <AlertTitle className="text-xs font-black">خطأ في نوع المفتاح!</AlertTitle>
+              <AlertTitle className="text-xs font-black">تحذير من المفتاح!</AlertTitle>
               <AlertDescription className="text-[10px] leading-relaxed">
-                هذا رمز استرداد (Recovery code). يرجى الحصول على <strong>Gemini API Key</strong> من Google AI Studio ليعمل الذكاء.
+                هذا ليس مفتاح تشغيل. يرجى إحضار <strong>Gemini API Key</strong> من Google AI Studio (يبدأ بـ AIza).
               </AlertDescription>
             </Alert>
           )}
@@ -225,14 +226,14 @@ export default function ProjectEditor() {
             <Label className="text-[10px] font-black text-primary uppercase mr-1">المفتاح النشط (API Key)</Label>
             <Input 
               type="password"
-              placeholder="الصق المفتاح الذي يبدأ بـ AIza هنا..."
+              placeholder="الصق مفتاح التشغيل هنا..."
               value={project.apiKeys?.[0] || ''}
               onChange={(e) => setProject({ ...project, apiKeys: [e.target.value] })}
               className={`h-14 font-mono text-sm border-2 rounded-2xl bg-background/50 text-right focus:border-primary ${!isKeyCorrect && project.apiKeys?.[0] ? 'border-destructive' : ''}`}
             />
           </div>
           <div className="space-y-2">
-            <Label className="text-[10px] font-black text-primary uppercase mr-1">رابط المشروع (Google AI Studio)</Label>
+            <Label className="text-[10px] font-black text-primary uppercase mr-1">رابط المشروع للمرجعية</Label>
             <Input 
               placeholder="https://ai.studio/apps/..."
               value={project.externalAppId || ''}
@@ -247,9 +248,12 @@ export default function ProjectEditor() {
         <div className="flex items-center justify-between border-b-2 border-primary/10 pb-4">
           <div className="flex items-center gap-3 text-right">
             <div className="p-3 bg-primary/10 rounded-2xl shrink-0">
-              <Sparkles className="w-6 h-6 text-primary" />
+              <ClipboardPaste className="w-6 h-6 text-primary" />
             </div>
-            <Label className="text-[12px] font-black uppercase text-primary tracking-[0.2em]">وصفة المهمة (التعليمات)</Label>
+            <div>
+              <Label className="text-[12px] font-black uppercase text-primary tracking-[0.2em]">وصفة المهمة (العقل)</Label>
+              <p className="text-[9px] text-muted-foreground font-bold uppercase mt-1">System Instructions</p>
+            </div>
           </div>
           <Button 
             variant="secondary" 
@@ -259,7 +263,7 @@ export default function ProjectEditor() {
             disabled={isRefining}
           >
             {isRefining ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
-            <span className="text-[11px] font-black mr-2">تحسين</span>
+            <span className="text-[11px] font-black mr-2">تحسين ذكي</span>
           </Button>
         </div>
 
@@ -267,11 +271,11 @@ export default function ProjectEditor() {
           value={project.prompt}
           onChange={(e) => setProject({ ...project, prompt: e.target.value })}
           className="min-h-[220px] text-lg font-medium leading-relaxed rounded-2xl border-2 p-5 shadow-inner bg-background/30 focus:border-primary/50 transition-all text-right"
-          placeholder="انسخ تعليمات المهمة الأرضية من جوجل وضعها هنا..."
+          placeholder="انسخ 'عقل' المشروع من جوجل (System Instructions) وضعه هنا لكي تعمل المهمة..."
         />
 
         <Button onClick={handleSave} className="w-full h-20 font-black text-2xl gap-4 rounded-[1.5rem] shadow-2xl active:scale-95 transition-transform bg-primary text-primary-foreground hover:bg-primary/90">
-          <Save className="w-8 h-8" /> حفظ المهمة 💾
+          <Save className="w-8 h-8" /> حفظ بيانات المهمة 💾
         </Button>
       </section>
 
@@ -285,7 +289,7 @@ export default function ProjectEditor() {
         </div>
 
         <Textarea 
-          placeholder="اطرح سؤالاً يخدم كوكب الأرض..."
+          placeholder="اطرح سؤالاً يخدم كوكب الأرض لنرى كيف سيفكر النظام..."
           className="min-h-[120px] bg-background/80 border-2 border-primary/10 rounded-2xl text-xl p-5 shadow-lg focus:border-primary text-right"
           value={testInput}
           onChange={(e) => setTestInput(e.target.value)}
@@ -305,9 +309,9 @@ export default function ProjectEditor() {
             <div className="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
             <div className="flex items-center justify-between mb-4 border-b border-primary/10 pb-3">
               <span className="text-[11px] font-black text-primary uppercase tracking-widest flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4" /> رد Gemini:
+                <CheckCircle2 className="w-4 h-4" /> رد الذكاء الاصطناعي:
               </span>
-              <span className="text-[10px] bg-primary/10 px-3 py-1 rounded-full font-black text-primary">{project.model}</span>
+              <span className="text-[10px] bg-primary/10 px-3 py-1 rounded-full font-black text-primary">Gemini 2.0</span>
             </div>
             <div className="text-foreground/90">{testOutput}</div>
           </div>
