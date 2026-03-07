@@ -15,7 +15,8 @@ import {
   FolderOpen,
   LogIn,
   LogOut,
-  User
+  User,
+  Sparkles
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -51,13 +52,14 @@ export function SidebarNav({ projects, onAddProject }: SidebarNavProps) {
   };
 
   const navItems = [
-    { name: 'Dashboard', icon: LayoutDashboard, href: '/' },
-    { name: 'Playground', icon: Terminal, href: '/playground' },
-    { name: 'History', icon: History, href: '/history' },
+    { name: 'الرئيسية', icon: LayoutDashboard, href: '/' },
+    { name: 'مختبر Gemma', icon: Sparkles, href: '/chat' },
+    { name: 'المختبر التفاعلي', icon: Terminal, href: '/playground' },
+    { name: 'السجل', icon: History, href: '/history' },
   ];
 
   return (
-    <div className="flex flex-col w-64 h-full border-r bg-card/50 backdrop-blur-sm">
+    <div className="flex flex-col w-64 h-full border-l bg-card/50 backdrop-blur-sm" dir="rtl">
       <div className="p-6 flex items-center gap-3">
         <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground">
           <Zap className="w-5 h-5 fill-current" />
@@ -72,11 +74,11 @@ export function SidebarNav({ projects, onAddProject }: SidebarNavProps) {
               <Button
                 variant="ghost"
                 className={cn(
-                  'w-full justify-start gap-3 px-3 transition-all',
+                  'w-full justify-start gap-3 px-3 transition-all text-right',
                   pathname === item.href ? 'bg-primary/10 text-primary hover:bg-primary/20' : 'text-muted-foreground hover:text-foreground'
                 )}
               >
-                <item.icon className="w-4 h-4" />
+                <item.icon className="w-4 h-4 ml-2" />
                 {item.name}
               </Button>
             </Link>
@@ -86,7 +88,7 @@ export function SidebarNav({ projects, onAddProject }: SidebarNavProps) {
 
       <div className="mt-8 px-4 flex-1 flex flex-col min-h-0">
         <div className="flex items-center justify-between px-3 mb-2">
-          <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">My Projects</h2>
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">مشاريعي</h2>
           <Button 
             variant="ghost" 
             size="icon" 
@@ -104,14 +106,14 @@ export function SidebarNav({ projects, onAddProject }: SidebarNavProps) {
                 <Button
                   variant="ghost"
                   className={cn(
-                    'w-full justify-start gap-3 px-3 py-6 h-auto text-sm transition-all group',
+                    'w-full justify-start gap-3 px-3 py-6 h-auto text-sm transition-all group text-right',
                     pathname === `/projects/${project.id}` 
                       ? 'bg-secondary text-foreground' 
                       : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
                   )}
                 >
                   <FolderOpen className={cn(
-                    "w-4 h-4 shrink-0 transition-colors",
+                    "w-4 h-4 shrink-0 transition-colors ml-2",
                     pathname === `/projects/${project.id}` ? "text-primary" : "text-muted-foreground"
                   )} />
                   <div className="flex flex-col items-start overflow-hidden">
@@ -120,7 +122,6 @@ export function SidebarNav({ projects, onAddProject }: SidebarNavProps) {
                       {project.model}
                     </span>
                   </div>
-                  <ChevronRight className="w-3 h-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Button>
               </Link>
             ))}
@@ -135,23 +136,18 @@ export function SidebarNav({ projects, onAddProject }: SidebarNavProps) {
               <AvatarImage src={user.photoURL || ''} />
               <AvatarFallback><User className="w-4 h-4" /></AvatarFallback>
             </Avatar>
-            <div className="flex flex-col min-w-0">
+            <div className="flex flex-col min-w-0 mr-3">
               <span className="text-xs font-medium truncate">{user.displayName || 'User'}</span>
               <button onClick={handleLogout} className="text-[10px] text-muted-foreground hover:text-destructive flex items-center gap-1">
-                <LogOut className="w-3 h-3" /> Logout
+                Logout
               </button>
             </div>
           </div>
         ) : (
           <Button variant="outline" className="w-full justify-start gap-3 text-muted-foreground" onClick={handleLogin}>
-            <LogIn className="w-4 h-4" />
             Login to Sync
           </Button>
         )}
-        <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground">
-          <Settings className="w-4 h-4" />
-          Settings
-        </Button>
       </div>
     </div>
   );
