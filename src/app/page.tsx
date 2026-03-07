@@ -60,7 +60,7 @@ export default function Dashboard() {
       name: importName || 'مشروع مستورد من جوجل',
       description: 'تم النقل من AI Studio',
       prompt: importPrompt,
-      model: 'gemini-3.1-pro-preview',
+      model: 'gemini-2.0-flash',
       temperature: 0.7,
       topP: 0.95,
       maxTokens: 1024,

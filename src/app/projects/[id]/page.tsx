@@ -71,7 +71,7 @@ export default function ProjectEditor() {
       updateProject(project.id, project);
       toast({
         title: "تم الحفظ بنجاح ✅",
-        description: "تم تحديث وصفة المشروع.",
+        description: "تم تحديث وصفة المشروع بدقة.",
       });
     }
   };
