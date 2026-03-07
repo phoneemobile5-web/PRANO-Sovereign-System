@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -17,9 +18,9 @@ import {
   ChevronDown,
   Link as LinkIcon,
   ExternalLink,
-  Plus,
   CheckCircle2,
-  AlertTriangle
+  AlertTriangle,
+  ShieldCheck
 } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -73,8 +74,8 @@ export default function ProjectEditor() {
     if (project) {
       updateProject(project.id, project);
       toast({
-        title: "تم الحفظ بنجاح ✅",
-        description: "تم تحديث بيانات مشروعك في الذاكرة.",
+        title: "تم حفظ المهمة بنجاح ✅",
+        description: "بياناتك آمنة في مركز قيادة الأرض.",
       });
     }
   };
@@ -84,7 +85,7 @@ export default function ProjectEditor() {
       deleteProject(id as string);
       router.push('/');
       toast({
-        title: "تم الحذف بنجاح",
+        title: "تم مسح المهمة",
       });
     }
   };
@@ -124,7 +125,7 @@ export default function ProjectEditor() {
       toast({
         variant: "destructive",
         title: "فشل التشغيل ⚠️",
-        description: "تحقق من مفتاح Gemini (يجب أن يبدأ بـ AIza) ومن اتصال الإنترنت.",
+        description: "تحقق من مفتاح Gemini ومن اتصال الإنترنت. تأكد أنك في الوضع المجاني.",
       });
     } finally {
       setIsRunning(false);
@@ -163,9 +164,9 @@ export default function ProjectEditor() {
           </AlertDialogTrigger>
           <AlertDialogContent className="w-[90%] rounded-[2.5rem] border-4 bg-card" dir="rtl">
             <AlertDialogHeader>
-              <AlertDialogTitle className="text-right text-2xl font-black">حذف مشروع جوجل؟</AlertDialogTitle>
+              <AlertDialogTitle className="text-right text-2xl font-black">حذف المهمة؟</AlertDialogTitle>
               <AlertDialogDescription className="text-right text-lg leading-relaxed font-medium">
-                هل أنت متأكد من حذف هذا المشروع نهائياً؟ ستفقد كافة تعليمات الربط.
+                هل أنت متأكد؟ سيتم إيقاف هذه المهمة الأرضية نهائياً.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter className="flex-row-reverse gap-3 pt-4">
@@ -181,24 +182,13 @@ export default function ProjectEditor() {
         </AlertDialog>
       </header>
 
-      {project.externalAppId && (
-        <Alert className="bg-accent/10 border-accent/20 rounded-[1.5rem] flex items-center gap-4 py-4 shadow-sm border-r-[8px]">
-          <LinkIcon className="w-6 h-6 text-accent shrink-0" />
-          <AlertDescription className="text-[11px] font-black text-accent mr-2 flex-1 flex flex-col gap-2">
-            <span className="uppercase tracking-widest text-right">مشروع مربوط بـ Google AI Studio</span>
-            <div className="flex items-center justify-between gap-2">
-              <span className="font-mono text-[9px] truncate bg-accent/20 px-2 py-1 rounded" dir="ltr">{project.externalAppId}</span>
-              <a 
-                href={project.externalAppId} 
-                target="_blank" 
-                className="bg-accent text-accent-foreground px-4 py-2 rounded-xl flex items-center gap-2 text-xs font-black shadow-lg hover:scale-105 transition-transform"
-              >
-                فتح <ExternalLink className="w-4 h-4" />
-              </a>
-            </div>
-          </AlertDescription>
-        </Alert>
-      )}
+      <Alert className="bg-primary/5 border-primary/20 rounded-[1.5rem] flex items-center gap-4 py-4 shadow-sm border-r-[8px]">
+        <ShieldCheck className="w-6 h-6 text-primary shrink-0" />
+        <AlertDescription className="text-[11px] font-black text-primary mr-2 flex-1 flex flex-col gap-1">
+          <span className="uppercase tracking-widest text-right">وضع التشغيل الآمن (الطبقة المجانية)</span>
+          <span className="text-[9px] opacity-70">تعمل حالياً بدون أي تكاليف مادية، بفضل دعم جوجل للمطورين المبدعين.</span>
+        </AlertDescription>
+      </Alert>
 
       <Collapsible open={showKeys} onOpenChange={setShowKeys} className="bg-card p-6 rounded-[2.5rem] border-2 border-primary/20 shadow-xl relative overflow-hidden">
         <div className="absolute top-0 left-0 p-6 opacity-5 pointer-events-none">
@@ -210,7 +200,7 @@ export default function ProjectEditor() {
               <Key className="w-7 h-7 text-primary" />
             </div>
             <div>
-              <Label className="text-[12px] font-black uppercase text-primary leading-none tracking-widest">مفاتيح التشغيل (API Keys)</Label>
+              <Label className="text-[12px] font-black uppercase text-primary leading-none tracking-widest">مفاتيح التشغيل (Gemini Key)</Label>
               <p className="text-[10px] text-muted-foreground font-bold mt-2">استخدم مفتاحاً يبدأ بـ AIza ليعمل النظام</p>
             </div>
           </div>
@@ -226,13 +216,13 @@ export default function ProjectEditor() {
               <AlertTriangle className="w-4 h-4" />
               <AlertTitle className="text-xs font-black">خطأ في نوع المفتاح!</AlertTitle>
               <AlertDescription className="text-[10px] leading-relaxed">
-                يبدو أنك أدخلت رمز استرداد أو Recovery code. يرجى استخدام <strong>API Key</strong> من Google AI Studio (يبدأ دائماً بـ <code className="bg-black/20 px-1">AIza</code>).
+                هذا رمز استرداد (Recovery code). يرجى الحصول على <strong>Gemini API Key</strong> من Google AI Studio ليعمل الذكاء.
               </AlertDescription>
             </Alert>
           )}
 
           <div className="space-y-2">
-            <Label className="text-[10px] font-black text-primary uppercase mr-1">المفتاح النشط (Gemini API Key)</Label>
+            <Label className="text-[10px] font-black text-primary uppercase mr-1">المفتاح النشط (API Key)</Label>
             <Input 
               type="password"
               placeholder="الصق المفتاح الذي يبدأ بـ AIza هنا..."
@@ -242,7 +232,7 @@ export default function ProjectEditor() {
             />
           </div>
           <div className="space-y-2">
-            <Label className="text-[10px] font-black text-primary uppercase mr-1">رابط المشروع (External ID)</Label>
+            <Label className="text-[10px] font-black text-primary uppercase mr-1">رابط المشروع (Google AI Studio)</Label>
             <Input 
               placeholder="https://ai.studio/apps/..."
               value={project.externalAppId || ''}
@@ -259,7 +249,7 @@ export default function ProjectEditor() {
             <div className="p-3 bg-primary/10 rounded-2xl shrink-0">
               <Sparkles className="w-6 h-6 text-primary" />
             </div>
-            <Label className="text-[12px] font-black uppercase text-primary tracking-[0.2em]">وصفة النظام (التعليمات)</Label>
+            <Label className="text-[12px] font-black uppercase text-primary tracking-[0.2em]">وصفة المهمة (التعليمات)</Label>
           </div>
           <Button 
             variant="secondary" 
@@ -277,11 +267,11 @@ export default function ProjectEditor() {
           value={project.prompt}
           onChange={(e) => setProject({ ...project, prompt: e.target.value })}
           className="min-h-[220px] text-lg font-medium leading-relaxed rounded-2xl border-2 p-5 shadow-inner bg-background/30 focus:border-primary/50 transition-all text-right"
-          placeholder="انسخ تعليماتك من جوجل وضعها هنا..."
+          placeholder="انسخ تعليمات المهمة الأرضية من جوجل وضعها هنا..."
         />
 
         <Button onClick={handleSave} className="w-full h-20 font-black text-2xl gap-4 rounded-[1.5rem] shadow-2xl active:scale-95 transition-transform bg-primary text-primary-foreground hover:bg-primary/90">
-          <Save className="w-8 h-8" /> حفظ التعديلات 💾
+          <Save className="w-8 h-8" /> حفظ المهمة 💾
         </Button>
       </section>
 
@@ -291,11 +281,11 @@ export default function ProjectEditor() {
         </div>
         <div className="flex items-center gap-3 relative z-10 text-right">
           <Cpu className="w-6 h-6 text-primary animate-pulse shrink-0" />
-          <Label className="text-[12px] font-black uppercase text-muted-foreground tracking-widest">تجربة عقل المشروع</Label>
+          <Label className="text-[12px] font-black uppercase text-muted-foreground tracking-widest">اختبار ذكاء المهمة</Label>
         </div>
 
         <Textarea 
-          placeholder="اكتب سؤالاً لاختبار المشروع..."
+          placeholder="اطرح سؤالاً يخدم كوكب الأرض..."
           className="min-h-[120px] bg-background/80 border-2 border-primary/10 rounded-2xl text-xl p-5 shadow-lg focus:border-primary text-right"
           value={testInput}
           onChange={(e) => setTestInput(e.target.value)}
@@ -309,12 +299,6 @@ export default function ProjectEditor() {
           {isRunning ? <RefreshCw className="w-8 h-8 animate-spin" /> : <Play className="w-8 h-8 fill-current" />}
           {isRunning ? 'جاري التحليل...' : 'تشغيل الاختبار'}
         </Button>
-
-        {!isKeyCorrect && project.apiKeys?.[0] && (
-          <p className="text-[10px] text-center text-destructive font-black uppercase animate-pulse">
-            ⚠️ الاختبار متوقف: المفتاح الحالي ليس مفتاح API صحيح.
-          </p>
-        )}
 
         {testOutput && (
           <div className="p-8 bg-card rounded-[2.5rem] border-2 border-primary/20 text-lg font-medium whitespace-pre-wrap leading-relaxed animate-in zoom-in-95 shadow-2xl relative overflow-hidden z-10 text-right">

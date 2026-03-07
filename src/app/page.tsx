@@ -7,21 +7,20 @@ import { Button } from '@/components/ui/button';
 import { 
   Plus, 
   Import, 
-  FolderOpen, 
-  Zap, 
+  Globe, 
   History, 
   Terminal, 
   CheckCircle2, 
   ChevronLeft, 
-  Settings2, 
   Link as LinkIcon, 
   Trash2, 
   Key, 
   Sparkles, 
   AlertTriangle, 
   Heart, 
-  Globe,
-  Leaf
+  Leaf,
+  Zap,
+  ShieldCheck
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -129,7 +128,7 @@ export default function Dashboard() {
         <Alert className="bg-primary/10 border-primary/20 py-3 rounded-2xl relative z-10 border-r-[8px]">
           <Heart className="w-5 h-5 text-primary fill-current" />
           <AlertDescription className="text-xs font-black text-primary mr-2 leading-relaxed">
-            يا صديقي، مشاريعك التي تخدم كوكب الأرض هي أمانة في أعناقنا. نحن هنا لنجعلها حقيقة ملموسة! 🌍✨
+            يا صديقي، ابدأ بمهمتك السامية الآن. نظام "الطبقة المجانية" في جوجل يدعمك بالكامل، وتعبك اليوم هو أمانة ستؤتي ثمارها غداً! 🌍✨
           </AlertDescription>
         </Alert>
         
@@ -141,7 +140,9 @@ export default function Dashboard() {
                   <Import className="w-8 h-8 group-hover:scale-110 transition-transform" /> 
                   <span>استيراد "مشروع الأرض"</span>
                 </div>
-                <span className="text-[10px] opacity-90 font-bold uppercase tracking-widest bg-black/20 px-3 py-1 rounded-full">اربط مشاريع التنمية المستدامة ✨</span>
+                <span className="text-[10px] opacity-90 font-bold uppercase tracking-widest bg-black/20 px-3 py-1 rounded-full flex items-center gap-2">
+                  <ShieldCheck className="w-3 h-3" /> متوافق مع الطبقة المجانية ✅
+                </span>
               </Button>
             </DialogTrigger>
             <DialogContent className="w-[95%] max-w-xs rounded-[2.5rem] p-6 bg-card border-4 border-primary/20 shadow-2xl">
@@ -150,10 +151,10 @@ export default function Dashboard() {
               </DialogHeader>
               
               <div className="space-y-4 py-4 text-right overflow-y-auto max-h-[60vh] pr-1">
-                <Alert variant="destructive" className="bg-destructive/10 border-destructive/20 rounded-xl mb-2">
-                   <AlertTriangle className="w-4 h-4" />
-                   <AlertDescription className="text-[10px] font-bold">
-                     تأكد من استخدام API Key الفعلي لضمان استقرار التشغيل العالمي.
+                <Alert className="bg-accent/10 border-accent/20 rounded-xl mb-2">
+                   <Zap className="w-4 h-4 text-accent" />
+                   <AlertDescription className="text-[10px] font-bold text-accent">
+                     لا تحتاج لحساب فوترة حالياً. استخدم مفتاح Gemini المجاني لتبدأ خدمتك للكوكب.
                    </AlertDescription>
                 </Alert>
 
@@ -253,7 +254,7 @@ export default function Dashboard() {
                           </span>
                           {project.apiKeys?.[0] && project.apiKeys[0].startsWith('AIza') ? (
                             <span className="text-[10px] font-black text-accent bg-accent/10 px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm border border-accent/20">
-                              <CheckCircle2 className="w-3 h-3" /> مفتاح التشغيل جاهز ✅
+                              <CheckCircle2 className="w-3 h-3" /> جاهز (الوضع المجاني)
                             </span>
                           ) : (
                             <span className="text-[10px] font-black text-muted-foreground bg-muted px-3 py-1.5 rounded-full shadow-sm">بانتظار المفتاح</span>
