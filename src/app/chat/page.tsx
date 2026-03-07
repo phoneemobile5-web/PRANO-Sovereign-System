@@ -1,8 +1,7 @@
-
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, Loader2, Sparkles, ChevronRight, Zap } from 'lucide-react';
+import { Send, Bot, User, Loader2, Sparkles, ChevronRight, Zap, BrainCircuit } from 'lucide-react';
 import { gemmaChat } from '@/ai/flows/gemma-chat-flow';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -57,77 +56,83 @@ const GemmaChat: React.FC = () => {
       <div className="w-full max-w-2xl">
         <div className="mb-6 flex items-center justify-between">
           <Link href="/">
-            <Button variant="ghost" className="gap-2 text-muted-foreground hover:text-primary">
+            <Button variant="ghost" className="gap-2 text-muted-foreground hover:text-primary transition-all rounded-xl">
               <ChevronRight className="w-4 h-4" /> العودة للرئيسية
             </Button>
           </Link>
           <div className="flex items-center gap-2">
-             <Zap className="w-5 h-5 text-primary fill-current" />
-             <span className="text-xs font-black uppercase tracking-widest text-primary">المختبر النشط</span>
+             <BrainCircuit className="w-5 h-5 text-primary animate-pulse" />
+             <span className="text-xs font-black uppercase tracking-widest text-primary">المعالج الإدراكي النشط</span>
           </div>
         </div>
 
-        <div className="glass-card rounded-3xl overflow-hidden flex flex-col h-[700px] border border-[#d4af37]/40 shadow-2xl bg-[#002d2d]/90">
-          <div className="p-6 bg-[#003d3d] border-b border-[#d4af37]/30 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#d4af37] to-[#ffdf00] flex items-center justify-center shadow-lg">
-                <Bot className="text-[#002d2d] w-6 h-6" />
+        <div className="glass-card rounded-[2.5rem] overflow-hidden flex flex-col h-[750px] border border-[#d4af37]/40 shadow-[0_0_50px_rgba(212,175,55,0.15)] bg-[#002d2d]/90 relative">
+          <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent opacity-50"></div>
+          
+          <div className="p-8 bg-[#003d3d] border-b border-[#d4af37]/30 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#d4af37] to-[#ffdf00] flex items-center justify-center shadow-lg transform rotate-3">
+                <Bot className="text-[#002d2d] w-7 h-7" />
               </div>
               <div>
-                <h3 className="font-bold text-lg gold-gradient-text">مركز الاستدلال المنطقي (Gemma 3)</h3>
-                <p className="text-xs text-[#fffcf2]/60">عمارة الذكاء المفتوح 2026</p>
+                <h3 className="font-bold text-xl gold-gradient-text tracking-tight">استدلال Gemma 3 المتقدم</h3>
+                <p className="text-[10px] text-[#fffcf2]/50 uppercase tracking-[0.2em] font-bold">Gamma 2026 Cognitive Engine</p>
               </div>
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-6 space-y-6 scrollbar-hide" ref={scrollRef}>
+          <div className="flex-1 overflow-y-auto p-8 space-y-8 scrollbar-hide" ref={scrollRef}>
             {messages.length === 0 && (
-              <div className="h-full flex flex-col items-center justify-center text-center space-y-4 opacity-50">
-                <Sparkles className="w-12 h-12 text-[#d4af37]" />
-                <p className="text-[#fffcf2] max-w-xs text-sm">اسأل عن تفاصيل Gamma 2026 أو تقنيات التحويل المتعددة الوسائط</p>
+              <div className="h-full flex flex-col items-center justify-center text-center space-y-6 opacity-40">
+                <div className="p-6 bg-white/5 rounded-full border border-white/10">
+                  <Sparkles className="w-12 h-12 text-[#d4af37]" />
+                </div>
+                <p className="text-[#fffcf2] max-w-sm text-sm font-medium leading-relaxed">
+                  أهلاً بك في بيئة الاستدلال الكمي. اسأل عن عمارة Gamma 2026، الشبكات السينابتية، أو تقنيات RLHF المتطورة.
+                </p>
               </div>
             )}
             {messages.map((msg, i) => (
-              <div key={i} className={`flex ${msg.role === MessageRole.USER ? 'justify-start' : 'justify-end'}`}>
-                <div className={`max-w-[85%] p-4 rounded-2xl flex gap-3 shadow-md ${
+              <div key={i} className={`flex ${msg.role === MessageRole.USER ? 'justify-start' : 'justify-end animate-in fade-in zoom-in-95'}`}>
+                <div className={`max-w-[85%] p-5 rounded-3xl flex gap-4 shadow-xl border ${
                   msg.role === MessageRole.USER 
-                    ? 'bg-[#004d4d] border border-white/10 rounded-tr-none text-white' 
-                    : 'bg-[#fffcf2]/10 border border-[#d4af37]/30 rounded-tl-none text-[#fffcf2]'
+                    ? 'bg-[#004d4d] border-white/10 rounded-tr-none text-white' 
+                    : 'bg-[#fffcf2]/5 border-[#d4af37]/20 rounded-tl-none text-[#fffcf2]'
                 }`}>
                   <div className="shrink-0 mt-1">
-                    {msg.role === MessageRole.USER ? <User className="w-4 h-4 text-[#fffcf2]/70" /> : <Bot className="w-4 h-4 text-[#d4af37]" />}
+                    {msg.role === MessageRole.USER ? <User className="w-5 h-5 text-accent" /> : <Bot className="w-5 h-5 text-primary" />}
                   </div>
-                  <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.text}</p>
+                  <p className="text-sm leading-relaxed whitespace-pre-wrap font-medium">{msg.text}</p>
                 </div>
               </div>
             ))}
             {isLoading && (
               <div className="flex justify-end">
-                <div className="bg-[#fffcf2]/10 p-4 rounded-2xl flex items-center gap-3 border border-[#d4af37]/30 shadow-sm">
-                  <Loader2 className="w-4 h-4 animate-spin text-[#d4af37]" />
-                  <p className="text-xs italic text-[#fffcf2]/80">جاري الاستدلال المنطقي...</p>
+                <div className="bg-[#fffcf2]/5 p-5 rounded-3xl flex items-center gap-4 border border-[#d4af37]/20 shadow-lg animate-pulse">
+                  <Loader2 className="w-5 h-5 animate-spin text-[#d4af37]" />
+                  <p className="text-xs font-black uppercase tracking-widest text-[#d4af37]">جاري الاستدلال المنطقي العميق...</p>
                 </div>
               </div>
             )}
           </div>
 
-          <div className="p-6 bg-[#003d3d]/50 border-t border-[#d4af37]/30">
-            <div className="relative">
+          <div className="p-8 bg-[#003d3d]/50 border-t border-[#d4af37]/30">
+            <div className="relative group">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="أدخل استفسارك التقني هنا..."
-                className="w-full bg-[#002d2d] border border-[#d4af37]/40 rounded-full py-4 px-6 pl-20 text-[#fffcf2] focus:outline-none focus:ring-2 focus:ring-[#d4af37]/50 transition-all placeholder:text-white/20 text-sm"
+                placeholder="أدخل استفسارك التقني المعقد..."
+                className="w-full bg-[#002d2d] border-2 border-[#d4af37]/30 rounded-full py-5 px-8 pl-28 text-[#fffcf2] focus:outline-none focus:border-[#d4af37] transition-all placeholder:text-white/10 text-base font-medium shadow-inner"
               />
               <button 
                 onClick={handleSend}
                 disabled={isLoading || !input.trim()}
-                className="absolute left-2 top-2 bottom-2 bg-gradient-to-r from-[#d4af37] to-[#ffdf00] text-[#002d2d] px-5 rounded-full font-bold hover:brightness-110 active:scale-95 transition-all flex items-center gap-2 disabled:opacity-50"
+                className="absolute left-3 top-3 bottom-3 bg-gradient-to-r from-[#d4af37] to-[#ffdf00] text-[#002d2d] px-8 rounded-full font-black hover:scale-105 active:scale-95 transition-all flex items-center gap-2 disabled:opacity-30 shadow-lg"
               >
                 <Send className="w-4 h-4" />
-                <span className="hidden sm:inline">إرسال</span>
+                <span className="hidden sm:inline">تحليل</span>
               </button>
             </div>
           </div>
