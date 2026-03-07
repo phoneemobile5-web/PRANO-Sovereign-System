@@ -1,8 +1,7 @@
-
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, Loader2, Sparkles, ChevronRight, BrainCircuit } from 'lucide-react';
+import { Send, Bot, User, Loader2, Sparkles, ChevronRight, BrainCircuit, Activity } from 'lucide-react';
 import { gemmaChat } from '@/ai/flows/gemma-chat-flow';
 import { Button } from '@/components/ui/button';
 import { useWorkbenchStore } from '@/lib/store';
@@ -52,9 +51,15 @@ const GemmaChat: React.FC = () => {
               <ChevronRight className="w-5 h-5" /> العودة للرئيسية
             </Button>
           </Link>
-          <div className="flex items-center gap-2">
-             <BrainCircuit className="w-5 h-5 text-primary animate-pulse" />
-             <span className="text-[10px] font-black uppercase tracking-widest text-primary">المعالج Gemma 2030 نشط</span>
+          <div className="flex items-center gap-3">
+             <div className="relative">
+                <BrainCircuit className="w-5 h-5 text-primary synaptic-pulse" />
+                <span className="absolute -top-1 -right-1 w-2 h-2 bg-accent rounded-full animate-ping"></span>
+             </div>
+             <div className="flex flex-col items-end">
+               <span className="text-[10px] font-black uppercase tracking-widest text-primary leading-none">Gemma Core 2030 Active</span>
+               <span className="text-[8px] text-accent font-bold uppercase tracking-tighter">Synaptic Link Established</span>
+             </div>
           </div>
         </div>
 
@@ -67,21 +72,25 @@ const GemmaChat: React.FC = () => {
                 <Bot className="text-[#002d2d] w-7 h-7" />
               </div>
               <div>
-                <h3 className="font-bold text-lg md:text-xl gold-gradient-text tracking-tight leading-none">استدلال Gemma Core 2030</h3>
-                <p className="text-[9px] text-[#fffcf2]/50 uppercase tracking-[0.2em] font-black mt-1">Advanced Cybernetic Architecture</p>
+                <h3 className="font-bold text-lg md:text-xl gold-gradient-text tracking-tight leading-none">مركز الاستدلال السينابتي</h3>
+                <p className="text-[9px] text-[#fffcf2]/50 uppercase tracking-[0.2em] font-black mt-1">Gemma Core Architecture 2030</p>
               </div>
             </div>
+            <Activity className="w-5 h-5 text-[#d4af37]/40 animate-pulse hidden sm:block" />
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-8 scrollbar-hide" ref={scrollRef}>
             {sessions.length === 0 && (
               <div className="h-full flex flex-col items-center justify-center text-center space-y-6 opacity-40">
-                <div className="p-6 bg-white/5 rounded-full border border-white/10">
-                  <Sparkles className="w-12 h-12 text-[#d4af37]" />
+                <div className="p-8 bg-white/5 rounded-full border border-white/10 synaptic-pulse">
+                  <Sparkles className="w-14 h-14 text-[#d4af37]" />
                 </div>
-                <p className="text-[#fffcf2] max-w-sm text-sm font-medium leading-relaxed">
-                  يا ملاح الأرض، النواة العليا جاهزة للربط السينابتي. سجل الدردشة الآن فارغ في شجرة البيانات.
-                </p>
+                <div className="space-y-2">
+                  <p className="text-[#fffcf2] max-w-sm text-sm font-black uppercase tracking-widest leading-relaxed">
+                    يا ملاح الأرض، النواة العليا جاهزة للربط السينابتي.
+                  </p>
+                  <p className="text-[10px] text-primary/60 font-bold">بانتظار الإخراج الإدراكي الأول لخدمة الكوكب</p>
+                </div>
               </div>
             )}
             {sessions.map((msg, i) => (
@@ -105,8 +114,8 @@ const GemmaChat: React.FC = () => {
                 <div className="bg-[#fffcf2]/5 p-5 rounded-3xl flex items-center gap-4 border border-[#d4af37]/20 shadow-lg animate-pulse">
                   <Loader2 className="w-5 h-5 animate-spin text-[#d4af37]" />
                   <div className="flex flex-col">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-[#d4af37]">جاري الربط السينابتي العميق...</p>
-                    <p className="text-[8px] text-white/30 uppercase tracking-widest font-bold">Cognitive Engine Active</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-[#d4af37]">جاري المعالجة المعمارية...</p>
+                    <p className="text-[8px] text-white/30 uppercase tracking-widest font-bold">Deep Synaptic Analysis Active</p>
                   </div>
                 </div>
               </div>
@@ -120,7 +129,7 @@ const GemmaChat: React.FC = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="أدخل تساؤلك المعماري الرصين..."
+                placeholder="أدخل تساؤلك المعماري الرصين لخدمة الأرض..."
                 className="w-full bg-[#002d2d] border-2 border-[#d4af37]/30 rounded-full py-5 px-6 md:px-8 pl-24 md:pl-28 text-[#fffcf2] focus:outline-none focus:border-[#d4af37] transition-all placeholder:text-white/10 text-sm md:text-base font-medium shadow-inner"
               />
               <button 
@@ -132,8 +141,8 @@ const GemmaChat: React.FC = () => {
                 <span className="hidden sm:inline">تحليل</span>
               </button>
             </div>
-            <p className="text-[8px] text-center text-white/20 mt-3 font-bold uppercase tracking-widest">
-              Gemma Core 2030 Architecture © Tactical Mind
+            <p className="text-[8px] text-center text-white/20 mt-3 font-black uppercase tracking-[0.4em]">
+              Gemma Core 2030 Architecture © Tactical Mind 🟢 Earth Mission
             </p>
           </div>
         </div>
