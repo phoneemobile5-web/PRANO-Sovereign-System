@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
@@ -26,6 +25,7 @@ export interface AIProject {
   inputSchema: string;
   outputSchema: string;
   apiKeys?: string[];
+  externalAppId?: string; // الرابط أو المعرف من Google AI Studio
   createdAt: number;
 }
 

@@ -1,10 +1,9 @@
-
 'use client';
 
 import { useState } from 'react';
 import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
-import { Plus, Import, FolderOpen, Zap, History, Terminal, CheckCircle2, ChevronLeft, Info, Settings2 } from 'lucide-react';
+import { Plus, Import, FolderOpen, Zap, History, Terminal, CheckCircle2, ChevronLeft, Info, Settings2, Link as LinkIcon } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -26,6 +25,7 @@ export default function Dashboard() {
   const [importPrompt, setImportPrompt] = useState('');
   const [importName, setImportName] = useState('');
   const [importKey, setImportKey] = useState('');
+  const [importExternalId, setImportExternalId] = useState('');
 
   const handleCreateProject = () => {
     const newProject = addProject({
@@ -55,11 +55,13 @@ export default function Dashboard() {
       maxTokens: 1024,
       inputSchema: '',
       outputSchema: '',
-      apiKeys: importKey ? [importKey] : []
+      apiKeys: importKey ? [importKey] : [],
+      externalAppId: importExternalId
     });
     setImportPrompt('');
     setImportName('');
     setImportKey('');
+    setImportExternalId('');
     router.push(`/projects/${newProject.id}`);
   };
 
@@ -92,7 +94,7 @@ export default function Dashboard() {
         <Alert className="bg-accent/10 border-accent/20 py-3 rounded-2xl relative z-10">
           <Info className="w-5 h-5 text-accent" />
           <AlertDescription className="text-xs font-black text-accent mr-2">
-            انقل "الوصفة" و"المفتاح" من جوجل إلى هاتفك لتبدأ.
+            الصق رابط مشروعك من جوجل ومفتاح Gemini لتبدأ العمل فوراً.
           </AlertDescription>
         </Alert>
         
@@ -102,61 +104,69 @@ export default function Dashboard() {
               <Button className="h-20 text-xl font-black rounded-2xl w-full shadow-2xl flex flex-col items-center justify-center gap-1 group">
                 <div className="flex items-center gap-2">
                   <Import className="w-6 h-6 group-hover:scale-110 transition-transform" /> 
-                  <span>استيراد مشروع من جوجل</span>
+                  <span>استيراد من AI Studio</span>
                 </div>
-                <span className="text-[10px] opacity-70 font-bold">نقل تعليمات النظام ومفتاح API</span>
+                <span className="text-[10px] opacity-70 font-bold">ربط الوصفة برابط جوجل</span>
               </Button>
             </DialogTrigger>
             <DialogContent className="w-[95%] max-w-xs rounded-3xl p-6 bg-card border-4 border-primary/20 shadow-2xl">
               <DialogHeader>
-                <DialogTitle className="text-right text-2xl font-black">نقل بياناتك من جوجل</DialogTitle>
+                <DialogTitle className="text-right text-2xl font-black">ربط مشروعك من جوجل</DialogTitle>
               </DialogHeader>
               
               <div className="space-y-5 py-4 text-right overflow-y-auto max-h-[60vh]">
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-black text-primary uppercase">١. اسم المشروع (اختياري)</label>
+                  <label className="text-[11px] font-black text-primary uppercase">١. اسم المشروع</label>
                   <Input 
-                    placeholder="مثال: خبير الردود الذكي" 
+                    placeholder="مثال: مشروعي الضخم" 
                     value={importName}
                     onChange={(e) => setImportName(e.target.value)}
                     className="h-12 rounded-xl border-2 font-bold"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-black text-primary uppercase">٢. مفتاح Gemini (API Key)</label>
+                  <label className="text-[11px] font-black text-primary uppercase">٢. رابط المشروع (App URL)</label>
                   <Input 
-                    placeholder="المفتاح من صفحة Get API Key" 
+                    placeholder="https://ai.studio/apps/..." 
+                    value={importExternalId}
+                    onChange={(e) => setImportExternalId(e.target.value)}
+                    className="h-12 rounded-xl border-2 font-mono text-xs"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-black text-primary uppercase">٣. مفتاح Gemini (API Key)</label>
+                  <Input 
+                    placeholder="المفتاح من Get API Key" 
                     value={importKey}
                     onChange={(e) => setImportKey(e.target.value)}
                     className="h-12 rounded-xl font-mono text-sm border-2"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-black text-primary uppercase">٣. تعليمات النظام (System Prompt)</label>
+                  <label className="text-[11px] font-black text-primary uppercase">٤. تعليمات النظام (وصفة الذكاء)</label>
                   <Textarea 
                     placeholder="الصق الـ System Instructions هنا..." 
-                    className="min-h-[140px] rounded-xl text-base border-2 p-4 font-medium"
+                    className="min-h-[120px] rounded-xl text-base border-2 p-4 font-medium"
                     value={importPrompt}
                     onChange={(e) => setImportPrompt(e.target.value)}
                   />
-                  <p className="text-[9px] text-muted-foreground font-bold">هذه هي الوصفة التي تحدد شخصية الذكاء.</p>
                 </div>
               </div>
               <DialogFooter>
-                <Button onClick={handleQuickImport} className="w-full h-16 font-black text-xl rounded-2xl shadow-lg">تفعيل المشروع الآن 🚀</Button>
+                <Button onClick={handleQuickImport} className="w-full h-16 font-black text-xl rounded-2xl shadow-lg">ربط وتفعيل الآن 🚀</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
 
           <Button variant="outline" onClick={handleCreateProject} className="h-16 text-lg font-bold rounded-2xl w-full border-2 border-dashed border-primary/30">
-            <Plus className="ml-2 w-5 h-5" /> إنشاء مسودة فارغة
+            <Plus className="ml-2 w-5 h-5" /> إنشاء مسودة يدوية
           </Button>
         </div>
       </header>
 
       <section className="space-y-4">
         <h2 className="text-xs font-black uppercase text-muted-foreground flex items-center gap-2 px-2 tracking-[0.2em]">
-          <FolderOpen className="w-4 h-4 text-primary" /> مكتبة المشاريع ({projects.length})
+          <FolderOpen className="w-4 h-4 text-primary" /> مكتبة المشاريع المربوطة ({projects.length})
         </h2>
         
         <div className="grid gap-4">
@@ -170,16 +180,17 @@ export default function Dashboard() {
                         <div className="p-2 bg-secondary rounded-lg">
                           <Terminal className="w-5 h-5 text-primary" />
                         </div>
-                        <span className="font-black text-xl tracking-tight">{project.name}</span>
+                        <span className="font-black text-xl tracking-tight truncate max-w-[150px]">{project.name}</span>
                       </div>
                       <ChevronLeft className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                     </div>
                     
-                    <div className="bg-secondary/30 p-3 rounded-2xl border border-secondary/20">
-                      <p className="text-[11px] font-bold text-muted-foreground line-clamp-2 leading-relaxed italic">
-                        الموجه (النظام): "{project.prompt}"
-                      </p>
-                    </div>
+                    {project.externalAppId && (
+                      <div className="flex items-center gap-2 text-[10px] text-accent font-black bg-accent/5 p-2 rounded-lg border border-accent/10">
+                        <LinkIcon className="w-3 h-3" />
+                        <span className="truncate">مرتبط بـ: {project.externalAppId.split('/').pop()}</span>
+                      </div>
+                    )}
 
                     <div className="flex items-center justify-between mt-1">
                       <div className="flex items-center gap-2">
@@ -188,15 +199,12 @@ export default function Dashboard() {
                         </span>
                         {project.apiKeys?.[0] ? (
                           <span className="text-[10px] font-black text-accent bg-accent/10 px-3 py-1 rounded-full flex items-center gap-1">
-                            <CheckCircle2 className="w-3 h-3" /> مفتاح نشط ✅
+                            <CheckCircle2 className="w-3 h-3" /> جاهز ✅
                           </span>
                         ) : (
-                          <span className="text-[10px] font-black text-destructive bg-destructive/10 px-3 py-1 rounded-full">يحتاج مفتاح ⚠️</span>
+                          <span className="text-[10px] font-black text-destructive bg-destructive/10 px-3 py-1 rounded-full">بدون مفتاح ⚠️</span>
                         )}
                       </div>
-                      <span className="text-[10px] text-muted-foreground font-bold">
-                        {new Date(project.createdAt).toLocaleDateString('ar-EG')}
-                      </span>
                     </div>
                   </CardContent>
                 </Card>
@@ -205,7 +213,7 @@ export default function Dashboard() {
           ) : (
             <div className="py-16 text-center border-4 border-dashed rounded-[40px] opacity-40 bg-muted/5">
               <Import className="w-12 h-12 mx-auto mb-3 text-muted-foreground" />
-              <p className="text-sm font-black text-muted-foreground uppercase tracking-widest">لا يوجد مشاريع.. ابدأ بالاستيراد</p>
+              <p className="text-sm font-black text-muted-foreground uppercase tracking-widest">اربط أول مشروع لك الآن</p>
             </div>
           )}
         </div>
