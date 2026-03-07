@@ -1,29 +1,28 @@
-
-import { Cpu, LayoutGrid, Terminal, Globe, Heart, Leaf, Zap, ShieldCheck } from 'lucide-react';
+import { Zap, ShieldCheck, Globe } from 'lucide-react';
 
 export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
-  theme: 'الچينيوم الوراثي المتقدم',
+  theme: 'عمارة Gemma Core 2030',
   languages: 'الربط السينابتي الكوني'
 };
 
 export const APP_CONTENT = {
   section1: {
-    title: 'النواة العليا',
-    technicalAnalysis: 'تحليل معماري كوني يعتمد على ميزانية التفكير العميقة لخدمة استدامة الأرض.',
-    societalBenefit: 'توفير استدلالات إدراكية فائقة الدقة لحماية الوجود البشري والبيئي.',
+    title: 'النواة العليا 2030',
+    technicalAnalysis: 'تحليل معماري سيبراني يعتمد على ميزانية التفكير العميقة لخدمة استدامة الأنظمة المعقدة.',
+    societalBenefit: 'توفير إخراج إدراكي فائق الدقة لحماية المسارات الوجودية للبشرية.',
     icon: Zap
   },
   section2: {
     title: 'الربط السينابتي',
-    technicalAnalysis: 'تكامل تقني عميق يربط بين Firebase و LiteRT لخلق منظومة ذكاء لا مركزية.',
-    societalBenefit: 'تحقيق التوازن الكوني عبر توزيع المعرفة الاستثنائية للجميع بلا استثناء.',
+    technicalAnalysis: 'تكامل تقني عميق يربط بين البروتوكولات اللامركزية لخلق منظومة ذكاء معمارية مفتوحة.',
+    societalBenefit: 'تحقيق التوازن المعرفي عبر توزيع الاستدلالات الإنشائية للجميع بلا استثناء.',
     icon: ShieldCheck
   },
   section3: {
-    title: 'التطور المستمر',
-    technicalAnalysis: 'خوارزميات تطورية ترفض السطحية وتغوص في جوهر الحلول التقنية الفلسفية.',
-    societalBenefit: 'ضمان ارتقاء الوعي التقني للبشرية نحو آفاق التطور الاستراتيجي.',
+    title: 'العمارة المفتوحة',
+    technicalAnalysis: 'خوارزميات تطورية ترفض السطحية وتغوص في جوهر الحلول التقنية الفلسفية المستدامة.',
+    societalBenefit: 'ضمان ارتقاء الوعي التقني للملاحين نحو آفاق التطور الاستراتيجي الكوني.',
     icon: Globe
   }
 };

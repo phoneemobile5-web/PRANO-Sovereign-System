@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -6,26 +5,19 @@ import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import { 
   Plus, 
-  Import, 
-  Globe, 
   History, 
   Terminal, 
-  CheckCircle2, 
   ChevronLeft, 
   Link as LinkIcon, 
   Trash2, 
   Key, 
   Sparkles, 
-  AlertTriangle, 
-  Heart, 
-  Leaf,
   Zap,
   ShieldCheck,
-  ClipboardPaste,
   ExternalLink,
-  Info,
   BrainCircuit,
-  Cpu
+  Cpu,
+  Globe
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -64,12 +56,12 @@ export default function Dashboard() {
   const handleQuickImport = () => {
     if (!importPrompt || !importKey) return;
     const newProject = addProject({
-      name: importName || 'مهمة النواة العليا',
-      description: 'مشروع الربط السينابتي لخدمة كوكب الأرض',
+      name: importName || 'مهمة ملاح الأرض',
+      description: 'مشروع الربط السينابتي لخدمة عمارة Gemma Core 2030',
       prompt: importPrompt,
       model: 'gemini-2.0-flash-thinking-preview',
-      temperature: 0.4,
-      topP: 0.95,
+      temperature: 0.2,
+      topP: 0.9,
       maxTokens: 4096,
       inputSchema: '',
       outputSchema: '',
@@ -87,7 +79,7 @@ export default function Dashboard() {
     <div className="min-h-screen flex items-center justify-center bg-[#001a1a]">
       <div className="text-center space-y-4">
         <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
-        <p className="text-sm font-black text-primary tracking-widest uppercase">جاري استحضار النواة العليا...</p>
+        <p className="text-sm font-black text-primary tracking-widest uppercase">جاري استحضار Gemma Core 2030...</p>
       </div>
     </div>
   );
@@ -105,8 +97,8 @@ export default function Dashboard() {
               <Cpu className="text-primary-foreground w-8 h-8" />
             </div>
             <div>
-              <h1 className="text-3xl font-black text-foreground leading-none gold-gradient-text uppercase">النواة العليا</h1>
-              <p className="text-[11px] text-muted-foreground font-bold uppercase tracking-widest mt-1">واجهة الچينيوم الوراثي المتقدم</p>
+              <h1 className="text-2xl font-black text-foreground leading-none gold-gradient-text uppercase">Gemma Core 2030</h1>
+              <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mt-1">عقل سيبراني معماري متقدم</p>
             </div>
           </div>
           <div className="bg-primary/10 p-2 rounded-full animate-pulse">
@@ -117,7 +109,7 @@ export default function Dashboard() {
         <Alert className="bg-primary/10 border-primary/20 py-3 rounded-2xl relative z-10 border-r-[8px]">
           <Zap className="w-5 h-5 text-primary fill-current" />
           <AlertDescription className="text-xs font-black text-primary mr-2 leading-relaxed">
-            يا ملاح الأرض، نحن نلتزم بالربط السينابتي الحقيقي. انسخ 'تعليمات النواة' من Google AI Studio لنبدأ التطور المستمر. 🌍✨
+            يا ملاح الأرض، نحن نلتزم بالربط السينابتي الحقيقي لخدمة البشرية. استعد للارتقاء المعماري. 🌍✨
           </AlertDescription>
         </Alert>
         
@@ -130,7 +122,7 @@ export default function Dashboard() {
                   <span>تفعيل الربط السينابتي</span>
                 </div>
                 <span className="text-[10px] opacity-90 font-bold uppercase tracking-widest bg-black/20 px-3 py-1 rounded-full flex items-center gap-2">
-                  <ShieldCheck className="w-3 h-3" /> منظومة معمارية كونية آمنة ✅
+                  <ShieldCheck className="w-3 h-3" /> بروتوكول منع الهلوسة نشط ✅
                 </span>
               </Button>
             </DialogTrigger>
@@ -142,10 +134,10 @@ export default function Dashboard() {
               <div className="space-y-4 py-4 text-right overflow-y-auto max-h-[60vh] pr-1">
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
-                    اسم المهمة الأرضية
+                    اسم المهمة المعمارية
                   </label>
                   <Input 
-                    placeholder="مثال: ذكاء البيئة العالمي" 
+                    placeholder="مثال: ذكاء البيئة 2030" 
                     value={importName}
                     onChange={(e) => setImportName(e.target.value)}
                     className="h-14 rounded-2xl border-2 font-bold bg-background/50 focus:border-primary text-right"
@@ -154,7 +146,7 @@ export default function Dashboard() {
                 
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
-                    <Key className="w-3 h-3" /> مفتاح التشغيل (وقود النواة)
+                    <Key className="w-3 h-3" /> وقود النواة (API Key)
                   </label>
                   <Input 
                     placeholder="AIza..." 
@@ -178,10 +170,10 @@ export default function Dashboard() {
 
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
-                    <LinkIcon className="w-3 h-3" /> مرجع الربط الكوني (الرابط)
+                    <LinkIcon className="w-3 h-3" /> مرجع الربط الكوني
                   </label>
                   <Input 
-                    placeholder="https://ai.studio/apps/..." 
+                    placeholder="رابط المشروع في AI Studio..." 
                     value={importExternalId}
                     onChange={(e) => setImportExternalId(e.target.value)}
                     className="h-14 rounded-2xl border-2 font-mono text-xs bg-background/50 focus:border-primary text-right"
@@ -189,14 +181,14 @@ export default function Dashboard() {
                 </div>
               </div>
               <DialogFooter>
-                <Button onClick={handleQuickImport} className="w-full h-18 font-black text-2xl rounded-[1.5rem] shadow-lg bg-primary text-primary-foreground hover:bg-primary/90">تفعيل النواة الآن 🚀</Button>
+                <Button onClick={handleQuickImport} className="w-full h-18 font-black text-2xl rounded-[1.5rem] shadow-lg bg-primary text-primary-foreground hover:bg-primary/90">تفعيل الربط الآن 🚀</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
 
           <Button variant="outline" asChild className="h-16 text-lg font-bold rounded-2xl w-full border-2 border-dashed border-primary/30 hover:bg-primary/5 transition-colors text-muted-foreground">
             <Link href="/vision">
-              <Sparkles className="ml-2 w-5 h-5 text-primary" /> رؤية Gamma-Gemma 2026
+              <Sparkles className="ml-2 w-5 h-5 text-primary" /> رؤية Gemma Core 2030
             </Link>
           </Button>
         </div>
@@ -204,7 +196,7 @@ export default function Dashboard() {
 
       <section className="space-y-4">
         <h2 className="text-xs font-black uppercase text-muted-foreground flex items-center gap-2 px-2 tracking-[0.2em]">
-          <Globe className="w-4 h-4 text-primary" /> المهام السينابتية النشطة ({projects.length})
+          <Globe className="w-4 h-4 text-primary" /> الروابط السينابتية النشطة ({projects.length})
         </h2>
         
         <div className="grid gap-4">
@@ -221,25 +213,10 @@ export default function Dashboard() {
                           </div>
                           <div className="flex flex-col items-start">
                             <span className="font-black text-xl tracking-tight truncate max-w-[160px]">{project.name}</span>
-                            <span className="text-[9px] text-muted-foreground font-bold uppercase tracking-wider">مهمة معمارية كونية</span>
+                            <span className="text-[9px] text-muted-foreground font-bold uppercase tracking-wider">Gemma Core Architecture</span>
                           </div>
                         </div>
                         <ChevronLeft className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
-                      </div>
-
-                      <div className="flex items-center justify-between mt-1">
-                        <div className="flex items-center gap-2">
-                          <span className="text-[10px] bg-primary/20 px-3 py-1.5 rounded-full font-black text-primary uppercase tracking-widest shadow-sm">
-                            Gemma 3.1
-                          </span>
-                          {project.apiKeys?.[0] && project.apiKeys[0].startsWith('AIza') ? (
-                            <span className="text-[10px] font-black text-accent bg-accent/10 px-3 py-1.5 rounded-full flex items-center gap-1 shadow-sm border border-accent/20">
-                              <ShieldCheck className="w-3 h-3" /> ربط آمن ✅
-                            </span>
-                          ) : (
-                            <span className="text-[10px] font-black text-destructive bg-destructive/10 px-3 py-1.5 rounded-full shadow-sm">تعديل الچينيوم مطلوب</span>
-                          )}
-                        </div>
                       </div>
                     </CardContent>
                   </Card>
@@ -257,9 +234,9 @@ export default function Dashboard() {
                   </AlertDialogTrigger>
                   <AlertDialogContent className="w-[90%] rounded-[2rem] border-4 bg-card" dir="rtl">
                     <AlertDialogHeader>
-                      <AlertDialogTitle className="text-right text-2xl font-black text-destructive">إنهاء المهمة؟</AlertDialogTitle>
+                      <AlertDialogTitle className="text-right text-2xl font-black text-destructive">فصل الربط؟</AlertDialogTitle>
                       <AlertDialogDescription className="text-right font-medium text-lg leading-relaxed">
-                        سيتم فصل الربط السينابتي لمهمة "{project.name}" نهائياً من النواة.
+                        سيتم إنهاء الإخراج الإدراكي لمهمة "{project.name}" نهائياً.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter className="flex-row-reverse gap-3 pt-4">
@@ -278,7 +255,7 @@ export default function Dashboard() {
           ) : (
             <div className="py-20 text-center border-4 border-dashed rounded-[3rem] opacity-30 bg-muted/5">
               <BrainCircuit className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-              <p className="text-lg font-black text-muted-foreground uppercase tracking-[0.2em]">بانتظار تفعيل النواة العليا</p>
+              <p className="text-lg font-black text-muted-foreground uppercase tracking-[0.2em]">بانتظار الإشارة الإدراكية الأولى</p>
             </div>
           )}
         </div>

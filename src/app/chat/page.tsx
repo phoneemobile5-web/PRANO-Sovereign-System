@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, Loader2, Sparkles, ChevronRight, Zap, BrainCircuit, Cpu } from 'lucide-react';
+import { Send, Bot, User, Loader2, Sparkles, ChevronRight, BrainCircuit, Cpu } from 'lucide-react';
 import { gemmaChat } from '@/ai/flows/gemma-chat-flow';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -45,7 +45,7 @@ const GemmaChat: React.FC = () => {
       const aiMessage: ChatMessage = { role: MessageRole.MODEL, text: result.response };
       setMessages(prev => [...prev, aiMessage]);
     } catch (error) {
-      console.error(error);
+      // Errors handled by global listener
     } finally {
       setIsLoading(false);
     }
@@ -62,7 +62,7 @@ const GemmaChat: React.FC = () => {
           </Link>
           <div className="flex items-center gap-2">
              <BrainCircuit className="w-5 h-5 text-primary animate-pulse" />
-             <span className="text-[10px] font-black uppercase tracking-widest text-primary">المعالج الإدراكي النشط</span>
+             <span className="text-[10px] font-black uppercase tracking-widest text-primary">المعالج الإدراكي 2030 نشط</span>
           </div>
         </div>
 
@@ -75,8 +75,8 @@ const GemmaChat: React.FC = () => {
                 <Bot className="text-[#002d2d] w-7 h-7" />
               </div>
               <div>
-                <h3 className="font-bold text-lg md:text-xl gold-gradient-text tracking-tight leading-none">استدلال Gemma 3 المتقدم</h3>
-                <p className="text-[9px] text-[#fffcf2]/50 uppercase tracking-[0.2em] font-black mt-1">Gamma 2026 Cognitive Engine</p>
+                <h3 className="font-bold text-lg md:text-xl gold-gradient-text tracking-tight leading-none">استدلال Gemma Core 2030</h3>
+                <p className="text-[9px] text-[#fffcf2]/50 uppercase tracking-[0.2em] font-black mt-1">Advanced Cybernetic Architecture</p>
               </div>
             </div>
           </div>
@@ -88,7 +88,7 @@ const GemmaChat: React.FC = () => {
                   <Sparkles className="w-12 h-12 text-[#d4af37]" />
                 </div>
                 <p className="text-[#fffcf2] max-w-sm text-sm font-medium leading-relaxed">
-                  أهلاً بك في بيئة الاستدلال الكمي. اسأل عن عمارة Gamma 2026، الشبكات السينابتية، أو تقنيات RLHF المتطورة.
+                  يا ملاح الأرض، النواة العليا جاهزة للربط السينابتي. اطرح تساؤلك المعماري لنبدأ الإخراج الإدراكي.
                 </p>
               </div>
             )}
@@ -113,8 +113,8 @@ const GemmaChat: React.FC = () => {
                 <div className="bg-[#fffcf2]/5 p-5 rounded-3xl flex items-center gap-4 border border-[#d4af37]/20 shadow-lg animate-pulse">
                   <Loader2 className="w-5 h-5 animate-spin text-[#d4af37]" />
                   <div className="flex flex-col">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-[#d4af37]">جاري الاستدلال المنطقي العميق...</p>
-                    <p className="text-[8px] text-white/30 uppercase tracking-widest font-bold">Reinforcement Learning active</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-[#d4af37]">جاري الربط السينابتي العميق...</p>
+                    <p className="text-[8px] text-white/30 uppercase tracking-widest font-bold">Cognitive Engine Active</p>
                   </div>
                 </div>
               </div>
@@ -128,7 +128,7 @@ const GemmaChat: React.FC = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="أدخل استفسارك التقني المعقد..."
+                placeholder="أدخل تساؤلك المعماري الرصين..."
                 className="w-full bg-[#002d2d] border-2 border-[#d4af37]/30 rounded-full py-5 px-6 md:px-8 pl-24 md:pl-28 text-[#fffcf2] focus:outline-none focus:border-[#d4af37] transition-all placeholder:text-white/10 text-sm md:text-base font-medium shadow-inner"
               />
               <button 
@@ -141,7 +141,7 @@ const GemmaChat: React.FC = () => {
               </button>
             </div>
             <p className="text-[8px] text-center text-white/20 mt-3 font-bold uppercase tracking-widest">
-              Gemma-3 Cognitive Output Platform © 2026
+              Gemma Core 2030 Architecture © Tactical Mind
             </p>
           </div>
         </div>
