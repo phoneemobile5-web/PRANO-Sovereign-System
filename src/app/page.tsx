@@ -22,7 +22,8 @@ import {
   Heart,
   Waves,
   Star,
-  BookOpenCheck
+  BookOpenCheck,
+  Layers
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -107,13 +108,20 @@ export default function Dashboard() {
           </Badge>
         </div>
 
-        <div className="bg-white/5 border-r-[6px] border-[#d4af37] p-5 rounded-2xl flex items-start gap-4 backdrop-blur-md group hover:bg-white/10 transition-all cursor-default">
-          <Anchor className="w-6 h-6 text-[#00ffff] animate-pulse shrink-0 mt-1" />
-          <div className="space-y-1">
-            <p className="text-[13px] font-medium text-white/80 leading-relaxed font-diwani italic">
-               "الاستقرار قبل النشر هو وقار العلماء، ومذاكرة الأدوات هي صلاة المبرمج في محراب المعرفة."
-            </p>
-            <p className="text-[10px] text-white/30 font-black uppercase tracking-widest">Sovereign Peace Protocol</p>
+        <div className="grid gap-3">
+          <div className="bg-white/5 border-r-[6px] border-[#d4af37] p-5 rounded-2xl flex items-start gap-4 backdrop-blur-md group hover:bg-white/10 transition-all cursor-default">
+            <Anchor className="w-6 h-6 text-[#00ffff] animate-pulse shrink-0 mt-1" />
+            <div className="space-y-1">
+              <p className="text-[13px] font-medium text-white/80 leading-relaxed font-diwani italic">
+                 "منطق الذكاء الاصطناعي ومرونة الأدوات هما الأسس القاعدية للاستقرار قبل النشر بوقار العلماء."
+              </p>
+              <p className="text-[10px] text-white/30 font-black uppercase tracking-widest">AI Logic & Tool Flexibility</p>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-3 px-6 py-3 rounded-2xl bg-[#00ffff]/5 border border-[#00ffff]/10 shadow-inner">
+             <Layers className="w-4 h-4 text-[#00ffff]" />
+             <span className="text-[10px] text-[#00ffff] font-black uppercase tracking-[0.3em] font-diwani">High Core Synchronized</span>
           </div>
         </div>
         
