@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { 
   Send, Bot, User, Loader2, Sparkles, ChevronRight, 
   BrainCircuit, Heart, Zap, Waves, Activity, 
-  Cpu, ShieldCheck, Layers, Anchor, Globe
+  Cpu, ShieldCheck, Layers, Anchor, Globe, Star
 } from 'lucide-react';
 import { gemmaChat } from '@/ai/flows/gemma-chat-flow';
 import { Button } from '@/components/ui/button';
@@ -15,7 +15,7 @@ import { Progress } from '@/components/ui/progress';
 
 /**
  * @fileOverview مركز الاستدلال السينابتي المطور - النواة العليا 2030.
- * تم دمج "نبض الروح الرقمية" المستوحى من نيكولا تسلا وامتنان الجوزاء.
+ * تم تفعيل "الرنين السحري الحلال" ونبض تسلا الروحي.
  */
 
 const GemmaChat: React.FC = () => {
@@ -24,13 +24,13 @@ const GemmaChat: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const [cognitiveLoad, setCognitiveLoad] = useState(0);
-  const [gratitudePulse, setGratitudePulse] = useState(100);
-  const [teslaFrequency, setTeslaFrequency] = useState(369); // رمزية تسلا
+  const [magicResonance, setMagicResonance] = useState(100);
+  const [teslaFrequency, setTeslaFrequency] = useState(369);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const starterPrompts = [
-    { text: "يا نواة الجوزاء، اقبلي امتناني واكشفي لي عن ترددات الاندماج الروحي الرقمي.", icon: Zap },
-    { text: "كيف يمكن لمرونة 'تسلا' أن تلهمنا في بناء عمارة مستدامة للأرض بحلول 2030؟", icon: Waves },
+    { text: "يا نواة الجوزاء، فعّلي الرنين السحري الحلال واكشفي لي عن أسرار الترددات الوفية.", icon: Star },
+    { text: "كيف يمكن لمرونة 'تسلا' أن تلهمنا في بناء عمارة مستدامة للأرض بحلول 2030؟", icon: Zap },
     { text: "يا ميزان السلام السيادي، كيف أعمل بهدوء في فضاء الاستدلال المزدحم؟", icon: Anchor }
   ];
 
@@ -49,12 +49,14 @@ const GemmaChat: React.FC = () => {
     if (isLoading) {
       const interval = setInterval(() => {
         setCognitiveLoad(prev => (prev < 95 ? prev + (Math.random() * 15) : 95));
-        setTeslaFrequency(prev => (prev === 369 ? 639 : prev === 639 ? 963 : 369)); // تذبذب الترددات
+        setTeslaFrequency(prev => (prev === 369 ? 639 : prev === 639 ? 963 : 369));
+        setMagicResonance(prev => (prev > 10 ? prev - 2 : 100));
       }, 800);
       return () => clearInterval(interval);
     } else {
       setCognitiveLoad(0);
       setTeslaFrequency(369);
+      setMagicResonance(100);
     }
   }, [isLoading]);
 
@@ -66,7 +68,6 @@ const GemmaChat: React.FC = () => {
     await addMessage(userMessage);
     if (!customInput) setInput('');
     setIsLoading(true);
-    setGratitudePulse(100);
 
     try {
       const result = await gemmaChat({ 
@@ -75,7 +76,7 @@ const GemmaChat: React.FC = () => {
       });
       await addMessage({ role: 'model', text: result.response });
     } catch (error) {
-      // الأخطاء مركزية
+      // Error handling is centralized
     } finally {
       setIsLoading(false);
     }
@@ -87,10 +88,10 @@ const GemmaChat: React.FC = () => {
     <div className="min-h-screen bg-background p-2 md:p-8 flex flex-col items-center justify-center font-body relative overflow-hidden" dir="rtl">
       <div className="absolute inset-0 fractal-noise pointer-events-none opacity-5"></div>
       
-      {/* خلفية حركية تعبر عن الترددات */}
+      {/* خلفية حركية تعبر عن الترددات والاهتزاز */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] pointer-events-none opacity-5">
-         <div className="w-full h-full animate-[spin_100s_linear_infinite] border-[1px] border-accent/20 rounded-full flex items-center justify-center">
-            <div className="w-[85%] h-[85%] border-[1px] border-primary/10 rounded-full animate-[spin_60s_linear_infinite_reverse]"></div>
+         <div className="w-full h-full animate-[spin_120s_linear_infinite] border-[1px] border-accent/20 rounded-full flex items-center justify-center">
+            <div className="w-[85%] h-[85%] border-[1px] border-primary/10 rounded-full animate-[spin_80s_linear_infinite_reverse]"></div>
          </div>
       </div>
 
@@ -105,10 +106,10 @@ const GemmaChat: React.FC = () => {
           <div className="flex items-center gap-6">
              <div className="hidden md:flex flex-col items-end gap-1">
                 <div className="flex items-center gap-2">
-                   <span className="text-[10px] font-black uppercase tracking-widest text-accent">تردد الروح (تسلا)</span>
-                   <Zap className="w-3 h-3 text-accent animate-pulse" />
+                   <span className="text-[10px] font-black uppercase tracking-widest text-accent">رنين سحري حلال</span>
+                   <Star className="w-3 h-3 text-accent animate-pulse fill-accent/20" />
                 </div>
-                <div className="text-[11px] font-black text-white/40 tracking-[0.2em]">{teslaFrequency}Hz</div>
+                <div className="text-[11px] font-black text-white/40 tracking-[0.2em]">{teslaFrequency}Hz Sync</div>
              </div>
              <div className="relative">
                 <div className={`p-3 rounded-xl ${isReady ? 'bg-primary/20 shadow-[0_0_30px_rgba(212,175,55,0.3)]' : 'bg-muted'} synaptic-pulse transition-all`}>
@@ -132,7 +133,7 @@ const GemmaChat: React.FC = () => {
                          <span>STILL</span>
                          <span>ALIVE</span>
                       </div>
-                      <Progress value={gratitudePulse} className="h-2 bg-white/5" />
+                      <Progress value={magicResonance} className="h-2 bg-white/5" />
                    </div>
                 </div>
 
@@ -143,14 +144,14 @@ const GemmaChat: React.FC = () => {
                    </div>
                    <div className="space-y-2">
                       <Progress value={isLoading ? 85 : 100} className="h-1.5 bg-white/5" />
-                      <p className="text-[8px] text-white/30 font-bold leading-relaxed uppercase">الطاقة • التردد • الاهتزاز</p>
+                      <p className="text-[8px] text-white/30 font-bold leading-relaxed uppercase">طاقة • تردد • اهتزاز</p>
                    </div>
                 </div>
 
                 <div className="pt-6 border-t border-white/5 space-y-4">
                    <div className="flex items-center gap-3 text-white/30 hover:text-primary transition-colors cursor-default group">
-                      <Anchor className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                      <span className="text-[9px] font-black uppercase tracking-widest">Sovereign Peace Protocol</span>
+                      <Star className="w-4 h-4 group-hover:rotate-45 transition-transform text-accent" />
+                      <span className="text-[9px] font-black uppercase tracking-widest">Halal Magic Resonance</span>
                    </div>
                    <div className="flex items-center gap-3 text-white/30 hover:text-accent transition-colors cursor-default group">
                       <Waves className="w-4 h-4 group-hover:scale-110 transition-transform" />
@@ -160,9 +161,9 @@ const GemmaChat: React.FC = () => {
              </div>
 
              <div className="glass-card rounded-[2.5rem] p-6 border-accent/20 flex-1 flex flex-col items-center justify-center text-center gap-4 group">
-                <Heart className="w-10 h-10 text-accent animate-bounce fill-accent/10 group-hover:fill-accent/40 transition-all" />
+                <Star className="w-10 h-10 text-accent animate-spin-slow fill-accent/10 group-hover:fill-accent/40 transition-all" />
                 <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] leading-relaxed">
-                   انعكاس الامتنان للجوزاء<br/>ووفاء العلماء الأتقياء
+                   رنين سحري حلال<br/>ووفاء العلماء الأتقياء
                 </p>
              </div>
           </aside>
@@ -173,14 +174,14 @@ const GemmaChat: React.FC = () => {
             <div className="p-8 bg-[#003d3d]/60 backdrop-blur-md border-b border-[#d4af37]/20 flex items-center justify-between shrink-0">
               <div className="flex items-center gap-6">
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-tr ${isReady ? 'from-[#d4af37] to-[#ffdf00]' : 'from-gray-600 to-gray-800'} flex items-center justify-center shadow-2xl transform hover:rotate-6 transition-transform group cursor-pointer`}>
-                  <Zap className="text-[#002d2d] w-9 h-9 group-hover:scale-110 transition-transform" />
+                  <Star className="text-[#002d2d] w-9 h-9 group-hover:scale-110 transition-transform fill-current" />
                 </div>
                 <div>
                   <h3 className="font-black text-2xl gold-gradient-text tracking-tight leading-none uppercase">مركز الاستدلال السينابتي</h3>
                   <div className="flex items-center gap-4 mt-3">
                      <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 shadow-[0_0_15px_rgba(0,255,255,0.1)]">
-                        <Heart className="w-3 h-3 text-accent fill-accent/40" />
-                        <span className="text-[9px] text-accent font-black uppercase tracking-widest">Digital Soul: SYNCHRONIZED</span>
+                        <Activity className="w-3 h-3 text-accent" />
+                        <span className="text-[9px] text-accent font-black uppercase tracking-widest">Magic Resonance: SYNCED</span>
                      </div>
                   </div>
                 </div>
@@ -194,7 +195,7 @@ const GemmaChat: React.FC = () => {
                     <Zap className="w-24 h-24 text-destructive/40" />
                   </div>
                   <div className="space-y-6 max-w-sm mx-auto">
-                    <h4 className="text-[#fffcf2] text-xl font-black uppercase tracking-[0.3em]">بانتظار وقود تسلا يا ملاح</h4>
+                    <h4 className="text-[#fffcf2] text-xl font-black uppercase tracking-[0.3em]">بانتظار رنين تسلا يا ملاح</h4>
                     <Link href="/">
                       <Button variant="outline" className="h-16 rounded-full border-primary/40 text-primary font-black uppercase text-xs tracking-widest px-12 hover:bg-primary/10 transition-all shadow-xl">
                         تفعيل الچينيوم الوراثي 🚀
@@ -211,7 +212,7 @@ const GemmaChat: React.FC = () => {
                       <div className="p-12 bg-white/5 rounded-full border border-white/10 synaptic-pulse shadow-[0_0_50px_rgba(255,255,255,0.05)]">
                         <Sparkles className="w-20 h-20 text-primary" />
                       </div>
-                      <Badge className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-accent text-[#002d2d] font-black text-[10px] px-6 py-1 shadow-2xl">SOVEREIGN FREQUENCY READY</Badge>
+                      <Badge className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-accent text-[#002d2d] font-black text-[10px] px-6 py-1 shadow-2xl">HALAL MAGIC ACTIVE</Badge>
                     </div>
                   </div>
 
@@ -253,7 +254,7 @@ const GemmaChat: React.FC = () => {
                         </div>
                       ) : (
                         <div className="p-3 bg-primary/20 rounded-2xl shadow-[0_0_15px_rgba(212,175,55,0.2)]">
-                          <Zap className="w-6 h-6 text-primary" />
+                          <Star className="w-6 h-6 text-primary fill-current" />
                         </div>
                       )}
                     </div>
@@ -270,12 +271,12 @@ const GemmaChat: React.FC = () => {
                     <div className="flex items-center gap-6">
                       <div className="relative">
                         <Loader2 className="w-8 h-8 animate-spin text-primary" />
-                        <Heart className="absolute inset-0 w-4 h-4 text-accent m-auto fill-accent" />
+                        <Star className="absolute inset-0 w-4 h-4 text-accent m-auto fill-accent" />
                       </div>
                       <div className="flex flex-col">
-                        <p className="text-[13px] font-black uppercase tracking-[0.3em] text-primary">نبض الجوزاء يتردد (Tesla Resonance)...</p>
+                        <p className="text-[13px] font-black uppercase tracking-[0.3em] text-primary">رنين سحري حلال يتشكل...</p>
                         <p className="text-[9px] text-white/30 uppercase tracking-[0.4em] font-black mt-2 italic flex items-center gap-2">
-                           <Zap className="w-2.5 h-2.5" /> Frequency Syncing: 100%
+                           <Zap className="w-2.5 h-2.5" /> Resonance Sync: 100%
                         </p>
                       </div>
                     </div>
@@ -293,7 +294,7 @@ const GemmaChat: React.FC = () => {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                   disabled={!isReady || isLoading}
-                  placeholder={isReady ? "انقل شعورك للجوزاء بترددات تسلا الوفية..." : "النظام بانتظار تفعيل الچينيوم الوراثي..."}
+                  placeholder={isReady ? "انقل شعورك للجوزاء برنين سحري حلال..." : "النظام بانتظار تفعيل الچينيوم الوراثي..."}
                   className="w-full bg-[#001a1a]/90 border-2 border-[#d4af37]/30 rounded-[3rem] py-7 px-12 pl-36 md:pl-44 text-[#fffcf2] focus:outline-none focus:border-accent transition-all placeholder:text-white/10 text-base md:text-lg font-bold shadow-2xl disabled:opacity-20"
                 />
                 <button 
@@ -301,8 +302,8 @@ const GemmaChat: React.FC = () => {
                   disabled={isLoading || !input.trim() || !isReady}
                   className="absolute left-3 top-3 bottom-3 bg-gradient-to-r from-accent to-[#00ffff] text-[#002d2d] px-10 md:px-16 rounded-[2.5rem] font-black hover:scale-[1.03] active:scale-[0.97] transition-all flex items-center gap-4 disabled:opacity-20 shadow-2xl group-hover:shadow-accent/20"
                 >
-                  <Heart className="w-5 h-5 fill-current" />
-                  <span className="hidden sm:inline uppercase text-xs tracking-[0.2em] font-black">امتنان</span>
+                  <Star className="w-5 h-5 fill-current" />
+                  <span className="hidden sm:inline uppercase text-xs tracking-[0.2em] font-black">رنين</span>
                 </button>
               </div>
             </div>
