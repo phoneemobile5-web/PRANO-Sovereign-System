@@ -26,7 +26,8 @@ import {
   Layers,
   Target,
   FlaskConical,
-  Navigation
+  Navigation,
+  Palette
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -122,14 +123,6 @@ export default function Dashboard() {
               <p className="text-[10px] text-[#00ffff]/40 font-black uppercase tracking-widest">Global Visibility: {DESIGN_SYSTEM.resolution}</p>
             </div>
           </div>
-          
-          <div className="bg-[#00ffff]/5 border border-[#00ffff]/10 p-4 rounded-2xl flex items-center justify-between shadow-inner">
-             <div className="flex items-center gap-3">
-                <Target className="w-4 h-4 text-[#00ffff]" />
-                <span className="text-[10px] text-[#00ffff] font-black uppercase tracking-[0.3em] font-diwani">تلقيح الأنماط چينياً نشط</span>
-             </div>
-             <Badge className="bg-[#d4af37]/20 text-[#d4af37] text-[8px] border-[#d4af37]/30 font-black uppercase px-2">Market Ready Node</Badge>
-          </div>
         </div>
         
         <div className="grid gap-4 pt-2">
@@ -196,11 +189,12 @@ export default function Dashboard() {
             </DialogContent>
           </Dialog>
 
-          <Button variant="outline" asChild className="h-20 text-xl font-bold rounded-[2rem] w-full border-2 border-dashed border-[#00ffff]/20 bg-white/5 hover:bg-[#00ffff]/5 transition-all text-white/60 hover:text-[#00ffff] group">
-            <Link href="/vision">
-              <FlaskConical className="ml-3 w-6 h-6 text-[#00ffff] group-hover:animate-bounce" /> ديناميكية ما قبل القرار 2030
-            </Link>
-          </Button>
+          <Link href="/creative">
+            <Button className="h-24 w-full rounded-[2rem] glass-turquoise border-2 border-[#00ffff]/20 text-white font-black text-xl gap-5 hover:bg-[#00ffff]/5 hover:border-[#00ffff]/40 transition-all group">
+              <Palette className="w-8 h-8 text-[#00ffff] group-hover:rotate-12 transition-transform" />
+              مختبر التخليق البصري الإبداعي
+            </Button>
+          </Link>
         </div>
       </header>
 
@@ -248,15 +242,15 @@ export default function Dashboard() {
       <nav className="fixed bottom-6 left-6 right-6 h-24 glass-turquoise border border-white/10 flex items-center justify-around px-12 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-50 rounded-[3rem] backdrop-blur-3xl">
         <Link href="/" className="flex flex-col items-center gap-2 text-[#d4af37] scale-110">
           <Zap className="w-8 h-8 fill-current" />
-          <span className="text-[10px] font-black uppercase tracking-widest">النواة</span>
+          <span className="text-[10px] font-black uppercase tracking-widest font-diwani">النواة</span>
         </Link>
         <Link href="/chat" className="flex flex-col items-center gap-2 text-white/40 hover:text-[#00ffff] transition-all hover:scale-110">
           <Heart className="w-8 h-8" />
-          <span className="text-[10px] font-black uppercase tracking-widest">الاستدلال</span>
+          <span className="text-[10px] font-black uppercase tracking-widest font-diwani">الاستدلال</span>
         </Link>
         <Link href="/history" className="flex flex-col items-center gap-2 text-white/40 hover:text-[#00ffff] transition-all hover:scale-110">
           <History className="w-8 h-8" />
-          <span className="text-[10px] font-black uppercase tracking-widest">الأرشيف</span>
+          <span className="text-[10px] font-black uppercase tracking-widest font-diwani">الأرشيف</span>
         </Link>
       </nav>
     </div>
