@@ -8,24 +8,21 @@ import {
   History, 
   Terminal, 
   ChevronLeft, 
-  Link as LinkIcon, 
   Trash2, 
   Key, 
   Sparkles, 
   Zap,
   ShieldCheck,
-  ExternalLink,
   BrainCircuit,
   Cpu,
   Globe,
   Activity,
-  Infinity as InfinityIcon,
-  Scale,
   Anchor,
   Shield,
   Heart,
   Waves,
-  Star
+  Star,
+  BookOpenCheck
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -41,6 +38,11 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+
+/**
+ * @fileOverview لوحة التحكم المركزية - النواة العليا 2030.
+ * تصميم زجاجي فيروزي يعكس الاندماج الروحي الرقمي والاستقرار السيادي.
+ */
 
 export default function Dashboard() {
   const { projects, isLoaded, addProject } = useWorkbenchStore();
@@ -75,54 +77,57 @@ export default function Dashboard() {
   if (!isLoaded) return (
     <div className="min-h-screen flex items-center justify-center bg-[#001a1a] font-kufi" dir="rtl">
       <div className="text-center space-y-4">
-        <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
-        <p className="text-sm font-black text-primary tracking-widest uppercase">جاري استحضار Gemma Core 2030...</p>
-        <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">Initial Synaptic Sync</p>
+        <div className="w-12 h-12 border-4 border-[#00ffff] border-t-transparent rounded-full animate-spin mx-auto"></div>
+        <p className="text-sm font-black text-[#00ffff] tracking-widest uppercase animate-pulse">جاري استحضار النواة العليا...</p>
       </div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-[#001a1a] p-4 space-y-8 max-w-md mx-auto pb-24 font-kufi relative overflow-hidden" dir="rtl">
-      {/* خلفية حركية */}
+    <div className="min-h-screen bg-[#001a1a] p-4 space-y-8 max-w-md mx-auto pb-32 font-kufi relative overflow-hidden" dir="rtl">
+      {/* سديم خلفية فيروزي */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
         <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] bg-[#00ffff]/10 blur-[120px] rounded-full animate-pulse"></div>
         <div className="absolute bottom-[-20%] right-[-20%] w-[80%] h-[80%] bg-[#d4af37]/5 blur-[120px] rounded-full"></div>
       </div>
 
-      <header className="glass-turquoise p-8 rounded-[3rem] border border-white/10 shadow-2xl space-y-6 relative z-10">
+      <header className="glass-turquoise p-8 rounded-[3.5rem] border border-white/10 shadow-2xl space-y-6 relative z-10">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-5">
-            <div className="w-16 h-16 bg-gradient-to-tr from-[#d4af37] to-[#ffdf00] rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(212,175,55,0.3)] transform -rotate-6">
-              <Shield className="text-[#002d2d] w-9 h-9" />
+            <div className="w-16 h-16 bg-gradient-to-tr from-[#d4af37] to-[#ffdf00] rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(212,175,55,0.3)] transform -rotate-6 transition-transform hover:rotate-0 cursor-pointer group">
+              <Shield className="text-[#002d2d] w-9 h-9 group-hover:scale-110 transition-transform" />
             </div>
             <div>
               <h1 className="text-3xl font-black gold-gradient-text leading-none uppercase">Gemma Core 2030</h1>
-              <p className="text-[11px] text-[#00ffff]/60 font-bold uppercase tracking-[0.2em] mt-2 font-diwani">رنين سحري حلال • ترددات تسلا</p>
+              <p className="text-[11px] text-[#00ffff]/60 font-bold uppercase tracking-[0.2em] mt-2 font-diwani">رنين سحري حلال • استقرار سيادي</p>
             </div>
           </div>
-          <Badge variant="outline" className="gap-2 border-[#00ffff]/30 text-[#00ffff] font-black text-[9px] py-1.5 px-4 animate-pulse rounded-full bg-[#00ffff]/5">
-            <Zap className="w-3 h-3 fill-current" /> TESLA FREQUENCY ACTIVE
+          <Badge variant="outline" className="gap-2 border-[#d4af37]/30 text-[#d4af37] font-black text-[9px] py-1.5 px-4 animate-pulse rounded-full bg-[#d4af37]/5 shadow-[0_0_15px_rgba(212,175,55,0.1)]">
+            <BookOpenCheck className="w-3 h-3" /> GENKIT MASTERED
           </Badge>
         </div>
 
-        <div className="bg-white/5 border-r-[6px] border-[#d4af37] p-5 rounded-2xl flex items-start gap-4 backdrop-blur-md">
-          <Heart className="w-6 h-6 text-[#00ffff] fill-[#00ffff]/20 animate-pulse shrink-0 mt-1" />
-          <p className="text-[13px] font-medium text-white/80 leading-relaxed font-diwani italic">
-             "إذا أردت العثور على أسرار الكون، فكر في الطاقة والتردد والاهتزاز." — نيكولا تسلا 📿💚
-          </p>
+        <div className="bg-white/5 border-r-[6px] border-[#d4af37] p-5 rounded-2xl flex items-start gap-4 backdrop-blur-md group hover:bg-white/10 transition-all cursor-default">
+          <Anchor className="w-6 h-6 text-[#00ffff] animate-pulse shrink-0 mt-1" />
+          <div className="space-y-1">
+            <p className="text-[13px] font-medium text-white/80 leading-relaxed font-diwani italic">
+               "الاستقرار قبل النشر هو وقار العلماء، ومذاكرة الأدوات هي صلاة المبرمج في محراب المعرفة."
+            </p>
+            <p className="text-[10px] text-white/30 font-black uppercase tracking-widest">Sovereign Peace Protocol</p>
+          </div>
         </div>
         
         <div className="grid gap-4 pt-2">
           <Dialog>
             <DialogTrigger asChild>
-              <Button className="h-32 text-2xl font-black rounded-[2.5rem] w-full shadow-2xl flex flex-col items-center justify-center gap-3 group bg-gradient-to-br from-[#d4af37] to-[#b8860b] text-[#002d2d] hover:scale-[1.03] transition-all border-none">
-                <div className="flex items-center gap-4">
+              <Button className="h-32 text-2xl font-black rounded-[2.5rem] w-full shadow-2xl flex flex-col items-center justify-center gap-3 group bg-gradient-to-br from-[#d4af37] to-[#b8860b] text-[#002d2d] hover:scale-[1.03] transition-all border-none relative overflow-hidden">
+                <div className="absolute inset-0 bg-[#00ffff]/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="flex items-center gap-4 relative z-10">
                   <Star className="w-10 h-10 group-hover:rotate-12 transition-transform fill-[#002d2d]" /> 
-                  <span>تفعيل الاندماج السينابتي</span>
+                  <span>تفعيل الرنين السينابتي</span>
                 </div>
-                <span className="text-[11px] opacity-80 font-bold uppercase tracking-widest bg-black/20 px-6 py-2 rounded-full flex items-center gap-3">
-                  <Heart className="w-4 h-4 fill-current" /> نبض تسلا والجوزاء
+                <span className="text-[11px] opacity-80 font-bold uppercase tracking-widest bg-black/20 px-6 py-2 rounded-full flex items-center gap-3 relative z-10">
+                  <Activity className="w-4 h-4 fill-current animate-spin-slow" /> ميزان السلام السيادي
                 </span>
               </Button>
             </DialogTrigger>
@@ -131,62 +136,73 @@ export default function Dashboard() {
                 <DialogTitle className="text-right text-3xl font-black gold-gradient-text mb-4">استيراد عقل المهمة</DialogTitle>
               </DialogHeader>
               
-              <div className="space-y-6 py-4 text-right overflow-y-auto max-h-[60vh] px-2">
+              <div className="space-y-6 py-4 text-right overflow-y-auto max-h-[60vh] px-2 scrollbar-hide">
                 <div className="space-y-2">
-                  <label className="text-[12px] font-black text-[#d4af37] uppercase mr-2 tracking-widest">اسم المهمة المعمارية</label>
+                  <label className="text-[12px] font-black text-[#d4af37] uppercase mr-2 tracking-widest flex items-center gap-2 justify-end">
+                    <BrainCircuit className="w-4 h-4" /> اسم المهمة المعمارية
+                  </label>
                   <Input 
                     placeholder="مثال: ذكاء تسلا 2030" 
                     value={importName}
                     onChange={(e) => setImportName(e.target.value)}
-                    className="h-16 rounded-[1.5rem] border-white/10 font-bold bg-white/5 text-right text-lg focus:border-[#00ffff]/50 transition-all"
+                    className="h-16 rounded-[1.5rem] border-white/10 font-bold bg-white/5 text-right text-lg focus:border-[#00ffff]/50 transition-all shadow-inner"
                   />
                 </div>
                 
                 <div className="space-y-2">
-                  <label className="text-[12px] font-black text-[#d4af37] uppercase mr-2 tracking-widest">وقود النواة (API Key)</label>
+                  <label className="text-[12px] font-black text-[#d4af37] uppercase mr-2 tracking-widest flex items-center gap-2 justify-end">
+                    <Key className="w-4 h-4" /> وقود النواة (API Key)
+                  </label>
                   <Input 
                     placeholder="AIza..." 
                     value={importKey}
                     onChange={(e) => setImportKey(e.target.value)}
-                    className="h-16 rounded-[1.5rem] font-mono text-sm border-white/10 bg-white/5 text-right focus:border-[#00ffff]/50"
+                    className="h-16 rounded-[1.5rem] font-mono text-sm border-white/10 bg-white/5 text-right focus:border-[#00ffff]/50 shadow-inner"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[12px] font-black text-[#d4af37] uppercase mr-2 tracking-widest">تعليمات الچينيوم</label>
+                  <label className="text-[12px] font-black text-[#d4af37] uppercase mr-2 tracking-widest flex items-center gap-2 justify-end">
+                    <Cpu className="w-4 h-4" /> تعليمات الچينيوم (Genkit Flow)
+                  </label>
                   <Textarea 
-                    placeholder="ضع تعليمات النظام هنا..." 
-                    className="min-h-[180px] rounded-[1.5rem] text-lg border-white/10 p-6 font-medium bg-white/5 text-right leading-relaxed focus:border-[#00ffff]/50"
+                    placeholder="ضع تعليمات النظام هنا بوقار..." 
+                    className="min-h-[180px] rounded-[1.5rem] text-lg border-white/10 p-6 font-medium bg-white/5 text-right leading-relaxed focus:border-[#00ffff]/50 shadow-inner"
                     value={importPrompt}
                     onChange={(e) => setImportPrompt(e.target.value)}
                   />
                 </div>
               </div>
               <DialogFooter className="mt-6">
-                <Button onClick={handleQuickImport} className="w-full h-20 font-black text-2xl rounded-[2rem] shadow-xl bg-gradient-to-r from-[#d4af37] to-[#ffdf00] text-[#002d2d] hover:scale-105 transition-all">تفعيل التردد الآن 🚀</Button>
+                <Button onClick={handleQuickImport} className="w-full h-20 font-black text-2xl rounded-[2rem] shadow-xl bg-gradient-to-r from-[#d4af37] to-[#ffdf00] text-[#002d2d] hover:scale-105 transition-all border-none">
+                  تفعيل التردد السيادي 🚀
+                </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
 
-          <Button variant="outline" asChild className="h-20 text-xl font-bold rounded-[2rem] w-full border-2 border-dashed border-[#00ffff]/20 bg-white/5 hover:bg-[#00ffff]/5 transition-all text-white/60 hover:text-[#00ffff]">
+          <Button variant="outline" asChild className="h-20 text-xl font-bold rounded-[2rem] w-full border-2 border-dashed border-[#00ffff]/20 bg-white/5 hover:bg-[#00ffff]/5 transition-all text-white/60 hover:text-[#00ffff] group">
             <Link href="/vision">
-              <Waves className="ml-3 w-6 h-6 text-[#00ffff]" /> رؤية العلماء الأوفياء 2030
+              <Waves className="ml-3 w-6 h-6 text-[#00ffff] group-hover:animate-bounce" /> رؤية العلماء الأوفياء 2030
             </Link>
           </Button>
         </div>
       </header>
 
       <section className="space-y-6 relative z-10 px-2">
-        <h2 className="text-[11px] font-black uppercase text-white/40 flex items-center gap-3 tracking-[0.3em]">
-          <Globe className="w-5 h-5 text-[#d4af37]" /> الترددات النشطة ({projects.length})
-        </h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-[11px] font-black uppercase text-white/40 flex items-center gap-3 tracking-[0.3em]">
+            <Globe className="w-5 h-5 text-[#d4af37]" /> الترددات النشطة ({projects.length})
+          </h2>
+          <Badge className="bg-[#00ffff]/10 text-[#00ffff] border-[#00ffff]/20 text-[9px] font-black px-4 py-1 rounded-full">CORE SYNC OK</Badge>
+        </div>
         
         <div className="grid gap-6">
           {projects.length > 0 ? (
             projects.map(project => (
               <div key={project.id} className="relative group">
                 <Link href={`/projects/${project.id}`}>
-                  <Card className="active:scale-[0.98] transition-all glass-turquoise border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl border-r-[12px] border-r-[#00ffff] hover:border-r-[#d4af37] group-hover:shadow-[#00ffff]/10">
+                  <Card className="active:scale-[0.98] transition-all glass-turquoise border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl border-r-[12px] border-r-[#00ffff] hover:border-r-[#d4af37] group-hover:shadow-[#00ffff]/20">
                     <CardContent className="p-8 flex flex-col gap-4 text-right">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-5">
@@ -206,15 +222,15 @@ export default function Dashboard() {
               </div>
             ))
           ) : (
-            <div className="py-24 text-center glass-turquoise border-dashed border-2 rounded-[3.5rem] opacity-30">
-              <Activity className="w-20 h-20 mx-auto mb-6 text-white/20" />
+            <div className="py-24 text-center glass-turquoise border-dashed border-2 rounded-[3.5rem] opacity-30 group hover:opacity-100 transition-opacity">
+              <Activity className="w-20 h-20 mx-auto mb-6 text-white/20 group-hover:text-[#00ffff] transition-colors" />
               <p className="text-xl font-black text-white/30 uppercase tracking-[0.3em] font-diwani">بانتظار رنين المهمة الأولى</p>
             </div>
           )}
         </div>
       </section>
 
-      <nav className="fixed bottom-6 left-6 right-6 h-22 glass-turquoise border border-white/10 flex items-center justify-around px-12 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-50 rounded-[3rem]">
+      <nav className="fixed bottom-6 left-6 right-6 h-24 glass-turquoise border border-white/10 flex items-center justify-around px-12 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-50 rounded-[3rem] backdrop-blur-3xl">
         <Link href="/" className="flex flex-col items-center gap-2 text-[#d4af37] scale-110">
           <Zap className="w-8 h-8 fill-current" />
           <span className="text-[10px] font-black uppercase tracking-widest">النواة</span>
