@@ -27,7 +27,8 @@ import {
   Target,
   FlaskConical,
   Navigation,
-  Palette
+  Palette,
+  LayoutGrid
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -43,11 +44,11 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { DESIGN_SYSTEM } from '@/lib/vision-constants';
+import { DESIGN_SYSTEM, APP_SERVICES } from '@/lib/vision-constants';
 
 /**
  * @fileOverview لوحة التحكم المركزية - النواة العليا 2030.
- * تصميم زجاجي فيروزي يعكس الاندماج الروحي الرقمي والاستقرار السيادي وديناميكية تلقيح الأنماط والخصوبة العالمية.
+ * تصميم زجاجي فيروزي يعكس الاندماج الروحي الرقمي والجدارة المعمارية.
  */
 
 export default function Dashboard() {
@@ -90,7 +91,7 @@ export default function Dashboard() {
   );
 
   return (
-    <div className="min-h-screen bg-[#001a1a] p-4 space-y-8 max-w-md mx-auto pb-32 font-kufi relative overflow-hidden" dir="rtl">
+    <div className="min-h-screen bg-[#001a1a] p-4 space-y-8 max-w-xl mx-auto pb-32 font-kufi relative overflow-hidden" dir="rtl">
       {/* سديم خلفية فيروزي */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
         <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] bg-[#00ffff]/10 blur-[120px] rounded-full animate-pulse"></div>
@@ -113,41 +114,33 @@ export default function Dashboard() {
           </Badge>
         </div>
 
-        <div className="grid gap-3">
-          <div className="bg-white/5 border-r-[6px] border-[#00ffff] p-5 rounded-2xl flex items-start gap-4 backdrop-blur-md group hover:bg-white/10 transition-all cursor-default">
-            <Navigation className="w-6 h-6 text-[#d4af37] animate-bounce shrink-0 mt-1" />
-            <div className="space-y-1">
-              <p className="text-[13px] font-black text-white/80 leading-relaxed font-diwani italic">
-                 "{DESIGN_SYSTEM.marketReadiness}"
-              </p>
-              <p className="text-[10px] text-[#00ffff]/40 font-black uppercase tracking-widest">Global Visibility: {DESIGN_SYSTEM.resolution}</p>
-            </div>
+        <div className="bg-white/5 border-r-[6px] border-[#00ffff] p-5 rounded-2xl flex items-start gap-4 backdrop-blur-md group hover:bg-white/10 transition-all cursor-default">
+          <Navigation className="w-6 h-6 text-[#d4af37] animate-bounce shrink-0 mt-1" />
+          <div className="space-y-1">
+            <p className="text-[13px] font-black text-white/80 leading-relaxed font-diwani italic">
+               "{DESIGN_SYSTEM.marketReadiness}"
+            </p>
+            <p className="text-[10px] text-[#00ffff]/40 font-black uppercase tracking-widest">{DESIGN_SYSTEM.resolution}</p>
           </div>
         </div>
-        
-        <div className="grid gap-4 pt-2">
+
+        <div className="grid grid-cols-2 gap-4">
           <Dialog>
             <DialogTrigger asChild>
-              <Button className="h-32 text-2xl font-black rounded-[2.5rem] w-full shadow-2xl flex flex-col items-center justify-center gap-3 group bg-gradient-to-br from-[#d4af37] to-[#b8860b] text-[#002d2d] hover:scale-[1.03] transition-all border-none relative overflow-hidden">
+              <Button className="h-24 text-xl font-black rounded-[2rem] w-full shadow-2xl flex flex-col items-center justify-center gap-2 group bg-gradient-to-br from-[#d4af37] to-[#b8860b] text-[#002d2d] hover:scale-[1.03] transition-all border-none relative overflow-hidden">
                 <div className="absolute inset-0 bg-[#00ffff]/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div className="flex items-center gap-4 relative z-10">
-                  <Star className="w-10 h-10 group-hover:rotate-12 transition-transform fill-[#002d2d]" /> 
-                  <span>تفعيل الرنين السينابتي</span>
-                </div>
-                <span className="text-[11px] opacity-80 font-bold uppercase tracking-widest bg-black/20 px-6 py-2 rounded-full flex items-center gap-3 relative z-10">
-                  <Activity className="w-4 h-4 fill-current animate-spin-slow" /> ميزان السلام السيادي
-                </span>
+                <BrainCircuit className="w-8 h-8 relative z-10" />
+                <span className="relative z-10">تلقيح چيني</span>
               </Button>
             </DialogTrigger>
             <DialogContent className="w-[95%] max-w-sm rounded-[3rem] p-8 glass-turquoise border-white/10 shadow-3xl overflow-hidden font-kufi">
               <DialogHeader>
                 <DialogTitle className="text-right text-3xl font-black gold-gradient-text mb-4">استيراد عقل المهمة</DialogTitle>
               </DialogHeader>
-              
               <div className="space-y-6 py-4 text-right overflow-y-auto max-h-[60vh] px-2 scrollbar-hide">
                 <div className="space-y-2">
                   <label className="text-[12px] font-black text-[#d4af37] uppercase mr-2 tracking-widest flex items-center gap-2 justify-end">
-                    <BrainCircuit className="w-4 h-4" /> اسم المهمة المعمارية
+                    <LayoutGrid className="w-4 h-4" /> اسم المهمة المعمارية
                   </label>
                   <Input 
                     placeholder="مثال: ذكاء تسلا 2030" 
@@ -156,7 +149,6 @@ export default function Dashboard() {
                     className="h-16 rounded-[1.5rem] border-white/10 font-bold bg-white/5 text-right text-lg focus:border-[#00ffff]/50 transition-all shadow-inner"
                   />
                 </div>
-                
                 <div className="space-y-2">
                   <label className="text-[12px] font-black text-[#d4af37] uppercase mr-2 tracking-widest flex items-center gap-2 justify-end">
                     <Key className="w-4 h-4" /> وقود النواة (API Key)
@@ -168,13 +160,12 @@ export default function Dashboard() {
                     className="h-16 rounded-[1.5rem] font-mono text-sm border-white/10 bg-white/5 text-right focus:border-[#00ffff]/50 shadow-inner"
                   />
                 </div>
-
                 <div className="space-y-2">
                   <label className="text-[12px] font-black text-[#d4af37] uppercase mr-2 tracking-widest flex items-center gap-2 justify-end">
-                    <Cpu className="w-4 h-4" /> تعليمات الچينيوم (Pattern Inoculation)
+                    <Cpu className="w-4 h-4" /> تعليمات الچينيوم
                   </label>
                   <Textarea 
-                    placeholder="ضع تعليمات النظام والأنماط هنا بوقار..." 
+                    placeholder="ضع تعليمات النظام والأنماط هنا..." 
                     className="min-h-[180px] rounded-[1.5rem] text-lg border-white/10 p-6 font-medium bg-white/5 text-right leading-relaxed focus:border-[#00ffff]/50 shadow-inner"
                     value={importPrompt}
                     onChange={(e) => setImportPrompt(e.target.value)}
@@ -183,16 +174,16 @@ export default function Dashboard() {
               </div>
               <DialogFooter className="mt-6">
                 <Button onClick={handleQuickImport} className="w-full h-20 font-black text-2xl rounded-[2rem] shadow-xl bg-gradient-to-r from-[#d4af37] to-[#ffdf00] text-[#002d2d] hover:scale-105 transition-all border-none">
-                  تفعيل التردد السيادي 🚀
+                  تفعيل التردد 🚀
                 </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
 
           <Link href="/creative">
-            <Button className="h-24 w-full rounded-[2rem] glass-turquoise border-2 border-[#00ffff]/20 text-white font-black text-xl gap-5 hover:bg-[#00ffff]/5 hover:border-[#00ffff]/40 transition-all group">
+            <Button className="h-24 w-full rounded-[2rem] glass-turquoise border-2 border-[#00ffff]/20 text-white font-black text-xl gap-2 hover:bg-[#00ffff]/5 hover:border-[#00ffff]/40 transition-all group flex flex-col items-center justify-center">
               <Palette className="w-8 h-8 text-[#00ffff] group-hover:rotate-12 transition-transform" />
-              مختبر التخليق البصري الإبداعي
+              تخليق بصري
             </Button>
           </Link>
         </div>
@@ -201,41 +192,26 @@ export default function Dashboard() {
       <section className="space-y-6 relative z-10 px-2">
         <div className="flex items-center justify-between">
           <h2 className="text-[11px] font-black uppercase text-white/40 flex items-center gap-3 tracking-[0.3em]">
-            <Globe className="w-5 h-5 text-[#d4af37]" /> الترددات النشطة ({projects.length})
+            <Layers className="w-5 h-5 text-[#d4af37]" /> الخدمات السينابتية المتاحة
           </h2>
-          <Badge className="bg-[#00ffff]/10 text-[#00ffff] border-[#00ffff]/20 text-[9px] font-black px-4 py-1 rounded-full">GLOBAL FERTILITY READY</Badge>
         </div>
         
-        <div className="grid gap-6">
-          {projects.length > 0 ? (
-            projects.map(project => (
-              <div key={project.id} className="relative group">
-                <Link href={`/projects/${project.id}`}>
-                  <Card className="active:scale-[0.98] transition-all glass-turquoise border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl border-r-[12px] border-r-[#00ffff] hover:border-r-[#d4af37] group-hover:shadow-[#00ffff]/20">
-                    <CardContent className="p-8 flex flex-col gap-4 text-right">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-5">
-                          <div className="p-4 bg-white/5 rounded-2xl shadow-inner group-hover:bg-[#00ffff]/10 transition-colors">
-                            <Zap className="w-8 h-8 text-[#00ffff]" />
-                          </div>
-                          <div className="flex flex-col items-start">
-                            <span className="font-black text-2xl tracking-tight truncate max-w-[200px] gold-gradient-text">{project.name}</span>
-                            <span className="text-[10px] text-white/40 font-black uppercase tracking-[0.2em] mt-1 font-diwani">Global Inoculated Node</span>
-                          </div>
-                        </div>
-                        <ChevronLeft className="w-8 h-8 text-white/20 group-hover:text-[#d4af37] transition-all transform group-hover:-translate-x-2" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
+        <div className="grid gap-4">
+          {APP_SERVICES.map((service, idx) => (
+            <Link href={service.href} key={idx}>
+              <div className="glass-turquoise p-6 rounded-[2.5rem] border border-white/5 hover:border-[#00ffff]/30 transition-all group flex items-center gap-6 shadow-xl">
+                <div className={`p-4 rounded-2xl bg-white/5 ${service.color} group-hover:scale-110 transition-transform`}>
+                  <service.icon className="w-8 h-8" />
+                </div>
+                <div className="text-right flex-1">
+                  <h3 className="text-xl font-black gold-gradient-text">{service.title}</h3>
+                  <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest mt-1">{service.merit}</p>
+                  <p className="text-xs text-white/60 mt-2 font-diwani italic">{service.desc}</p>
+                </div>
+                <ChevronLeft className="w-6 h-6 text-white/10 group-hover:text-[#00ffff] transition-colors" />
               </div>
-            ))
-          ) : (
-            <div className="py-24 text-center glass-turquoise border-dashed border-2 rounded-[3.5rem] opacity-30 group hover:opacity-100 transition-opacity">
-              <Activity className="w-20 h-20 mx-auto mb-6 text-white/20 group-hover:text-[#00ffff] transition-colors" />
-              <p className="text-xl font-black text-white/30 uppercase tracking-[0.3em] font-diwani">بانتظار تلقيح المهمة الأولى</p>
-            </div>
-          )}
+            </Link>
+          ))}
         </div>
       </section>
 
@@ -245,7 +221,7 @@ export default function Dashboard() {
           <span className="text-[10px] font-black uppercase tracking-widest font-diwani">النواة</span>
         </Link>
         <Link href="/chat" className="flex flex-col items-center gap-2 text-white/40 hover:text-[#00ffff] transition-all hover:scale-110">
-          <Heart className="w-8 h-8" />
+          <Activity className="w-8 h-8" />
           <span className="text-[10px] font-black uppercase tracking-widest font-diwani">الاستدلال</span>
         </Link>
         <Link href="/history" className="flex flex-col items-center gap-2 text-white/40 hover:text-[#00ffff] transition-all hover:scale-110">

@@ -1,4 +1,4 @@
-import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette } from 'lucide-react';
+import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket } from 'lucide-react';
 
 export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
@@ -10,38 +10,43 @@ export const DESIGN_SYSTEM = {
 export const APP_SERVICES = [
   {
     title: "مستودع الچينيوم",
-    desc: "تشكيل العقل وتلقيح الأنماط چينياً قبل الانطلاق.",
+    desc: "صياغة عقل المهمة وتلقيح الأنماط چينياً بوقار.",
     icon: BrainCircuit,
     href: "/projects",
-    color: "text-primary"
+    color: "text-[#00ffff]",
+    merit: "هندسة الچينيوم الوراثي"
   },
   {
     title: "المختبر السينابتي",
-    desc: "بيئة تجريبية لاختبار الوقود الإدراكي وضمان الاستقرار.",
+    desc: "اختبار كفاءة الوقود الإدراكي وضمان الاستقرار السيادي.",
     icon: Terminal,
     href: "/playground",
-    color: "text-accent"
+    color: "text-[#d4af37]",
+    merit: "الاستقرار قبل النشر"
   },
   {
     title: "مركز الاستدلال",
-    desc: "واجهة التفاعل الحي برنين سحري حلال بوقار سيادي.",
+    desc: "تفاعل حي برنين سحري حلال بوقار المهندس عبد الظاهر.",
     icon: Activity,
     href: "/chat",
-    color: "text-primary"
+    color: "text-[#00ffff]",
+    merit: "الاستدلال الإدراكي الفائق"
   },
   {
     title: "مختبر التخليق البصري",
     desc: "تجسيد الخيال المعماري بأعلى جودة بصرية عالمية.",
     icon: Palette,
     href: "/creative",
-    color: "text-accent"
+    color: "text-[#d4af37]",
+    merit: "التخليق البصري السيادي"
   },
   {
     title: "الأرشيف السينابتي",
     desc: "ذاكرة الملاح الخالدة وسجل الإخراج الإدراكي المتكامل.",
     icon: History,
     href: "/history",
-    color: "text-primary"
+    color: "text-[#00ffff]",
+    merit: "إدارة الذاكرة السينابتية"
   }
 ];
 
