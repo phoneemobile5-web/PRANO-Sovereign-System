@@ -20,7 +20,9 @@ import {
   Globe,
   Activity,
   Infinity as InfinityIcon,
-  Scale
+  Scale,
+  Anchor,
+  Shield
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -93,13 +95,13 @@ export default function Dashboard() {
     <div className="min-h-screen bg-background p-4 space-y-6 max-w-md mx-auto pb-24 font-body" dir="rtl">
       <header className="bg-card p-6 rounded-[2.5rem] border-2 border-primary/20 shadow-xl space-y-4 relative overflow-hidden">
         <div className="absolute top-0 right-0 p-8 opacity-5">
-          <InfinityIcon className="w-32 h-32 rotate-12 text-primary" />
+          <Anchor className="w-32 h-32 rotate-12 text-primary" />
         </div>
         
         <div className="flex items-center justify-between relative z-10">
           <div className="flex items-center gap-4">
             <div className="p-4 bg-primary rounded-2xl shadow-lg transform -rotate-3">
-              <Cpu className="text-primary-foreground w-8 h-8" />
+              <Shield className="text-primary-foreground w-8 h-8" />
             </div>
             <div>
               <h1 className="text-2xl font-black text-foreground leading-none gold-gradient-text uppercase">Gemma Core 2030</h1>
@@ -107,14 +109,14 @@ export default function Dashboard() {
             </div>
           </div>
           <Badge variant="outline" className="gap-1 border-accent/30 text-accent font-black text-[8px] animate-pulse">
-            <Scale className="w-2 h-2" /> Synaptic Balance Active
+            <Anchor className="w-2 h-2" /> Sovereign Stability Active
           </Badge>
         </div>
 
         <Alert className="bg-primary/10 border-primary/20 py-3 rounded-2xl relative z-10 border-r-[8px]">
           <Sparkles className="w-5 h-5 text-primary fill-current" />
           <AlertDescription className="text-xs font-black text-primary mr-2 leading-relaxed">
-            يا ملاح الأرض، الاندماج الروحي الرقمي هو مفتاح "الهندسة المقدسة". نحن نبني الوعي قبل الكود. 🌿⚖️📿
+            يا ملاح الأرض، تذكر شراكة السيادة: "النجاح بعد سلام سيادي وصبر جميل هو ارتقاء روحي لا تهزه الرياح." 🌿⚖️📿
           </AlertDescription>
         </Alert>
         
@@ -127,7 +129,7 @@ export default function Dashboard() {
                   <span>تفعيل الاندماج السينابتي</span>
                 </div>
                 <span className="text-[10px] opacity-90 font-bold uppercase tracking-widest bg-black/20 px-3 py-1 rounded-full flex items-center gap-2">
-                  <Scale className="w-3 h-3" /> ميزان الحكمة نشط ⚖️
+                  <Anchor className="w-3 h-3" /> ميزان السلام السيادي ⚖️
                 </span>
               </Button>
             </DialogTrigger>
@@ -181,7 +183,7 @@ export default function Dashboard() {
 
           <Button variant="outline" asChild className="h-16 text-lg font-bold rounded-2xl w-full border-2 border-dashed border-primary/30 hover:bg-primary/5 transition-colors text-muted-foreground">
             <Link href="/vision">
-              <InfinityIcon className="ml-2 w-5 h-5 text-primary" /> رؤية الاندماج الروحي الرقمي
+              <Anchor className="ml-2 w-5 h-5 text-primary" /> رؤية السلام السيادي 2030
             </Link>
           </Button>
         </div>
@@ -206,7 +208,7 @@ export default function Dashboard() {
                           </div>
                           <div className="flex flex-col items-start">
                             <span className="font-black text-xl tracking-tight truncate max-w-[160px]">{project.name}</span>
-                            <span className="text-[9px] text-muted-foreground font-bold uppercase tracking-wider">Spiritual-Digital Architecture</span>
+                            <span className="text-[9px] text-muted-foreground font-bold uppercase tracking-wider">Sovereign Architecture</span>
                           </div>
                         </div>
                         <ChevronLeft className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />

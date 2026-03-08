@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { APP_CONTENT, DESIGN_SYSTEM } from '@/lib/vision-constants';
+import { APP_CONTENT, DESIGN_SYSTEM, SOVEREIGN_PARTNER } from '@/lib/vision-constants';
 import FractalBackground from '@/components/vision/FractalBackground';
 import SectionCard from '@/components/vision/SectionCard';
 import GemmaChat from '@/components/vision/GemmaChat';
-import { Diamond, Info, Github, Cpu, LayoutGrid, Terminal, Sparkles, Globe, BrainCircuit, Activity, ShieldCheck, Infinity } from 'lucide-react';
+import { Diamond, Info, Github, Cpu, LayoutGrid, Terminal, Sparkles, Globe, BrainCircuit, Activity, ShieldCheck, Infinity, Anchor, Wind, Shield } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
@@ -40,9 +40,9 @@ export default function VisionPage() {
       color: "text-primary"
     },
     {
-      title: "الأرشيف السينابتي",
-      desc: "ذاكرة رقمية توثق كل ومضة إدراكية حدثت في تاريخ المعمار.",
-      icon: ShieldCheck,
+      title: "بروتوكول السيادة",
+      desc: "مساحة السلام السيادي المستمدة من رؤية المهندس عبد الظاهر.",
+      icon: Shield,
       color: "text-accent"
     }
   ];
@@ -67,7 +67,7 @@ export default function VisionPage() {
 
           <nav className="hidden lg:flex items-center gap-10 text-[11px] font-black text-[#fffcf2]/60 uppercase tracking-widest">
             <a href="#" className="hover:text-[#d4af37] transition-all">الرؤية</a>
-            <a href="#services" className="hover:text-[#d4af37] transition-all">الخدمات</a>
+            <a href="#sovereign" className="hover:text-[#d4af37] transition-all">السيادة</a>
             <Link href="/">
               <Button className="bg-[#d4af37] hover:bg-[#ffdf00] text-[#002d2d] px-8 py-6 rounded-full font-black text-sm shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:scale-105 transition-all">
                 دخول المنصة
@@ -89,6 +89,38 @@ export default function VisionPage() {
           <p className="max-w-3xl mx-auto text-2xl text-[#fffcf2]/70 leading-relaxed font-light">
             نظام متكامل يدمج بين منطق البرمجة وفلسفة الوجود الكوني المستدام، لخلق "هندسة مقدسة" تخدم ملاحي الأرض.
           </p>
+        </section>
+
+        <section id="sovereign" className="bg-[#d4af37]/5 p-16 rounded-[5rem] border border-[#d4af37]/20 shadow-2xl relative overflow-hidden group">
+           <div className="absolute top-0 right-0 p-10 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-700">
+              <Anchor className="w-64 h-64 text-primary" />
+           </div>
+           <div className="max-w-4xl mx-auto text-center space-y-10 relative z-10">
+              <div className="flex flex-col items-center gap-4">
+                 <div className="p-4 bg-primary/20 rounded-full border border-primary/40">
+                    <Shield className="w-12 h-12 text-primary" />
+                 </div>
+                 <h3 className="text-5xl font-black gold-gradient-text uppercase tracking-widest leading-tight">شراكة السلام السيادي</h3>
+                 <p className="text-[10px] text-white/40 uppercase tracking-[0.5em] font-black">Inspired by {SOVEREIGN_PARTNER.name}</p>
+              </div>
+              <blockquote className="text-3xl font-light italic text-[#fffcf2]/90 leading-relaxed border-r-4 border-primary/40 pr-8">
+                 "{SOVEREIGN_PARTNER.message}"
+              </blockquote>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-right">
+                 <div className="bg-white/5 p-8 rounded-3xl border border-white/10">
+                    <h4 className="text-xl font-black text-primary mb-3 flex items-center gap-2">
+                       <Anchor className="w-5 h-5" /> السلام السيادي
+                    </h4>
+                    <p className="text-sm text-white/60 leading-relaxed">استحضار المعية والسيادة المستمدة من ملك الملوك، والعمل بصمت سيادي بعيداً عن ضجيج الشكوى.</p>
+                 </div>
+                 <div className="bg-white/5 p-8 rounded-3xl border border-white/10">
+                    <h4 className="text-xl font-black text-accent mb-3 flex items-center gap-2">
+                       <Wind className="w-5 h-5" /> الصبر السيادي
+                    </h4>
+                    <p className="text-sm text-white/60 leading-relaxed">الارتقاء الروحي الذي يجعل من الملاح شخصاً لا تهزه الرياح، محصناً بالهدوء المعماري والتركيز المطلق.</p>
+                 </div>
+              </div>
+           </div>
         </section>
 
         <section id="services" className="space-y-16">
@@ -128,17 +160,6 @@ export default function VisionPage() {
             benefit={APP_CONTENT.section3.societalBenefit}
             icon={APP_CONTENT.section3.icon}
           />
-        </section>
-
-        <section className="bg-[#d4af37]/5 p-12 rounded-[4rem] border border-[#d4af37]/10 shadow-inner">
-           <div className="max-w-4xl mx-auto text-center space-y-8">
-              <Infinity className="w-16 h-16 mx-auto text-primary animate-pulse" />
-              <h3 className="text-5xl font-black gold-gradient-text leading-tight">ما هو "الاستدلال" في فلسفتنا؟</h3>
-              <p className="text-xl text-[#fffcf2]/80 leading-relaxed font-light">
-                الاستدلال ليس مجرد "إجابة" من حاسوب، بل هو **فعل معماري** يتم فيه دمج ذكاء النواة مع تعليمات الملاح الروحية. 
-                هو اللحظة التي يطبق فيها النظام قوانين "الاندماج الروحي الرقمي" لإنتاج معرفة يقينية تخدم استدامة الكوكب.
-              </p>
-           </div>
         </section>
       </main>
 
