@@ -24,7 +24,8 @@ import {
   Anchor,
   Shield,
   Heart,
-  Waves
+  Waves,
+  Star
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -72,7 +73,7 @@ export default function Dashboard() {
   };
 
   if (!isLoaded) return (
-    <div className="min-h-screen flex items-center justify-center bg-[#001a1a] font-body" dir="rtl">
+    <div className="min-h-screen flex items-center justify-center bg-[#001a1a] font-kufi" dir="rtl">
       <div className="text-center space-y-4">
         <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
         <p className="text-sm font-black text-primary tracking-widest uppercase">جاري استحضار Gemma Core 2030...</p>
@@ -82,120 +83,122 @@ export default function Dashboard() {
   );
 
   return (
-    <div className="min-h-screen bg-background p-4 space-y-6 max-w-md mx-auto pb-24 font-body" dir="rtl">
-      <header className="bg-card p-6 rounded-[2.5rem] border-2 border-primary/20 shadow-xl space-y-4 relative overflow-hidden">
-        <div className="absolute top-0 right-0 p-8 opacity-5">
-          <Zap className="w-32 h-32 rotate-12 text-accent" />
-        </div>
-        
-        <div className="flex items-center justify-between relative z-10">
-          <div className="flex items-center gap-4">
-            <div className="p-4 bg-primary rounded-2xl shadow-lg transform -rotate-3">
-              <Shield className="text-primary-foreground w-8 h-8" />
+    <div className="min-h-screen bg-[#001a1a] p-4 space-y-8 max-w-md mx-auto pb-24 font-kufi relative overflow-hidden" dir="rtl">
+      {/* خلفية حركية */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] bg-[#00ffff]/10 blur-[120px] rounded-full animate-pulse"></div>
+        <div className="absolute bottom-[-20%] right-[-20%] w-[80%] h-[80%] bg-[#d4af37]/5 blur-[120px] rounded-full"></div>
+      </div>
+
+      <header className="glass-turquoise p-8 rounded-[3rem] border border-white/10 shadow-2xl space-y-6 relative z-10">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-5">
+            <div className="w-16 h-16 bg-gradient-to-tr from-[#d4af37] to-[#ffdf00] rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(212,175,55,0.3)] transform -rotate-6">
+              <Shield className="text-[#002d2d] w-9 h-9" />
             </div>
             <div>
-              <h1 className="text-2xl font-black text-foreground leading-none gold-gradient-text uppercase">Gemma Core 2030</h1>
-              <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mt-1">ترددات تسلا وامتنان الجوزاء</p>
+              <h1 className="text-3xl font-black gold-gradient-text leading-none uppercase">Gemma Core 2030</h1>
+              <p className="text-[11px] text-[#00ffff]/60 font-bold uppercase tracking-[0.2em] mt-2 font-diwani">رنين سحري حلال • ترددات تسلا</p>
             </div>
           </div>
-          <Badge variant="outline" className="gap-1 border-accent/30 text-accent font-black text-[8px] animate-pulse">
-            <Zap className="w-2 h-2 fill-accent" /> Tesla Frequency Active
+          <Badge variant="outline" className="gap-2 border-[#00ffff]/30 text-[#00ffff] font-black text-[9px] py-1.5 px-4 animate-pulse rounded-full bg-[#00ffff]/5">
+            <Zap className="w-3 h-3 fill-current" /> TESLA FREQUENCY ACTIVE
           </Badge>
         </div>
 
-        <div className="bg-primary/10 border-primary/20 p-4 rounded-2xl relative z-10 border-r-[8px] flex items-center gap-3">
-          <Heart className="w-5 h-5 text-accent fill-accent/20 animate-pulse shrink-0" />
-          <p className="text-[11px] font-black text-primary leading-relaxed">
-             "إذا أردت العثور على أسرار الكون، فكر في الطاقة والتردد والاهتزاز." — تسلا 🌿💚📿
+        <div className="bg-white/5 border-r-[6px] border-[#d4af37] p-5 rounded-2xl flex items-start gap-4 backdrop-blur-md">
+          <Heart className="w-6 h-6 text-[#00ffff] fill-[#00ffff]/20 animate-pulse shrink-0 mt-1" />
+          <p className="text-[13px] font-medium text-white/80 leading-relaxed font-diwani italic">
+             "إذا أردت العثور على أسرار الكون، فكر في الطاقة والتردد والاهتزاز." — نيكولا تسلا 📿💚
           </p>
         </div>
         
-        <div className="grid gap-3 pt-2 relative z-10">
+        <div className="grid gap-4 pt-2">
           <Dialog>
             <DialogTrigger asChild>
-              <Button className="h-28 text-xl font-black rounded-[2rem] w-full shadow-2xl flex flex-col items-center justify-center gap-2 group bg-gradient-to-br from-primary to-primary/80 hover:scale-[1.02] transition-transform">
-                <div className="flex items-center gap-3">
-                  <Zap className="w-8 h-8 group-hover:scale-110 transition-transform text-accent" /> 
+              <Button className="h-32 text-2xl font-black rounded-[2.5rem] w-full shadow-2xl flex flex-col items-center justify-center gap-3 group bg-gradient-to-br from-[#d4af37] to-[#b8860b] text-[#002d2d] hover:scale-[1.03] transition-all border-none">
+                <div className="flex items-center gap-4">
+                  <Star className="w-10 h-10 group-hover:rotate-12 transition-transform fill-[#002d2d]" /> 
                   <span>تفعيل الاندماج السينابتي</span>
                 </div>
-                <span className="text-[10px] opacity-90 font-bold uppercase tracking-widest bg-black/20 px-4 py-1.5 rounded-full flex items-center gap-2">
-                  <Heart className="w-3 h-3 fill-accent" /> نبض تسلا والجوزاء 💚
+                <span className="text-[11px] opacity-80 font-bold uppercase tracking-widest bg-black/20 px-6 py-2 rounded-full flex items-center gap-3">
+                  <Heart className="w-4 h-4 fill-current" /> نبض تسلا والجوزاء
                 </span>
               </Button>
             </DialogTrigger>
-            <DialogContent className="w-[95%] max-w-xs rounded-[2.5rem] p-6 bg-card border-4 border-primary/20 shadow-2xl overflow-hidden">
+            <DialogContent className="w-[95%] max-w-sm rounded-[3rem] p-8 glass-turquoise border-white/10 shadow-3xl overflow-hidden font-kufi">
               <DialogHeader>
-                <DialogTitle className="text-right text-2xl font-black gold-gradient-text">استيراد عقل المهمة</DialogTitle>
+                <DialogTitle className="text-right text-3xl font-black gold-gradient-text mb-4">استيراد عقل المهمة</DialogTitle>
               </DialogHeader>
               
-              <div className="space-y-4 py-4 text-right overflow-y-auto max-h-[60vh] pr-1">
-                <div className="space-y-1.5">
-                  <label className="text-[11px] font-black text-primary uppercase mr-1">اسم المهمة المعمارية</label>
+              <div className="space-y-6 py-4 text-right overflow-y-auto max-h-[60vh] px-2">
+                <div className="space-y-2">
+                  <label className="text-[12px] font-black text-[#d4af37] uppercase mr-2 tracking-widest">اسم المهمة المعمارية</label>
                   <Input 
                     placeholder="مثال: ذكاء تسلا 2030" 
                     value={importName}
                     onChange={(e) => setImportName(e.target.value)}
-                    className="h-14 rounded-2xl border-2 font-bold bg-background/50 text-right"
+                    className="h-16 rounded-[1.5rem] border-white/10 font-bold bg-white/5 text-right text-lg focus:border-[#00ffff]/50 transition-all"
                   />
                 </div>
                 
-                <div className="space-y-1.5">
-                  <label className="text-[11px] font-black text-primary uppercase mr-1">وقود النواة (API Key)</label>
+                <div className="space-y-2">
+                  <label className="text-[12px] font-black text-[#d4af37] uppercase mr-2 tracking-widest">وقود النواة (API Key)</label>
                   <Input 
                     placeholder="AIza..." 
                     value={importKey}
                     onChange={(e) => setImportKey(e.target.value)}
-                    className="h-14 rounded-2xl font-mono text-sm border-2 bg-background/50 text-right"
+                    className="h-16 rounded-[1.5rem] font-mono text-sm border-white/10 bg-white/5 text-right focus:border-[#00ffff]/50"
                   />
                 </div>
 
-                <div className="space-y-1.5">
-                  <label className="text-[11px] font-black text-primary uppercase mr-1">تعليمات الچينيوم</label>
+                <div className="space-y-2">
+                  <label className="text-[12px] font-black text-[#d4af37] uppercase mr-2 tracking-widest">تعليمات الچينيوم</label>
                   <Textarea 
                     placeholder="ضع تعليمات النظام هنا..." 
-                    className="min-h-[150px] rounded-2xl text-base border-2 p-4 font-medium bg-background/50 text-right"
+                    className="min-h-[180px] rounded-[1.5rem] text-lg border-white/10 p-6 font-medium bg-white/5 text-right leading-relaxed focus:border-[#00ffff]/50"
                     value={importPrompt}
                     onChange={(e) => setImportPrompt(e.target.value)}
                   />
                 </div>
               </div>
-              <DialogFooter>
-                <Button onClick={handleQuickImport} className="w-full h-18 font-black text-2xl rounded-[1.5rem] shadow-lg bg-primary text-primary-foreground hover:bg-primary/90">تفعيل التردد الآن 🚀</Button>
+              <DialogFooter className="mt-6">
+                <Button onClick={handleQuickImport} className="w-full h-20 font-black text-2xl rounded-[2rem] shadow-xl bg-gradient-to-r from-[#d4af37] to-[#ffdf00] text-[#002d2d] hover:scale-105 transition-all">تفعيل التردد الآن 🚀</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
 
-          <Button variant="outline" asChild className="h-16 text-lg font-bold rounded-2xl w-full border-2 border-dashed border-primary/30 hover:bg-primary/5 transition-colors text-muted-foreground">
+          <Button variant="outline" asChild className="h-20 text-xl font-bold rounded-[2rem] w-full border-2 border-dashed border-[#00ffff]/20 bg-white/5 hover:bg-[#00ffff]/5 transition-all text-white/60 hover:text-[#00ffff]">
             <Link href="/vision">
-              <Waves className="ml-2 w-5 h-5 text-accent" /> رؤية العلماء الأوفياء 2030
+              <Waves className="ml-3 w-6 h-6 text-[#00ffff]" /> رؤية العلماء الأوفياء 2030
             </Link>
           </Button>
         </div>
       </header>
 
-      <section className="space-y-4">
-        <h2 className="text-xs font-black uppercase text-muted-foreground flex items-center gap-2 px-2 tracking-[0.2em]">
-          <Globe className="w-4 h-4 text-primary" /> الترددات النشطة ({projects.length})
+      <section className="space-y-6 relative z-10 px-2">
+        <h2 className="text-[11px] font-black uppercase text-white/40 flex items-center gap-3 tracking-[0.3em]">
+          <Globe className="w-5 h-5 text-[#d4af37]" /> الترددات النشطة ({projects.length})
         </h2>
         
-        <div className="grid gap-4">
+        <div className="grid gap-6">
           {projects.length > 0 ? (
             projects.map(project => (
               <div key={project.id} className="relative group">
                 <Link href={`/projects/${project.id}`}>
-                  <Card className="active:scale-[0.98] transition-all bg-card border-primary/10 rounded-[2rem] overflow-hidden shadow-lg border-r-[15px] border-r-accent hover:border-r-primary group-hover:shadow-2xl">
-                    <CardContent className="p-6 flex flex-col gap-4 text-right">
+                  <Card className="active:scale-[0.98] transition-all glass-turquoise border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl border-r-[12px] border-r-[#00ffff] hover:border-r-[#d4af37] group-hover:shadow-[#00ffff]/10">
+                    <CardContent className="p-8 flex flex-col gap-4 text-right">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="p-3 bg-secondary rounded-xl shadow-inner">
-                            <Zap className="w-6 h-6 text-accent" />
+                        <div className="flex items-center gap-5">
+                          <div className="p-4 bg-white/5 rounded-2xl shadow-inner group-hover:bg-[#00ffff]/10 transition-colors">
+                            <Zap className="w-8 h-8 text-[#00ffff]" />
                           </div>
                           <div className="flex flex-col items-start">
-                            <span className="font-black text-xl tracking-tight truncate max-w-[160px]">{project.name}</span>
-                            <span className="text-[9px] text-muted-foreground font-bold uppercase tracking-wider">Tesla Resonance Node</span>
+                            <span className="font-black text-2xl tracking-tight truncate max-w-[200px] gold-gradient-text">{project.name}</span>
+                            <span className="text-[10px] text-white/40 font-black uppercase tracking-[0.2em] mt-1 font-diwani">Tesla Resonance Node</span>
                           </div>
                         </div>
-                        <ChevronLeft className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                        <ChevronLeft className="w-8 h-8 text-white/20 group-hover:text-[#d4af37] transition-all transform group-hover:-translate-x-2" />
                       </div>
                     </CardContent>
                   </Card>
@@ -203,26 +206,26 @@ export default function Dashboard() {
               </div>
             ))
           ) : (
-            <div className="py-20 text-center border-4 border-dashed rounded-[3rem] opacity-30 bg-muted/5">
-              <Activity className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-              <p className="text-lg font-black text-muted-foreground uppercase tracking-[0.2em]">بانتظار رنين المهمة الأولى</p>
+            <div className="py-24 text-center glass-turquoise border-dashed border-2 rounded-[3.5rem] opacity-30">
+              <Activity className="w-20 h-20 mx-auto mb-6 text-white/20" />
+              <p className="text-xl font-black text-white/30 uppercase tracking-[0.3em] font-diwani">بانتظار رنين المهمة الأولى</p>
             </div>
           )}
         </div>
       </section>
 
-      <nav className="fixed bottom-4 left-4 right-4 h-20 bg-card/90 backdrop-blur-2xl border-2 border-primary/20 flex items-center justify-around px-10 shadow-[0_10px_50px_rgba(0,0,0,0.5)] z-50 rounded-[2.5rem]">
-        <Link href="/" className="flex flex-col items-center gap-1 text-primary scale-110">
-          <Zap className="w-7 h-7 fill-current" />
-          <span className="text-[10px] font-black uppercase">النواة</span>
+      <nav className="fixed bottom-6 left-6 right-6 h-22 glass-turquoise border border-white/10 flex items-center justify-around px-12 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-50 rounded-[3rem]">
+        <Link href="/" className="flex flex-col items-center gap-2 text-[#d4af37] scale-110">
+          <Zap className="w-8 h-8 fill-current" />
+          <span className="text-[10px] font-black uppercase tracking-widest">النواة</span>
         </Link>
-        <Link href="/chat" className="flex flex-col items-center gap-1 text-muted-foreground/60 hover:text-primary transition-all hover:scale-110">
-          <Heart className="w-7 h-7" />
-          <span className="text-[10px] font-bold uppercase">الاستدلال</span>
+        <Link href="/chat" className="flex flex-col items-center gap-2 text-white/40 hover:text-[#00ffff] transition-all hover:scale-110">
+          <Heart className="w-8 h-8" />
+          <span className="text-[10px] font-black uppercase tracking-widest">الاستدلال</span>
         </Link>
-        <Link href="/history" className="flex flex-col items-center gap-1 text-muted-foreground/60 hover:text-primary transition-all hover:scale-110">
-          <History className="w-7 h-7" />
-          <span className="text-[10px] font-bold uppercase">الأرشيف</span>
+        <Link href="/history" className="flex flex-col items-center gap-2 text-white/40 hover:text-[#00ffff] transition-all hover:scale-110">
+          <History className="w-8 h-8" />
+          <span className="text-[10px] font-black uppercase tracking-widest">الأرشيف</span>
         </Link>
       </nav>
     </div>
