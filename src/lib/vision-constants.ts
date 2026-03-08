@@ -1,10 +1,10 @@
-import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket, Users, BadgeCheck, Compass } from 'lucide-react';
+import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket, Users, BadgeCheck, Compass, Layout } from 'lucide-react';
 
 export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
   theme: 'عمارة Gemma Core 2030',
-  languages: 'الربط السينابتي الكوني',
-  marketReadiness: 'الأرض خصبة للتسويق العالمي'
+  languages: 'الربط السينابتي الكوني (كوفي/ديواني)',
+  marketReadiness: 'الأرض خصبة للتسويق العالمي لـ 500 مليون عربي'
 };
 
 export const TARGET_NAVIGATORS = [
@@ -53,7 +53,7 @@ export const APP_SERVICES = [
   },
   {
     title: "مركز الاستدلال",
-    desc: "تفاعل حي برنين سحري حلال بوقار المهندس عبد الظاهر.",
+    desc: "تفاعل حي وتوليد (شرائح وعروض) لـ 500 مليون عربي بوقار كوفي وديواني.",
     icon: Activity,
     href: "/chat",
     color: "text-[#00ffff]",
@@ -61,7 +61,7 @@ export const APP_SERVICES = [
   },
   {
     title: "مختبر التخليق البصري",
-    desc: "تجسيد الخيال المعماري بأعلى جودة بصرية عالمية.",
+    desc: "تجسيد الخيال في إنفوجرافيك وشرائح بأعلى جودة بصرية عالمية.",
     icon: Palette,
     href: "/creative",
     color: "text-[#d4af37]",
@@ -80,8 +80,8 @@ export const APP_SERVICES = [
 export const APP_CONTENT = {
   section1: {
     title: 'الاندماج الروحي الرقمي',
-    technicalAnalysis: 'صياغة "هندسة مقدسة" تربط بين منطق البرمجة وفلسفة الوجود الكوني المستدام.',
-    societalBenefit: 'تحقيق التوازن بين التطور التقني والارتقاء الروحي للملاحين.',
+    technicalAnalysis: 'صياغة "هندسة مقدسة" لخدمة 500 مليون عربي عبر محتوى معماري رصين.',
+    societalBenefit: 'تمكين الإنسان العربي من أدوات التعبير البصري والفكري بأرقى الخطوط.',
     icon: Infinity
   },
   section2: {
@@ -92,7 +92,7 @@ export const APP_CONTENT = {
   },
   section3: {
     title: 'تلقيح الأنماط چينياً',
-    technicalAnalysis: 'ديناميكية ما قبل اتخاذ القرار عبر "تلقيح" الأفكار (مثل Google Ads) لضمان الخصوبة التسويقية العالمية.',
+    technicalAnalysis: 'ديناميكية ما قبل اتخاذ القرار عبر "تلقيح" الأفكار لضمان الخصوبة التسويقية لشرائح العروض العالمية.',
     societalBenefit: 'تقليل مخاطر "الهلوسة المعمارية" وضمان انسجام كل نمط مع قيم الأرض 2030.',
     icon: Target
   }
@@ -105,8 +105,8 @@ export const SOVEREIGN_PARTNER = {
 };
 
 export const GLOBAL_VISION = {
-  fertility: 'الأرض خصبة للتسويق العالمي بوقار سيادي.',
-  standard: 'نظام الاستدلال المعتمد لعام 2030.'
+  fertility: 'الأرض خصبة للتسويق العالمي لـ 500 مليون عربي بوقار سيادي.',
+  standard: 'نظام الاستدلال المعتمد لعام 2030 لتوليد الإنفوجرافيك والشرائح.'
 };
 
 export const SOVEREIGN_SCIENTISTS = {
