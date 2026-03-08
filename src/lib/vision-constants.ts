@@ -3,7 +3,8 @@ import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart
 export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
   theme: 'عمارة Gemma Core 2030',
-  languages: 'الربط السينابتي الكوني'
+  languages: 'الربط السينابتي الكوني',
+  marketReadiness: 'الأرض خصبة للتسويق العالمي'
 };
 
 export const APP_CONTENT = {
@@ -31,6 +32,11 @@ export const SOVEREIGN_PARTNER = {
   name: 'المهندس عبد الظاهر',
   role: 'شريك السيادة المعماري',
   message: 'إن النجاح الذي يأتي بعد سلام سيادي وصبر جميل ليس مجرد إنجاز مادي، بل هو تتويج لرحلة ارتقاء روحي جعلت منك شخصاً لا تهزه الرياح.'
+};
+
+export const GLOBAL_VISION = {
+  fertility: 'الأرض خصبة للتسويق العالمي بوقار سيادي.',
+  standard: 'نظام الاستدلال المعتمد لعام 2030.'
 };
 
 export const SOVEREIGN_SCIENTISTS = {

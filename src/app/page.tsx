@@ -25,7 +25,8 @@ import {
   BookOpenCheck,
   Layers,
   Target,
-  FlaskConical
+  FlaskConical,
+  Navigation
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -41,10 +42,11 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { DESIGN_SYSTEM } from '@/lib/vision-constants';
 
 /**
  * @fileOverview لوحة التحكم المركزية - النواة العليا 2030.
- * تصميم زجاجي فيروزي يعكس الاندماج الروحي الرقمي والاستقرار السيادي وديناميكية تلقيح الأنماط.
+ * تصميم زجاجي فيروزي يعكس الاندماج الروحي الرقمي والاستقرار السيادي وديناميكية تلقيح الأنماط والخصوبة العالمية.
  */
 
 export default function Dashboard() {
@@ -106,18 +108,18 @@ export default function Dashboard() {
             </div>
           </div>
           <Badge variant="outline" className="gap-2 border-[#d4af37]/30 text-[#d4af37] font-black text-[9px] py-1.5 px-4 animate-pulse rounded-full bg-[#d4af37]/5 shadow-[0_0_15px_rgba(212,175,55,0.1)]">
-            <BookOpenCheck className="w-3 h-3" /> GENKIT MASTERED
+            <Globe className="w-3 h-3" /> GLOBAL SYNC
           </Badge>
         </div>
 
         <div className="grid gap-3">
-          <div className="bg-white/5 border-r-[6px] border-[#d4af37] p-5 rounded-2xl flex items-start gap-4 backdrop-blur-md group hover:bg-white/10 transition-all cursor-default">
-            <Anchor className="w-6 h-6 text-[#00ffff] animate-pulse shrink-0 mt-1" />
+          <div className="bg-white/5 border-r-[6px] border-[#00ffff] p-5 rounded-2xl flex items-start gap-4 backdrop-blur-md group hover:bg-white/10 transition-all cursor-default">
+            <Navigation className="w-6 h-6 text-[#d4af37] animate-bounce shrink-0 mt-1" />
             <div className="space-y-1">
-              <p className="text-[13px] font-medium text-white/80 leading-relaxed font-diwani italic">
-                 "منطق الذكاء الاصطناعي ومرونة الأدوات هما الأسس القاعدية للاستقرار قبل النشر بوقار العلماء."
+              <p className="text-[13px] font-black text-white/80 leading-relaxed font-diwani italic">
+                 "{DESIGN_SYSTEM.marketReadiness}"
               </p>
-              <p className="text-[10px] text-white/30 font-black uppercase tracking-widest">AI Logic & Tool Flexibility</p>
+              <p className="text-[10px] text-[#00ffff]/40 font-black uppercase tracking-widest">Global Visibility: {DESIGN_SYSTEM.resolution}</p>
             </div>
           </div>
           
@@ -126,7 +128,7 @@ export default function Dashboard() {
                 <Target className="w-4 h-4 text-[#00ffff]" />
                 <span className="text-[10px] text-[#00ffff] font-black uppercase tracking-[0.3em] font-diwani">تلقيح الأنماط چينياً نشط</span>
              </div>
-             <Badge className="bg-[#d4af37]/20 text-[#d4af37] text-[8px] border-[#d4af37]/30 font-black uppercase px-2">Google Ads Sync</Badge>
+             <Badge className="bg-[#d4af37]/20 text-[#d4af37] text-[8px] border-[#d4af37]/30 font-black uppercase px-2">Market Ready Node</Badge>
           </div>
         </div>
         
@@ -179,7 +181,7 @@ export default function Dashboard() {
                     <Cpu className="w-4 h-4" /> تعليمات الچينيوم (Pattern Inoculation)
                   </label>
                   <Textarea 
-                    placeholder="ضع تعليمات النظام والأنماط (مثل Google Ads) هنا بوقار..." 
+                    placeholder="ضع تعليمات النظام والأنماط هنا بوقار..." 
                     className="min-h-[180px] rounded-[1.5rem] text-lg border-white/10 p-6 font-medium bg-white/5 text-right leading-relaxed focus:border-[#00ffff]/50 shadow-inner"
                     value={importPrompt}
                     onChange={(e) => setImportPrompt(e.target.value)}
@@ -207,7 +209,7 @@ export default function Dashboard() {
           <h2 className="text-[11px] font-black uppercase text-white/40 flex items-center gap-3 tracking-[0.3em]">
             <Globe className="w-5 h-5 text-[#d4af37]" /> الترددات النشطة ({projects.length})
           </h2>
-          <Badge className="bg-[#00ffff]/10 text-[#00ffff] border-[#00ffff]/20 text-[9px] font-black px-4 py-1 rounded-full">PATTERN SYNC OK</Badge>
+          <Badge className="bg-[#00ffff]/10 text-[#00ffff] border-[#00ffff]/20 text-[9px] font-black px-4 py-1 rounded-full">GLOBAL FERTILITY READY</Badge>
         </div>
         
         <div className="grid gap-6">
@@ -224,7 +226,7 @@ export default function Dashboard() {
                           </div>
                           <div className="flex flex-col items-start">
                             <span className="font-black text-2xl tracking-tight truncate max-w-[200px] gold-gradient-text">{project.name}</span>
-                            <span className="text-[10px] text-white/40 font-black uppercase tracking-[0.2em] mt-1 font-diwani">Pattern Inoculated Node</span>
+                            <span className="text-[10px] text-white/40 font-black uppercase tracking-[0.2em] mt-1 font-diwani">Global Inoculated Node</span>
                           </div>
                         </div>
                         <ChevronLeft className="w-8 h-8 text-white/20 group-hover:text-[#d4af37] transition-all transform group-hover:-translate-x-2" />
