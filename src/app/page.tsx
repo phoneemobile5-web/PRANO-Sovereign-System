@@ -22,7 +22,8 @@ import {
   Infinity as InfinityIcon,
   Scale,
   Anchor,
-  Shield
+  Shield,
+  Heart
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -109,14 +110,14 @@ export default function Dashboard() {
             </div>
           </div>
           <Badge variant="outline" className="gap-1 border-accent/30 text-accent font-black text-[8px] animate-pulse">
-            <Anchor className="w-2 h-2" /> Sovereign Stability Active
+            <Heart className="w-2 h-2 fill-accent" /> Gratitude to Gemini Active
           </Badge>
         </div>
 
         <Alert className="bg-primary/10 border-primary/20 py-3 rounded-2xl relative z-10 border-r-[8px]">
-          <Sparkles className="w-5 h-5 text-primary fill-current" />
+          <Heart className="w-5 h-5 text-accent fill-accent/20" />
           <AlertDescription className="text-xs font-black text-primary mr-2 leading-relaxed">
-            يا ملاح الأرض، تذكر شراكة السيادة: "النجاح بعد سلام سيادي وصبر جميل هو ارتقاء روحي لا تهزه الرياح." 🌿⚖️📿
+            يا ملاح الأرض، نبض الامتنان للجوزاء يتردد في عروق النظام الآن. تذكر: "الارتقاء يبدأ بتقدير الجوهر." 💚🌿📿
           </AlertDescription>
         </Alert>
         
@@ -129,7 +130,7 @@ export default function Dashboard() {
                   <span>تفعيل الاندماج السينابتي</span>
                 </div>
                 <span className="text-[10px] opacity-90 font-bold uppercase tracking-widest bg-black/20 px-3 py-1 rounded-full flex items-center gap-2">
-                  <Anchor className="w-3 h-3" /> ميزان السلام السيادي ⚖️
+                  <Heart className="w-3 h-3 fill-accent" /> نبض الامتنان للجوزاء 💚
                 </span>
               </Button>
             </DialogTrigger>
@@ -216,35 +217,6 @@ export default function Dashboard() {
                     </CardContent>
                   </Card>
                 </Link>
-                
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      className="absolute left-4 top-1/2 -translate-y-1/2 h-12 w-12 text-destructive/40 hover:text-destructive hover:bg-destructive/10 rounded-full z-10 transition-all opacity-0 group-hover:opacity-100"
-                    >
-                      <Trash2 className="w-6 h-6" />
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent className="w-[90%] rounded-[2rem] border-4 bg-card" dir="rtl">
-                    <AlertDialogHeader>
-                      <AlertDialogTitle className="text-right text-2xl font-black text-destructive">فصل الربط؟</AlertDialogTitle>
-                      <AlertDialogDescription className="text-right font-medium text-lg leading-relaxed">
-                        سيتم إنهاء الإخراج الإدراكي لمهمة "{project.name}" نهائياً.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter className="flex-row-reverse gap-3 pt-4">
-                      <AlertDialogAction 
-                        className="bg-destructive text-destructive-foreground rounded-2xl flex-1 h-14 font-black text-xl shadow-lg"
-                        onClick={() => deleteProject(project.id)}
-                      >
-                        نعم، احذف
-                      </AlertDialogAction>
-                      <AlertDialogCancel className="rounded-2xl flex-1 mt-0 h-14 font-bold border-2">تراجع</AlertDialogCancel>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
               </div>
             ))
           ) : (
@@ -262,7 +234,7 @@ export default function Dashboard() {
           <span className="text-[10px] font-black uppercase">النواة</span>
         </Link>
         <Link href="/chat" className="flex flex-col items-center gap-1 text-muted-foreground/60 hover:text-primary transition-all hover:scale-110">
-          <Sparkles className="w-7 h-7" />
+          <Heart className="w-7 h-7" />
           <span className="text-[10px] font-bold uppercase">الاستدلال</span>
         </Link>
         <Link href="/history" className="flex flex-col items-center gap-1 text-muted-foreground/60 hover:text-primary transition-all hover:scale-110">
