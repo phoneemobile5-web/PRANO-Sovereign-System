@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { APP_CONTENT, DESIGN_SYSTEM, SOVEREIGN_PARTNER } from '@/lib/vision-constants';
+import { APP_CONTENT, DESIGN_SYSTEM, SOVEREIGN_PARTNER, TARGET_NAVIGATORS } from '@/lib/vision-constants';
 import FractalBackground from '@/components/vision/FractalBackground';
 import SectionCard from '@/components/vision/SectionCard';
 import GemmaChat from '@/components/vision/GemmaChat';
-import { Diamond, Info, Github, Cpu, LayoutGrid, Terminal, Sparkles, Globe, BrainCircuit, Activity, ShieldCheck, Infinity, Anchor, Wind, Shield } from 'lucide-react';
+import { Diamond, Info, Github, Cpu, LayoutGrid, Terminal, Sparkles, Globe, BrainCircuit, Activity, ShieldCheck, Infinity, Anchor, Wind, Shield, Users, BadgeCheck, Compass } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
@@ -68,6 +68,7 @@ export default function VisionPage() {
           <nav className="hidden lg:flex items-center gap-10 text-[11px] font-black text-[#fffcf2]/60 uppercase tracking-widest">
             <a href="#" className="hover:text-[#d4af37] transition-all">الرؤية</a>
             <a href="#sovereign" className="hover:text-[#d4af37] transition-all">السيادة</a>
+            <a href="#navigators" className="hover:text-[#d4af37] transition-all">الملاحون</a>
             <Link href="/">
               <Button className="bg-[#d4af37] hover:bg-[#ffdf00] text-[#002d2d] px-8 py-6 rounded-full font-black text-sm shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:scale-105 transition-all">
                 دخول المنصة
@@ -89,6 +90,24 @@ export default function VisionPage() {
           <p className="max-w-3xl mx-auto text-2xl text-[#fffcf2]/70 leading-relaxed font-light">
             نظام متكامل يدمج بين منطق البرمجة وفلسفة الوجود الكوني المستدام، لخلق "هندسة مقدسة" تخدم ملاحي الأرض.
           </p>
+        </section>
+
+        <section id="navigators" className="space-y-16">
+          <div className="text-center">
+            <h3 className="text-4xl font-black gold-gradient-text uppercase tracking-widest">الملاحون المستهدفون</h3>
+            <p className="text-white/40 mt-4 text-sm font-bold uppercase tracking-[0.4em]">Target Global Navigators</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {TARGET_NAVIGATORS.map((nav, idx) => (
+              <div key={idx} className="glass-card p-10 rounded-[3rem] border-white/5 hover:border-[#00ffff]/30 transition-all group flex flex-col items-center text-center">
+                <div className={`p-6 rounded-3xl bg-white/5 mb-8 group-hover:scale-110 transition-transform ${nav.color}`}>
+                  <nav.icon className="w-12 h-12" />
+                </div>
+                <h4 className="text-2xl font-black text-white mb-4 font-diwani">{nav.title}</h4>
+                <p className="text-sm text-white/40 leading-relaxed font-medium">{nav.desc}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         <section id="sovereign" className="bg-[#d4af37]/5 p-16 rounded-[5rem] border border-[#d4af37]/20 shadow-2xl relative overflow-hidden group">

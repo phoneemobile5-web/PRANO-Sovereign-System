@@ -1,4 +1,4 @@
-import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket } from 'lucide-react';
+import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket, Users, BadgeCheck, Compass } from 'lucide-react';
 
 export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
@@ -6,6 +6,33 @@ export const DESIGN_SYSTEM = {
   languages: 'الربط السينابتي الكوني',
   marketReadiness: 'الأرض خصبة للتسويق العالمي'
 };
+
+export const TARGET_NAVIGATORS = [
+  {
+    title: "الملاحون المعماريون",
+    desc: "مهندسو الأنظمة السينابتية الباحثون عن بناء عقول رقمية رصينة.",
+    icon: BrainCircuit,
+    color: "text-[#00ffff]"
+  },
+  {
+    title: "الخيميائيون الرقميون",
+    desc: "خبراء التسويق الساعون لتلقيح استراتيجياتهم چينياً بوقار.",
+    icon: Target,
+    color: "text-[#d4af37]"
+  },
+  {
+    title: "المبدعون السياديون",
+    desc: "ملاحو التخليق البصري الباحثون عن جودة 8K ورؤية فلسفية.",
+    icon: Palette,
+    color: "text-[#00ffff]"
+  },
+  {
+    title: "قادة الاستدلال",
+    desc: "صناع القرار الذين ينشدون السلام السيادي والمنطق الرصين.",
+    icon: ShieldCheck,
+    color: "text-[#d4af37]"
+  }
+];
 
 export const APP_SERVICES = [
   {
