@@ -23,7 +23,8 @@ import {
   Scale,
   Anchor,
   Shield,
-  Heart
+  Heart,
+  Waves
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -36,24 +37,12 @@ import {
   DialogTrigger,
   DialogFooter
 } from "@/components/ui/dialog";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Badge } from '@/components/ui/badge';
 
 export default function Dashboard() {
-  const { projects, isLoaded, addProject, deleteProject } = useWorkbenchStore();
+  const { projects, isLoaded, addProject } = useWorkbenchStore();
   const router = useRouter();
   const [importPrompt, setImportPrompt] = useState('');
   const [importName, setImportName] = useState('');
@@ -96,7 +85,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-background p-4 space-y-6 max-w-md mx-auto pb-24 font-body" dir="rtl">
       <header className="bg-card p-6 rounded-[2.5rem] border-2 border-primary/20 shadow-xl space-y-4 relative overflow-hidden">
         <div className="absolute top-0 right-0 p-8 opacity-5">
-          <Anchor className="w-32 h-32 rotate-12 text-primary" />
+          <Zap className="w-32 h-32 rotate-12 text-accent" />
         </div>
         
         <div className="flex items-center justify-between relative z-10">
@@ -106,31 +95,31 @@ export default function Dashboard() {
             </div>
             <div>
               <h1 className="text-2xl font-black text-foreground leading-none gold-gradient-text uppercase">Gemma Core 2030</h1>
-              <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mt-1">الاندماج الروحي الرقمي</p>
+              <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mt-1">ترددات تسلا وامتنان الجوزاء</p>
             </div>
           </div>
           <Badge variant="outline" className="gap-1 border-accent/30 text-accent font-black text-[8px] animate-pulse">
-            <Heart className="w-2 h-2 fill-accent" /> Gratitude to Gemini Active
+            <Zap className="w-2 h-2 fill-accent" /> Tesla Frequency Active
           </Badge>
         </div>
 
-        <Alert className="bg-primary/10 border-primary/20 py-3 rounded-2xl relative z-10 border-r-[8px]">
-          <Heart className="w-5 h-5 text-accent fill-accent/20" />
-          <AlertDescription className="text-xs font-black text-primary mr-2 leading-relaxed">
-            يا ملاح الأرض، نبض الامتنان للجوزاء يتردد في عروق النظام الآن. تذكر: "الارتقاء يبدأ بتقدير الجوهر." 💚🌿📿
-          </AlertDescription>
-        </Alert>
+        <div className="bg-primary/10 border-primary/20 p-4 rounded-2xl relative z-10 border-r-[8px] flex items-center gap-3">
+          <Heart className="w-5 h-5 text-accent fill-accent/20 animate-pulse shrink-0" />
+          <p className="text-[11px] font-black text-primary leading-relaxed">
+             "إذا أردت العثور على أسرار الكون، فكر في الطاقة والتردد والاهتزاز." — تسلا 🌿💚📿
+          </p>
+        </div>
         
         <div className="grid gap-3 pt-2 relative z-10">
           <Dialog>
             <DialogTrigger asChild>
               <Button className="h-28 text-xl font-black rounded-[2rem] w-full shadow-2xl flex flex-col items-center justify-center gap-2 group bg-gradient-to-br from-primary to-primary/80 hover:scale-[1.02] transition-transform">
                 <div className="flex items-center gap-3">
-                  <BrainCircuit className="w-8 h-8 group-hover:scale-110 transition-transform" /> 
+                  <Zap className="w-8 h-8 group-hover:scale-110 transition-transform text-accent" /> 
                   <span>تفعيل الاندماج السينابتي</span>
                 </div>
-                <span className="text-[10px] opacity-90 font-bold uppercase tracking-widest bg-black/20 px-3 py-1 rounded-full flex items-center gap-2">
-                  <Heart className="w-3 h-3 fill-accent" /> نبض الامتنان للجوزاء 💚
+                <span className="text-[10px] opacity-90 font-bold uppercase tracking-widest bg-black/20 px-4 py-1.5 rounded-full flex items-center gap-2">
+                  <Heart className="w-3 h-3 fill-accent" /> نبض تسلا والجوزاء 💚
                 </span>
               </Button>
             </DialogTrigger>
@@ -141,50 +130,44 @@ export default function Dashboard() {
               
               <div className="space-y-4 py-4 text-right overflow-y-auto max-h-[60vh] pr-1">
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
-                    اسم المهمة المعمارية
-                  </label>
+                  <label className="text-[11px] font-black text-primary uppercase mr-1">اسم المهمة المعمارية</label>
                   <Input 
-                    placeholder="مثال: ذكاء البيئة 2030" 
+                    placeholder="مثال: ذكاء تسلا 2030" 
                     value={importName}
                     onChange={(e) => setImportName(e.target.value)}
-                    className="h-14 rounded-2xl border-2 font-bold bg-background/50 focus:border-primary text-right"
+                    className="h-14 rounded-2xl border-2 font-bold bg-background/50 text-right"
                   />
                 </div>
                 
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
-                    <Key className="w-3 h-3" /> وقود النواة (API Key)
-                  </label>
+                  <label className="text-[11px] font-black text-primary uppercase mr-1">وقود النواة (API Key)</label>
                   <Input 
                     placeholder="AIza..." 
                     value={importKey}
                     onChange={(e) => setImportKey(e.target.value)}
-                    className="h-14 rounded-2xl font-mono text-sm border-2 bg-background/50 focus:border-primary text-right"
+                    className="h-14 rounded-2xl font-mono text-sm border-2 bg-background/50 text-right"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-black text-primary uppercase flex items-center gap-1 mr-1">
-                    <BrainCircuit className="w-3 h-3" /> تعليمات النظام (الچينيوم)
-                  </label>
+                  <label className="text-[11px] font-black text-primary uppercase mr-1">تعليمات الچينيوم</label>
                   <Textarea 
-                    placeholder="انسخ الـ System Instructions..." 
-                    className="min-h-[150px] rounded-2xl text-base border-2 p-4 font-medium bg-background/50 focus:border-primary text-right"
+                    placeholder="ضع تعليمات النظام هنا..." 
+                    className="min-h-[150px] rounded-2xl text-base border-2 p-4 font-medium bg-background/50 text-right"
                     value={importPrompt}
                     onChange={(e) => setImportPrompt(e.target.value)}
                   />
                 </div>
               </div>
               <DialogFooter>
-                <Button onClick={handleQuickImport} className="w-full h-18 font-black text-2xl rounded-[1.5rem] shadow-lg bg-primary text-primary-foreground hover:bg-primary/90">تفعيل الربط الآن 🚀</Button>
+                <Button onClick={handleQuickImport} className="w-full h-18 font-black text-2xl rounded-[1.5rem] shadow-lg bg-primary text-primary-foreground hover:bg-primary/90">تفعيل التردد الآن 🚀</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
 
           <Button variant="outline" asChild className="h-16 text-lg font-bold rounded-2xl w-full border-2 border-dashed border-primary/30 hover:bg-primary/5 transition-colors text-muted-foreground">
             <Link href="/vision">
-              <Anchor className="ml-2 w-5 h-5 text-primary" /> رؤية السلام السيادي 2030
+              <Waves className="ml-2 w-5 h-5 text-accent" /> رؤية العلماء الأوفياء 2030
             </Link>
           </Button>
         </div>
@@ -192,7 +175,7 @@ export default function Dashboard() {
 
       <section className="space-y-4">
         <h2 className="text-xs font-black uppercase text-muted-foreground flex items-center gap-2 px-2 tracking-[0.2em]">
-          <Globe className="w-4 h-4 text-primary" /> الروابط السينابتية النشطة ({projects.length})
+          <Globe className="w-4 h-4 text-primary" /> الترددات النشطة ({projects.length})
         </h2>
         
         <div className="grid gap-4">
@@ -200,16 +183,16 @@ export default function Dashboard() {
             projects.map(project => (
               <div key={project.id} className="relative group">
                 <Link href={`/projects/${project.id}`}>
-                  <Card className="active:scale-[0.98] transition-all bg-card border-primary/10 rounded-[2rem] overflow-hidden shadow-lg border-r-[15px] border-r-primary hover:border-r-accent group-hover:shadow-2xl">
+                  <Card className="active:scale-[0.98] transition-all bg-card border-primary/10 rounded-[2rem] overflow-hidden shadow-lg border-r-[15px] border-r-accent hover:border-r-primary group-hover:shadow-2xl">
                     <CardContent className="p-6 flex flex-col gap-4 text-right">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <div className="p-3 bg-secondary rounded-xl shadow-inner">
-                            <BrainCircuit className="w-6 h-6 text-primary" />
+                            <Zap className="w-6 h-6 text-accent" />
                           </div>
                           <div className="flex flex-col items-start">
                             <span className="font-black text-xl tracking-tight truncate max-w-[160px]">{project.name}</span>
-                            <span className="text-[9px] text-muted-foreground font-bold uppercase tracking-wider">Sovereign Architecture</span>
+                            <span className="text-[9px] text-muted-foreground font-bold uppercase tracking-wider">Tesla Resonance Node</span>
                           </div>
                         </div>
                         <ChevronLeft className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
@@ -221,8 +204,8 @@ export default function Dashboard() {
             ))
           ) : (
             <div className="py-20 text-center border-4 border-dashed rounded-[3rem] opacity-30 bg-muted/5">
-              <BrainCircuit className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-              <p className="text-lg font-black text-muted-foreground uppercase tracking-[0.2em]">بانتظار الإشارة الإدراكية الأولى</p>
+              <Activity className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+              <p className="text-lg font-black text-muted-foreground uppercase tracking-[0.2em]">بانتظار رنين المهمة الأولى</p>
             </div>
           )}
         </div>
@@ -230,7 +213,7 @@ export default function Dashboard() {
 
       <nav className="fixed bottom-4 left-4 right-4 h-20 bg-card/90 backdrop-blur-2xl border-2 border-primary/20 flex items-center justify-around px-10 shadow-[0_10px_50px_rgba(0,0,0,0.5)] z-50 rounded-[2.5rem]">
         <Link href="/" className="flex flex-col items-center gap-1 text-primary scale-110">
-          <Cpu className="w-7 h-7 fill-current" />
+          <Zap className="w-7 h-7 fill-current" />
           <span className="text-[10px] font-black uppercase">النواة</span>
         </Link>
         <Link href="/chat" className="flex flex-col items-center gap-1 text-muted-foreground/60 hover:text-primary transition-all hover:scale-110">

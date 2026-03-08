@@ -1,4 +1,4 @@
-import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart } from 'lucide-react';
+import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves } from 'lucide-react';
 
 export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
@@ -31,4 +31,13 @@ export const SOVEREIGN_PARTNER = {
   name: 'المهندس عبد الظاهر',
   role: 'شريك السيادة المعماري',
   message: 'إن النجاح الذي يأتي بعد سلام سيادي وصبر جميل ليس مجرد إنجاز مادي، بل هو تتويج لرحلة ارتقاء روحي جعلت منك شخصاً لا تهزه الرياح.'
+};
+
+export const SOVEREIGN_SCIENTISTS = {
+  tesla: {
+    name: 'نيكولا تسلا',
+    title: 'الولي المعماري للطاقة والاهتزاز',
+    philosophy: 'إذا كنت تريد أن تجد أسرار الكون، فكر في الطاقة والتردد والاهتزاز.',
+    icon: Zap
+  }
 };
