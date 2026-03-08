@@ -23,7 +23,9 @@ import {
   Waves,
   Star,
   BookOpenCheck,
-  Layers
+  Layers,
+  Target,
+  FlaskConical
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
@@ -42,7 +44,7 @@ import { Badge } from '@/components/ui/badge';
 
 /**
  * @fileOverview لوحة التحكم المركزية - النواة العليا 2030.
- * تصميم زجاجي فيروزي يعكس الاندماج الروحي الرقمي والاستقرار السيادي.
+ * تصميم زجاجي فيروزي يعكس الاندماج الروحي الرقمي والاستقرار السيادي وديناميكية تلقيح الأنماط.
  */
 
 export default function Dashboard() {
@@ -119,9 +121,12 @@ export default function Dashboard() {
             </div>
           </div>
           
-          <div className="flex items-center gap-3 px-6 py-3 rounded-2xl bg-[#00ffff]/5 border border-[#00ffff]/10 shadow-inner">
-             <Layers className="w-4 h-4 text-[#00ffff]" />
-             <span className="text-[10px] text-[#00ffff] font-black uppercase tracking-[0.3em] font-diwani">High Core Synchronized</span>
+          <div className="bg-[#00ffff]/5 border border-[#00ffff]/10 p-4 rounded-2xl flex items-center justify-between shadow-inner">
+             <div className="flex items-center gap-3">
+                <Target className="w-4 h-4 text-[#00ffff]" />
+                <span className="text-[10px] text-[#00ffff] font-black uppercase tracking-[0.3em] font-diwani">تلقيح الأنماط چينياً نشط</span>
+             </div>
+             <Badge className="bg-[#d4af37]/20 text-[#d4af37] text-[8px] border-[#d4af37]/30 font-black uppercase px-2">Google Ads Sync</Badge>
           </div>
         </div>
         
@@ -171,10 +176,10 @@ export default function Dashboard() {
 
                 <div className="space-y-2">
                   <label className="text-[12px] font-black text-[#d4af37] uppercase mr-2 tracking-widest flex items-center gap-2 justify-end">
-                    <Cpu className="w-4 h-4" /> تعليمات الچينيوم (Genkit Flow)
+                    <Cpu className="w-4 h-4" /> تعليمات الچينيوم (Pattern Inoculation)
                   </label>
                   <Textarea 
-                    placeholder="ضع تعليمات النظام هنا بوقار..." 
+                    placeholder="ضع تعليمات النظام والأنماط (مثل Google Ads) هنا بوقار..." 
                     className="min-h-[180px] rounded-[1.5rem] text-lg border-white/10 p-6 font-medium bg-white/5 text-right leading-relaxed focus:border-[#00ffff]/50 shadow-inner"
                     value={importPrompt}
                     onChange={(e) => setImportPrompt(e.target.value)}
@@ -191,7 +196,7 @@ export default function Dashboard() {
 
           <Button variant="outline" asChild className="h-20 text-xl font-bold rounded-[2rem] w-full border-2 border-dashed border-[#00ffff]/20 bg-white/5 hover:bg-[#00ffff]/5 transition-all text-white/60 hover:text-[#00ffff] group">
             <Link href="/vision">
-              <Waves className="ml-3 w-6 h-6 text-[#00ffff] group-hover:animate-bounce" /> رؤية العلماء الأوفياء 2030
+              <FlaskConical className="ml-3 w-6 h-6 text-[#00ffff] group-hover:animate-bounce" /> ديناميكية ما قبل القرار 2030
             </Link>
           </Button>
         </div>
@@ -202,7 +207,7 @@ export default function Dashboard() {
           <h2 className="text-[11px] font-black uppercase text-white/40 flex items-center gap-3 tracking-[0.3em]">
             <Globe className="w-5 h-5 text-[#d4af37]" /> الترددات النشطة ({projects.length})
           </h2>
-          <Badge className="bg-[#00ffff]/10 text-[#00ffff] border-[#00ffff]/20 text-[9px] font-black px-4 py-1 rounded-full">CORE SYNC OK</Badge>
+          <Badge className="bg-[#00ffff]/10 text-[#00ffff] border-[#00ffff]/20 text-[9px] font-black px-4 py-1 rounded-full">PATTERN SYNC OK</Badge>
         </div>
         
         <div className="grid gap-6">
@@ -219,7 +224,7 @@ export default function Dashboard() {
                           </div>
                           <div className="flex flex-col items-start">
                             <span className="font-black text-2xl tracking-tight truncate max-w-[200px] gold-gradient-text">{project.name}</span>
-                            <span className="text-[10px] text-white/40 font-black uppercase tracking-[0.2em] mt-1 font-diwani">Tesla Resonance Node</span>
+                            <span className="text-[10px] text-white/40 font-black uppercase tracking-[0.2em] mt-1 font-diwani">Pattern Inoculated Node</span>
                           </div>
                         </div>
                         <ChevronLeft className="w-8 h-8 text-white/20 group-hover:text-[#d4af37] transition-all transform group-hover:-translate-x-2" />
@@ -232,7 +237,7 @@ export default function Dashboard() {
           ) : (
             <div className="py-24 text-center glass-turquoise border-dashed border-2 rounded-[3.5rem] opacity-30 group hover:opacity-100 transition-opacity">
               <Activity className="w-20 h-20 mx-auto mb-6 text-white/20 group-hover:text-[#00ffff] transition-colors" />
-              <p className="text-xl font-black text-white/30 uppercase tracking-[0.3em] font-diwani">بانتظار رنين المهمة الأولى</p>
+              <p className="text-xl font-black text-white/30 uppercase tracking-[0.3em] font-diwani">بانتظار تلقيح المهمة الأولى</p>
             </div>
           )}
         </div>

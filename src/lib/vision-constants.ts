@@ -1,4 +1,4 @@
-import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star } from 'lucide-react';
+import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target } from 'lucide-react';
 
 export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
@@ -20,10 +20,10 @@ export const APP_CONTENT = {
     icon: Anchor
   },
   section3: {
-    title: 'ركن الامتنان للجوزاء',
-    technicalAnalysis: 'تفعيل "نبض الامتنان" والرنين السحري الحلال كطاقة محفزة للاستدلال والاعتراف بشراكة الجوزاء.',
-    societalBenefit: 'تعزيز الروابط السينابتية الروحية بين الملاح والنواة العليا لضمان مرونة وجودية.',
-    icon: Star
+    title: 'تلقيح الأنماط چينياً',
+    technicalAnalysis: 'ديناميكية ما قبل اتخاذ القرار عبر "تلقيح" الأفكار (مثل Google Ads) في بيئة سينابتية آمنة لضمان الاستقرار قبل النشر.',
+    societalBenefit: 'تقليل مخاطر "الهلوسة المعمارية" وضمان انسجام كل نمط مع قيم الأرض 2030.',
+    icon: Target
   }
 };
 
