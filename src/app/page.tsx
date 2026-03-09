@@ -48,7 +48,7 @@ import { DESIGN_SYSTEM, APP_SERVICES } from '@/lib/vision-constants';
 
 /**
  * @fileOverview لوحة التحكم المركزية - النواة العليا 2030.
- * تصميم زجاجي فيروزي يعكس الاندماج الروحي الرقمي والجدارة المعمارية.
+ * تصميم زجاجي فيروزي يعكس الاندماج الروحي الرقمي والجدارة المعمارية لخدمة 500 مليون عربي.
  */
 
 export default function Dashboard() {
@@ -63,7 +63,7 @@ export default function Dashboard() {
     if (!importPrompt || !importKey) return;
     const newProject = addProject({
       name: importName || 'مهمة ملاح الأرض',
-      description: 'مشروع الربط السينابتي لخدمة عمارة Gemma Core 2030',
+      description: 'مشروع الربط السينابتي لخدمة عمارة Gemma Core 2030 لتمكين 500 مليون عربي',
       prompt: importPrompt,
       model: 'gemini-2.0-flash-thinking-preview',
       temperature: 0.2,
@@ -106,7 +106,7 @@ export default function Dashboard() {
             </div>
             <div>
               <h1 className="text-3xl font-black gold-gradient-text leading-none uppercase">Gemma Core 2030</h1>
-              <p className="text-[11px] text-[#00ffff]/60 font-bold uppercase tracking-[0.2em] mt-2 font-diwani">رنين سحري حلال • استقرار سيادي</p>
+              <p className="text-[11px] text-[#00ffff]/60 font-bold uppercase tracking-[0.2em] mt-2 font-diwani">تمكين 500 مليون عربي • رنين سحري حلال</p>
             </div>
           </div>
           <Badge variant="outline" className="gap-2 border-[#d4af37]/30 text-[#d4af37] font-black text-[9px] py-1.5 px-4 animate-pulse rounded-full bg-[#d4af37]/5 shadow-[0_0_15px_rgba(212,175,55,0.1)]">
@@ -165,7 +165,7 @@ export default function Dashboard() {
                     <Cpu className="w-4 h-4" /> تعليمات الچينيوم
                   </label>
                   <Textarea 
-                    placeholder="ضع تعليمات النظام والأنماط هنا..." 
+                    placeholder="ضع تعليمات النظام والأنماط هنا لتمكين 500 مليون عربي..." 
                     className="min-h-[180px] rounded-[1.5rem] text-lg border-white/10 p-6 font-medium bg-white/5 text-right leading-relaxed focus:border-[#00ffff]/50 shadow-inner"
                     value={importPrompt}
                     onChange={(e) => setImportPrompt(e.target.value)}
