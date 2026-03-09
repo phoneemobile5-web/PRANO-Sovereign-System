@@ -91,7 +91,6 @@
   animation: spin-slow 180s linear infinite;
 }
 
-/* تحسينات إضافية لجودة العرض */
 h1, h2, h3, h4 {
   @apply tracking-tight font-black;
 }

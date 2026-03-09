@@ -39,7 +39,7 @@ export const APP_SERVICES = [
     title: "مستودع الچينيوم",
     desc: "صياغة عقل المهمة وتلقيح الأنماط چينياً بوقار.",
     icon: BrainCircuit,
-    href: "/projects",
+    href: "/",
     color: "text-[#00ffff]",
     merit: "هندسة الچينيوم الوراثي"
   },
