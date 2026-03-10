@@ -13,7 +13,7 @@ import Link from 'next/link';
 
 /**
  * @fileOverview المختبر السينابتي - عمارة Gemma Core 2030 المحدثة.
- * تصميم زجاجي فيروزي لاختبار كفاءة الوقود الإدراكي.
+ * تصميم زجاجي فيروزي لاختبار كفاءة الوقود الإدراكي واستقرار الـ MCP قبل النشر.
  */
 
 export default function PlaygroundPage() {
@@ -55,7 +55,7 @@ export default function PlaygroundPage() {
       toast({
         variant: 'destructive',
         title: 'فشل الإخراج الإدراكي',
-        description: 'تحقق من اتصالك بالشبكة السينابتية العالمية.',
+        description: 'تحقق من اتصالك بالشبكة السينابتية العالمية ومرونة الأدوات.',
       });
     } finally {
       setIsLoading(false);
@@ -81,7 +81,7 @@ export default function PlaygroundPage() {
           </Link>
           <div>
             <h1 className="text-3xl font-black gold-gradient-text uppercase leading-none font-diwani">المختبر السينابتي</h1>
-            <p className="text-[10px] text-[#00ffff]/40 font-black uppercase tracking-[0.3em] mt-2 font-diwani">Synaptic Lab • Global Readiness</p>
+            <p className="text-[10px] text-[#00ffff]/40 font-black uppercase tracking-[0.3em] mt-2 font-diwani">Synaptic Lab • Global Readiness • MCP Sync</p>
           </div>
         </div>
         <div className="p-4 bg-[#00ffff]/10 rounded-2xl hidden md:block">
@@ -95,7 +95,7 @@ export default function PlaygroundPage() {
             <label className="text-[11px] font-black uppercase text-[#d4af37] tracking-[0.2em] font-diwani">اختيار النواة النشطة</label>
             <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
               <SelectTrigger className="w-full h-16 rounded-[1.5rem] glass-turquoise border-white/10 text-lg font-bold shadow-lg focus:ring-[#00ffff]">
-                <SelectValue placeholder="حدد عقل المهمة..." />
+                <SelectValue placeholder='حدد "عقل" المهمة...' />
               </SelectTrigger>
               <SelectContent className="rounded-[1.5rem] glass-turquoise border-white/10">
                 {projects.map(p => (
@@ -113,7 +113,7 @@ export default function PlaygroundPage() {
                 </div>
                 {!hasPrompt && <p className="text-[10px] text-destructive font-bold font-diwani leading-relaxed">⚠️ الملاح، النواة تفتقر لتعليمات النظام.</p>}
                 {!hasKey && <p className="text-[10px] text-destructive font-bold font-diwani leading-relaxed">⚠️ وقود التشغيل مفقود.</p>}
-                {hasKey && hasPrompt && <p className="text-[10px] text-[#00ffff] font-bold font-diwani leading-relaxed">✅ النواة جاهزة للاستدلال الإدراكي الكامل.</p>}
+                {hasKey && hasPrompt && <p className="text-[10px] text-[#00ffff] font-bold font-diwani leading-relaxed">✅ النواة جاهزة للاستدلال الإدراكي الكامل بمرونة MCP.</p>}
               </div>
             )}
           </div>
@@ -122,7 +122,7 @@ export default function PlaygroundPage() {
         <main className="md:col-span-2 space-y-8">
           <div className="glass-turquoise p-10 rounded-[4rem] border border-white/10 space-y-8 shadow-3xl">
             <Textarea 
-              placeholder="أدخل تساؤلك المعماري لتمكين 500 مليون عربي..."
+              placeholder="أدخل تساؤلك المعماري لتمكين 500 مليون عربي برؤية MCP..."
               className="min-h-[200px] p-8 text-xl glass-turquoise border-white/10 rounded-[2.5rem] shadow-inner focus:border-[#00ffff]/40 transition-all text-right leading-relaxed font-diwani italic"
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -142,7 +142,7 @@ export default function PlaygroundPage() {
                <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-transparent via-[#00ffff]/40 to-transparent"></div>
               <div className="flex items-center justify-between border-b border-white/10 pb-6">
                 <span className="text-[12px] font-black uppercase text-[#00ffff] tracking-widest flex items-center gap-3 font-diwani">
-                  <Cpu className="w-6 h-6" /> مخرجات Gemma Core 2030
+                  <Cpu className="w-6 h-6" /> مخرجات Gemma Core 2030 (MCP Active)
                 </span>
                 <span className="text-[10px] text-white/30 font-black uppercase tracking-widest font-diwani">{selectedProject?.model}</span>
               </div>

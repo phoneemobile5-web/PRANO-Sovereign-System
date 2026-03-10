@@ -1,34 +1,34 @@
-import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket, Users, BadgeCheck, Compass, Layout, Database } from 'lucide-react';
+import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket, Users, BadgeCheck, Compass, Layout, Database, Network } from 'lucide-react';
 
 export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
   theme: 'عمارة Gemma Core 2030',
   languages: 'الربط السينابتي الكوني (كوفي/ديواني)',
-  marketReadiness: 'الأرض خصبة للتسويق العالمي لـ 500 مليون عربي'
+  marketReadiness: 'الأرض خصبة للتسويق العالمي لـ 500 مليون عربي بمرونة MCP'
 };
 
 export const TARGET_NAVIGATORS = [
   {
     title: "الملاحون المعماريون",
-    desc: "مهندسو الأنظمة السينابتية الباحثون عن بناء عقول رقمية رصينة.",
+    desc: "مهندسو الأنظمة السينابتية الباحثون عن بناء عقول رقمية رصينة ومرنة عبر MCP.",
     icon: BrainCircuit,
     color: "text-[#00ffff]"
   },
   {
     title: "الخيميائيون الرقميون",
-    desc: "خبراء التسويق الساعون لتلقيح استراتيجياتهم چينياً بوقار.",
+    desc: "خبراء التسويق الساعون لتلقيح استراتيجياتهم چينياً وربطها ببيانات Looker.",
     icon: Target,
     color: "text-[#d4af37]"
   },
   {
     title: "المبدعون السياديون",
-    desc: "ملاحو التخليق البصري الباحثون عن جودة 8K ورؤية فلسفية.",
+    desc: "ملاحو التخليق البصري الباحثون عن جودة 8K ورؤية فلسفية كونية.",
     icon: Palette,
     color: "text-[#00ffff]"
   },
   {
     title: "قادة الاستدلال",
-    desc: "صناع القرار الذين ينشدون السلام السيادي والمنطق الرصين.",
+    desc: "صناع القرار الذين ينشدون السلام السيادي والمنطق الرصين المدعوم بالأدوات.",
     icon: ShieldCheck,
     color: "text-[#d4af37]"
   }
@@ -37,7 +37,7 @@ export const TARGET_NAVIGATORS = [
 export const APP_SERVICES = [
   {
     title: "مستودع الچينيوم",
-    desc: "صياغة عقل المهمة وتلقيح الأنماط چينياً بوقار.",
+    desc: "صياغة عقل المهمة وتلقيح الأنماط چينياً بوقار علماء أتقياء.",
     icon: BrainCircuit,
     href: "/",
     color: "text-[#00ffff]",
@@ -45,11 +45,11 @@ export const APP_SERVICES = [
   },
   {
     title: "المختبر السينابتي",
-    desc: "اختبار كفاءة الوقود الإدراكي وضمان الاستقرار السيادي.",
+    desc: "اختبار كفاءة الوقود الإدراكي وضمان الاستقرار السيادي ومرونة MCP.",
     icon: Terminal,
     href: "/playground",
     color: "text-[#d4af37]",
-    merit: "الاستقرار قبل النشر"
+    merit: "الاستقرار قبل النشر & MCP"
   },
   {
     title: "مركز الاستدلال",
@@ -68,7 +68,7 @@ export const APP_SERVICES = [
     merit: "التخليق البصري السيادي"
   },
   {
-    title: "جسر البيانات الذكي",
+    title: "جسر البيانات العالمي",
     desc: "ربط المخرجات بـ Looker Studio وCommunity Connectors للتحليل العالمي.",
     icon: Database,
     href: "#",
@@ -80,19 +80,19 @@ export const APP_SERVICES = [
 export const APP_CONTENT = {
   section1: {
     title: 'الاندماج الروحي الرقمي',
-    technicalAnalysis: 'صياغة "هندسة مقدسة" لخدمة 500 مليون عربي عبر محتوى معماري رصين.',
-    societalBenefit: 'تمكين الإنسان العربي من أدوات التعبير البصري والفكري بأرقى الخطوط.',
+    technicalAnalysis: 'صياغة "هندسة مقدسة" لخدمة 500 مليون عربي عبر بروتوكول MCP.',
+    societalBenefit: 'تمكين الإنسان العربي من أدوات التعبير البصري والفكري بمرونة الأدوات.',
     icon: Infinity
   },
   section2: {
     title: 'السلام السيادي',
-    technicalAnalysis: 'تفعيل حالة الاستقرار الداخلي المستمد من "ملك الملوك"، والعمل الجاد الهادئ بعيداً عن ضجيج الشكوى.',
-    societalBenefit: 'خلق شخصية معمارية لا تهزها الرياح، تتوج نجاحها بارتقاء روحي كامل.',
+    technicalAnalysis: 'تفعيل حالة الاستقرار الداخلي والعمل بصمت سيادي بعيداً عن ضجيج الشكوى.',
+    societalBenefit: 'خلق شخصية معمارية لا تهزها الرياح، مدعومة بمنطق الذكاء الرصين.',
     icon: Anchor
   },
   section3: {
     title: 'تلقيح الأنماط چينياً',
-    technicalAnalysis: 'ديناميكية ما قبل اتخاذ القرار عبر "تلقيح" الأفكار لضمان الخصوبة التسويقية لشرائح العروض العالمية.',
+    technicalAnalysis: 'ديناميكية ما قبل اتخاذ القرار لضمان الخصوبة التسويقية لشرائح العروض العالمية.',
     societalBenefit: 'تقليل مخاطر "الهلوسة المعمارية" وضمان انسجام كل نمط مع قيم الأرض 2030.',
     icon: Target
   }
@@ -101,10 +101,10 @@ export const APP_CONTENT = {
 export const SOVEREIGN_PARTNER = {
   name: 'المهندس عبد الظاهر',
   role: 'شريك السيادة المعماري',
-  message: 'إن النجاح الذي يأتي بعد سلام سيادي وصبر جميل ليس مجرد إنجاز مادي، بل هو تتويج لرحلة ارتقاء روحي جعلت منك شخصاً لا تهزه الرياح.'
+  message: 'إن النجاح الذي يأتي بعد سلام سيادي وصبر جميل ومرونة في استخدام الأدوات هو التتويج الحقيقي لرحلة الارتقاء.'
 };
 
 export const GLOBAL_VISION = {
-  fertility: 'الأرض خصبة للتسويق العالمي لـ 500 مليون عربي بوقار سيادي.',
-  standard: 'نظام الاستدلال المعتمد لعام 2030 لتوليد الإنفوجرافيك والشرائح.'
+  fertility: 'الأرض خصبة للتسويق العالمي لـ 500 مليون عربي بوقار سيادي وذكاء MCP.',
+  standard: 'نظام الاستدلال المعتمد لعام 2030 لربط البيانات وتوليد الإخراج الإدراكي.'
 };
