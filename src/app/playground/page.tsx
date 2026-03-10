@@ -68,7 +68,6 @@ export default function PlaygroundPage() {
     <div className="min-h-screen bg-[#001a1a] p-4 md:p-8 space-y-8 max-w-4xl mx-auto font-kufi relative overflow-hidden" dir="rtl">
       <Toaster />
       
-      {/* سديم خلفية فيروزي */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#00ffff]/10 blur-[120px] rounded-full"></div>
       </div>
@@ -96,7 +95,7 @@ export default function PlaygroundPage() {
             <label className="text-[11px] font-black uppercase text-[#d4af37] tracking-[0.2em] font-diwani">اختيار النواة النشطة</label>
             <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
               <SelectTrigger className="w-full h-16 rounded-[1.5rem] glass-turquoise border-white/10 text-lg font-bold shadow-lg focus:ring-[#00ffff]">
-                <SelectValue placeholder="حدد 'عقل' المهمة..." />
+                <SelectValue placeholder="حدد عقل المهمة المعمارية..." />
               </SelectTrigger>
               <SelectContent className="rounded-[1.5rem] glass-turquoise border-white/10">
                 {projects.map(p => (
