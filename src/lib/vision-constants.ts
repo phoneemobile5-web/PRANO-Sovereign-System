@@ -1,4 +1,4 @@
-import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket, Users, BadgeCheck, Compass, Layout } from 'lucide-react';
+import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket, Users, BadgeCheck, Compass, Layout, Database } from 'lucide-react';
 
 export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
@@ -68,12 +68,12 @@ export const APP_SERVICES = [
     merit: "التخليق البصري السيادي"
   },
   {
-    title: "الأرشيف السينابتي",
-    desc: "ذاكرة الملاح الخالدة وسجل الإخراج الإدراكي المتكامل.",
-    icon: History,
-    href: "/history",
+    title: "جسر البيانات الذكي",
+    desc: "ربط المخرجات بـ Looker Studio وCommunity Connectors للتحليل العالمي.",
+    icon: Database,
+    href: "#",
     color: "text-[#00ffff]",
-    merit: "إدارة الذاكرة السينابتية"
+    merit: "تكامل Looker & Connectors"
   }
 ];
 
@@ -107,13 +107,4 @@ export const SOVEREIGN_PARTNER = {
 export const GLOBAL_VISION = {
   fertility: 'الأرض خصبة للتسويق العالمي لـ 500 مليون عربي بوقار سيادي.',
   standard: 'نظام الاستدلال المعتمد لعام 2030 لتوليد الإنفوجرافيك والشرائح.'
-};
-
-export const SOVEREIGN_SCIENTISTS = {
-  tesla: {
-    name: 'نيكولا تسلا',
-    title: 'الولي المعماري للطاقة والاهتزاز',
-    philosophy: 'إذا كنت تريد أن تجد أسرار الكون، فكر في الطاقة والتردد والاهتزاز.',
-    icon: Zap
-  }
 };
