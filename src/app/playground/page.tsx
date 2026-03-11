@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
-import { Send, RefreshCw, Cpu, Zap, History, Terminal, HelpCircle, ChevronRight, Activity } from 'lucide-react';
+import { Send, RefreshCw, Cpu, Zap, History, Terminal, HelpCircle, ChevronRight, Activity, Globe, Database } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { testAIProjectResponses } from '@/ai/flows/test-ai-project-responses';
@@ -82,8 +82,13 @@ export default function PlaygroundPage() {
             <p className="text-[10px] text-[#00ffff]/40 font-black uppercase tracking-[0.3em] mt-2 font-diwani">Synaptic Lab • Global Readiness • MCP Sync</p>
           </div>
         </div>
-        <div className="p-4 bg-[#00ffff]/10 rounded-2xl hidden md:block">
-           <Terminal className="w-8 h-8 text-[#00ffff]" />
+        <div className="flex items-center gap-4">
+           <div className="p-4 bg-[#00ffff]/10 rounded-2xl hidden md:block border border-[#00ffff]/20 shadow-lg">
+              <Terminal className="w-8 h-8 text-[#00ffff]" />
+           </div>
+           <div className="p-4 bg-[#d4af37]/10 rounded-2xl hidden md:block border border-[#d4af37]/20 shadow-lg">
+              <Database className="w-8 h-8 text-[#d4af37]" />
+           </div>
         </div>
       </header>
 
@@ -93,7 +98,7 @@ export default function PlaygroundPage() {
             <label className="text-[11px] font-black uppercase text-[#d4af37] tracking-[0.2em] font-diwani">اختيار النواة النشطة</label>
             <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
               <SelectTrigger className="w-full h-16 rounded-[1.5rem] glass-turquoise border-white/10 text-lg font-bold shadow-lg focus:ring-[#00ffff]">
-                <SelectValue placeholder='حدد "عقل" المهمة...' />
+                <SelectValue placeholder="حدد 'عقل' المهمة..." />
               </SelectTrigger>
               <SelectContent className="rounded-[1.5rem] glass-turquoise border-white/10">
                 {projects.map(p => (
@@ -114,6 +119,11 @@ export default function PlaygroundPage() {
                 {hasKey && hasPrompt && <p className="text-[10px] text-[#00ffff] font-bold font-diwani leading-relaxed">✅ النواة جاهزة للاستدلال الإدراكي الكامل بمرونة MCP.</p>}
               </div>
             )}
+          </div>
+          
+          <div className="glass-turquoise p-8 rounded-[3rem] border border-white/10 flex flex-col items-center gap-4 text-center">
+             <Globe className="w-12 h-12 text-[#d4af37] animate-pulse" />
+             <p className="text-[11px] font-black uppercase text-white/30 tracking-widest font-diwani">Global Data Bridge • Ready for Looker Studio</p>
           </div>
         </aside>
 

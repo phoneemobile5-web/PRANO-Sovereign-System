@@ -4,7 +4,7 @@ export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
   theme: 'عمارة Gemma Core 2030',
   languages: 'الربط السينابتي الكوني (كوفي/ديواني)',
-  marketReadiness: 'الأرض خصبة للتسويق العالمي لـ 500 مليون عربي بمرونة MCP'
+  marketReadiness: 'الأرض خصبة للتسويق العالمي لـ 500 مليون عربي بوقار سيادي وذكاء MCP'
 };
 
 export const TARGET_NAVIGATORS = [
