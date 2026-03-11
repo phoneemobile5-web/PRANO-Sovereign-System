@@ -17,7 +17,7 @@ import Link from 'next/link';
  */
 
 export default function PlaygroundPage() {
-  const { projects, addMessage, isLoaded } = useWorkbenchStore();
+  const { projects, isLoaded } = useWorkbenchStore();
   const { toast } = useToast();
   const [selectedProjectId, setSelectedProjectId] = useState<string>('');
   const [input, setInput] = useState('');
@@ -49,8 +49,6 @@ export default function PlaygroundPage() {
         model: selectedProject.model
       });
       setOutput(result.response);
-      addMessage({ role: 'user', text: input });
-      addMessage({ role: 'model', text: result.response });
     } catch (e) {
       toast({
         variant: 'destructive',
