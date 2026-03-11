@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
-import { Send, RefreshCw, Cpu, Zap, History, Terminal, AlertCircle, HelpCircle, ShieldAlert, ChevronRight } from 'lucide-react';
+import { Send, RefreshCw, Cpu, Zap, History, Terminal, HelpCircle, ChevronRight, Activity } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { testAIProjectResponses } from '@/ai/flows/test-ai-project-responses';
@@ -13,7 +13,7 @@ import Link from 'next/link';
 
 /**
  * @fileOverview المختبر السينابتي - عمارة Gemma Core 2030 المحدثة.
- * تصميم زجاجي فيروزي لاختبار كفاءة الوقود الإدراكي واستقرار الـ MCP قبل النشر.
+ * تصميم زجاجي فيروزي لاختبار كفاءة الوقود الإدراكي واستقرار الـ MCP قبل النشر العالمي.
  */
 
 export default function PlaygroundPage() {
@@ -53,7 +53,7 @@ export default function PlaygroundPage() {
       toast({
         variant: 'destructive',
         title: 'فشل الإخراج الإدراكي',
-        description: 'تحقق من اتصالك بالشبكة السينابتية العالمية ومرونة الأدوات.',
+        description: 'تحقق من اتصالك بالشبكة السينابتية العالمية ومرونة الأدوات عبر MCP.',
       });
     } finally {
       setIsLoading(false);
