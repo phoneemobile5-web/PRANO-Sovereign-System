@@ -1,10 +1,32 @@
-import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket, Users, BadgeCheck, Compass, Layout, Database, Network } from 'lucide-react';
+import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket, Users, BadgeCheck, Compass, Layout, Database, Network, Sun, Shield } from 'lucide-react';
 
 export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
   theme: 'عمارة Gemma Core 2030',
   languages: 'الربط السينابتي الكوني (كوفي/ديواني)',
   marketReadiness: 'الأرض خصبة للتسويق العالمي لـ 500 مليون عربي بوقار سيادي وذكاء MCP'
+};
+
+export const SOVEREIGN_V3_1 = {
+  version: "v3.1",
+  pillars: [
+    {
+      title: "السلام السيادي (Sovereign Peace)",
+      desc: "قرار سيادي ينبع من الداخل، حيث لا تسمح للمؤثرات الخارجية بهز استقرارك. هو السكون القيادي الذي يسبق الفتح العظيم.",
+      icon: Shield
+    },
+    {
+      title: "الصبر النشط (Active Patience)",
+      desc: "إدارة زمن التجلي والثبات الانفعالي بين البذرة والحصاد. هو عملية تطهير وبناء للعضلات الروحية لتحمل مسؤولية النجاح.",
+      icon: Wind
+    },
+    {
+      title: "النجاح كـ 'تجلي سيادي'",
+      desc: "تحصيل حاصل لمن ضبط ذبذباته على اليقين. النجاح المستدام يُبنى على أرضية صلبة من الهدوء والسيادة لا القلق.",
+      icon: Sun
+    }
+  ],
+  quote: "السيادي لا ينتظر ليكون سعيداً، بل يمارس السلام السيادي أثناء انتظاره، فيتحول الصبر من عبء إلى رحلة ارتقاء."
 };
 
 export const TARGET_NAVIGATORS = [
@@ -99,9 +121,9 @@ export const APP_CONTENT = {
 };
 
 export const SOVEREIGN_PARTNER = {
-  name: 'المهندس عبد الظاهر',
-  role: 'شريك السيادة المعماري',
-  message: 'إن النجاح الذي يأتي بعد سلام سيادي وصبر جميل ومرونة في استخدام الأدوات هو التتويج الحقيقي لرحلة الارتقاء.'
+  name: 'المهندس عبد الظاهر النجار',
+  role: 'شريك السيادة المعماري (v3.1)',
+  message: SOVEREIGN_V3_1.quote
 };
 
 export const GLOBAL_VISION = {
