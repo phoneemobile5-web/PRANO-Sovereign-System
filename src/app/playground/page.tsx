@@ -67,9 +67,9 @@ export default function PlaygroundPage() {
               <ChevronRight className="w-8 h-8 text-[#00ffff]" />
             </Button>
           </Link>
-          <div>
+          <div className="text-right">
             <h1 className="text-3xl font-black gold-gradient-text uppercase leading-none font-diwani">المختبر السينابتي</h1>
-            <p className="text-[10px] text-[#00ffff]/40 font-black uppercase tracking-[0.3em] mt-2 font-diwani">Synaptic Lab • Global Readiness • MCP Sync</p>
+            <p className="text-[10px] text-[#00ffff]/40 font-black uppercase tracking-[0.3em] mt-2 font-diwani">Synaptic Lab • MCP • Peace Mode</p>
           </div>
         </div>
         <div className="flex items-center gap-4">
@@ -80,14 +80,14 @@ export default function PlaygroundPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
         <aside className="md:col-span-1 space-y-8">
           <div className="glass-turquoise p-8 rounded-[3rem] border border-white/10 space-y-6">
-            <label className="text-[11px] font-black uppercase text-[#d4af37] tracking-[0.2em] font-diwani">اختيار النواة النشطة</label>
+            <label className="text-[11px] font-black uppercase text-[#d4af37] tracking-[0.2em] font-diwani block text-right">اختيار النواة النشطة</label>
             <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
-              <SelectTrigger className="w-full h-16 rounded-[1.5rem] glass-turquoise border-white/10 text-lg font-bold shadow-lg focus:ring-[#00ffff]">
+              <SelectTrigger className="w-full h-16 rounded-[1.5rem] glass-turquoise border-white/10 text-lg font-bold shadow-lg focus:ring-[#00ffff] text-right">
                 <SelectValue placeholder="حدد 'عقل' المهمة..." />
               </SelectTrigger>
               <SelectContent className="rounded-[1.5rem] glass-turquoise border-white/10">
                 {projects.map(p => (
-                  <SelectItem key={p.id} value={p.id} className="font-bold text-base py-4">{p.name}</SelectItem>
+                  <SelectItem key={p.id} value={p.id} className="font-bold text-base py-4 text-right">{p.name}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -108,8 +108,20 @@ export default function PlaygroundPage() {
               onClick={handleRun}
             >
               {isLoading ? <RefreshCw className="w-10 h-10 animate-spin" /> : <Zap className="w-10 h-10 group-hover:scale-110 transition-transform fill-current" />}
-              تفعيل الاستدلال
+              تفعيل الاستدلال السيادي
             </Button>
+            
+            {output && (
+              <div className="p-10 glass-turquoise rounded-[3rem] border border-[#00ffff]/20 animate-in fade-in zoom-in-95 duration-500 shadow-3xl">
+                <div className="flex items-center gap-3 mb-6 border-b border-white/5 pb-4">
+                  <Star className="w-5 h-5 text-[#d4af37] fill-[#d4af37]/20" />
+                  <span className="text-xs font-black text-[#00ffff]/60 uppercase tracking-widest font-diwani">الإخراج الإدراكي الموحد:</span>
+                </div>
+                <div className="text-xl leading-relaxed text-white/80 font-diwani italic text-right whitespace-pre-wrap">
+                  {output}
+                </div>
+              </div>
+            )}
           </div>
         </main>
       </div>
