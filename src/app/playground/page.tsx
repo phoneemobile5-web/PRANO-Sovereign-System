@@ -11,11 +11,6 @@ import { Toaster } from '@/components/ui/toaster';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 
-/**
- * @fileOverview المختبر السينابتي - عمارة Gemma Core 2030 المحدثة.
- * تصميم زجاجي فيروزي لاختبار كفاءة الوقود الإدراكي واستقرار الـ MCP قبل النشر العالمي.
- */
-
 export default function PlaygroundPage() {
   const { projects, isLoaded } = useWorkbenchStore();
   const { toast } = useToast();
@@ -65,11 +60,6 @@ export default function PlaygroundPage() {
   return (
     <div className="min-h-screen bg-[#001a1a] p-4 md:p-8 space-y-8 max-w-4xl mx-auto font-kufi relative overflow-hidden" dir="rtl">
       <Toaster />
-      
-      <div className="absolute inset-0 pointer-events-none opacity-20">
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#00ffff]/10 blur-[120px] rounded-full"></div>
-      </div>
-
       <header className="flex items-center justify-between glass-turquoise p-8 rounded-[3rem] border border-white/10 shadow-3xl relative z-10">
         <div className="flex items-center gap-6">
           <Link href="/">
@@ -83,12 +73,7 @@ export default function PlaygroundPage() {
           </div>
         </div>
         <div className="flex items-center gap-4">
-           <div className="p-4 bg-[#00ffff]/10 rounded-2xl hidden md:block border border-[#00ffff]/20 shadow-lg">
-              <Terminal className="w-8 h-8 text-[#00ffff]" />
-           </div>
-           <div className="p-4 bg-[#d4af37]/10 rounded-2xl hidden md:block border border-[#d4af37]/20 shadow-lg">
-              <Database className="w-8 h-8 text-[#d4af37]" />
-           </div>
+           <Terminal className="w-8 h-8 text-[#00ffff]" />
         </div>
       </header>
 
@@ -98,32 +83,14 @@ export default function PlaygroundPage() {
             <label className="text-[11px] font-black uppercase text-[#d4af37] tracking-[0.2em] font-diwani">اختيار النواة النشطة</label>
             <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
               <SelectTrigger className="w-full h-16 rounded-[1.5rem] glass-turquoise border-white/10 text-lg font-bold shadow-lg focus:ring-[#00ffff]">
-                <SelectValue placeholder='حدد "عقل" المهمة...' />
+                <SelectValue placeholder="حدد 'عقل' المهمة..." />
               </SelectTrigger>
               <SelectContent className="rounded-[1.5rem] glass-turquoise border-white/10">
                 {projects.map(p => (
-                  <SelectItem key={p.id} value={p.id} className="font-bold text-base py-4 hover:bg-[#00ffff]/10">{p.name}</SelectItem>
+                  <SelectItem key={p.id} value={p.id} className="font-bold text-base py-4">{p.name}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
-
-            {selectedProject && (
-              <div className={`p-6 rounded-[2rem] border transition-all ${(!hasKey || !hasPrompt) ? 'bg-destructive/10 border-destructive/20 animate-pulse' : 'bg-[#00ffff]/5 border-[#00ffff]/20'}`}>
-                <div className="flex items-center justify-between mb-4">
-                   <p className="text-[10px] font-black text-[#00ffff] uppercase flex items-center gap-2 font-diwani">
-                    <HelpCircle className="w-4 h-4" /> حالة الربط السينابتي
-                  </p>
-                </div>
-                {!hasPrompt && <p className="text-[10px] text-destructive font-bold font-diwani leading-relaxed">⚠️ الملاح، النواة تفتقر لتعليمات النظام.</p>}
-                {!hasKey && <p className="text-[10px] text-destructive font-bold font-diwani leading-relaxed">⚠️ وقود التشغيل مفقود.</p>}
-                {hasKey && hasPrompt && <p className="text-[10px] text-[#00ffff] font-bold font-diwani leading-relaxed">✅ النواة جاهزة للاستدلال الإدراكي الكامل بمرونة MCP.</p>}
-              </div>
-            )}
-          </div>
-          
-          <div className="glass-turquoise p-8 rounded-[3rem] border border-white/10 flex flex-col items-center gap-4 text-center">
-             <Globe className="w-12 h-12 text-[#d4af37] animate-pulse" />
-             <p className="text-[11px] font-black uppercase text-white/30 tracking-widest font-diwani">Global Data Bridge • Ready for Looker Studio</p>
           </div>
         </aside>
 
@@ -136,7 +103,7 @@ export default function PlaygroundPage() {
               onChange={(e) => setInput(e.target.value)}
             />
             <Button 
-              className="w-full h-24 text-2xl font-black rounded-[2.5rem] gap-5 shadow-2xl active:scale-95 transition-all bg-gradient-to-r from-[#d4af37] to-[#ffdf00] text-[#002d2d] border-none group" 
+              className="w-full h-24 text-2xl font-black rounded-[2.5rem] gap-5 shadow-2xl transition-all bg-gradient-to-r from-[#d4af37] to-[#ffdf00] text-[#002d2d] border-none group" 
               disabled={isLoading || !input || !selectedProjectId}
               onClick={handleRun}
             >
@@ -144,38 +111,8 @@ export default function PlaygroundPage() {
               تفعيل الاستدلال
             </Button>
           </div>
-
-          {output && (
-            <div className="glass-turquoise border-white/20 rounded-[4rem] p-12 shadow-3xl space-y-8 animate-in fade-in zoom-in-95 relative overflow-hidden">
-               <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-transparent via-[#00ffff]/40 to-transparent"></div>
-              <div className="flex items-center justify-between border-b border-white/10 pb-6">
-                <span className="text-[12px] font-black uppercase text-[#00ffff] tracking-widest flex items-center gap-3 font-diwani">
-                  <Cpu className="w-6 h-6" /> مخرجات Gemma Core 2030 (MCP Active)
-                </span>
-                <span className="text-[10px] text-white/30 font-black uppercase tracking-widest font-diwani">{selectedProject?.model}</span>
-              </div>
-              <div className="text-xl font-medium leading-relaxed whitespace-pre-wrap text-white/90 font-diwani italic pr-4 border-r-2 border-[#d4af37]/30">
-                {output}
-              </div>
-            </div>
-          )}
         </main>
       </div>
-
-      <nav className="fixed bottom-8 left-1/2 -translate-x-1/2 h-24 glass-turquoise border border-white/10 flex items-center justify-around px-16 shadow-[0_20px_60px_rgba(0,0,0,0.6)] z-50 rounded-full w-[90%] max-w-2xl">
-        <Link href="/" className="flex flex-col items-center gap-2 text-white/30 hover:text-[#d4af37] transition-all">
-          <Zap className="w-8 h-8" />
-          <span className="text-[10px] font-black uppercase tracking-widest font-diwani">النواة</span>
-        </Link>
-        <div className="flex flex-col items-center gap-2 text-[#d4af37] scale-110 transition-all">
-          <Terminal className="w-8 h-8 fill-current" />
-          <span className="text-[10px] font-black uppercase tracking-widest font-diwani">المختبر</span>
-        </div>
-        <Link href="/history" className="flex flex-col items-center gap-2 text-white/30 hover:text-[#d4af37] transition-all">
-          <History className="w-8 h-8" />
-          <span className="text-[10px] font-black uppercase tracking-widest font-diwani">الأرشيف</span>
-        </Link>
-      </nav>
     </div>
   );
 }

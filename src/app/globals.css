@@ -30,10 +30,6 @@
 }
 
 @layer components {
-  .glass-card {
-    @apply bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,255,255,0.1)];
-  }
-  
   .glass-turquoise {
     background: rgba(0, 45, 45, 0.4);
     backdrop-filter: blur(25px);
@@ -44,10 +40,6 @@
 
   .gold-gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-[#d4af37] via-[#f7e48b] to-[#d4af37];
-  }
-
-  .teal-gradient {
-    background: radial-gradient(circle at center, #004d4d 0%, #002d2d 50%, #001a1a 100%);
   }
 
   .font-kufi {
@@ -93,8 +85,4 @@
 
 h1, h2, h3, h4 {
   @apply tracking-tight font-black;
-}
-
-.diwani-italic {
-  @apply font-diwani italic leading-relaxed;
 }
