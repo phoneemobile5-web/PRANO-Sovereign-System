@@ -59,6 +59,15 @@
     50% { transform: scale(1.02); opacity: 0.9; }
     100% { transform: scale(0.98); opacity: 0.6; }
   }
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 180s linear infinite;
+  }
 }
 
 @layer base {
@@ -72,15 +81,6 @@
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
-}
-
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.animate-spin-slow {
-  animation: spin-slow 180s linear infinite;
 }
 
 h1, h2, h3, h4 {

@@ -2,7 +2,7 @@ import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart
 
 export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
-  theme: 'عمارة Gemma Core 2030 | السلام السيادي',
+  theme: 'عمارة Gemma Core 2030 | السلام السيادي v3.1',
   languages: 'الربط السينابتي الكوني (كوفي/ديواني)',
   marketReadiness: 'الأرض خصبة للتسويق العالمي لـ 500 مليون عربي بوقار سيادي وذكاء MCP'
 };
