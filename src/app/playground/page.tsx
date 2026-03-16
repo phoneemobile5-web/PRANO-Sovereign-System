@@ -94,7 +94,7 @@ export default function PlaygroundPage() {
             <label className="text-[11px] font-black uppercase text-[#d4af37] tracking-[0.2em] font-diwani block text-right">اختيار النواة النشطة</label>
             <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
               <SelectTrigger className="w-full h-16 rounded-[1.5rem] glass-turquoise border-white/10 text-lg font-bold shadow-lg focus:ring-[#00ffff] text-right">
-                <SelectValue placeholder="حدد 'عقل' المهمة..." />
+                <SelectValue placeholder="حدد عقل المهمة..." />
               </SelectTrigger>
               <SelectContent className="rounded-[1.5rem] glass-turquoise border-white/10">
                 {projects.map(p => (
