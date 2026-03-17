@@ -19,7 +19,8 @@ import {
   LayoutGrid, 
   Database,
   ChevronRight,
-  Zap
+  Zap,
+  Star
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -76,11 +77,11 @@ export default function Dashboard() {
           </div>
           <div className="flex items-center gap-5 text-right">
             <div>
-              <h1 className="text-3xl font-black gold-gradient-text leading-none uppercase tracking-tight">GEMMA CORE 2030</h1>
+              <h1 className="text-3xl font-black gold-gradient-text leading-none uppercase tracking-tight font-diwani">GEMMA CORE 2030</h1>
               <p className="text-[10px] text-[#00ffff]/60 font-bold uppercase tracking-[0.1em] mt-1 font-diwani">نظام الاستدلال المعماري المتكامل</p>
             </div>
             <div className="w-16 h-16 bg-gradient-to-tr from-[#d4af37] to-[#ffdf00] rounded-3xl flex items-center justify-center shadow-2xl transform rotate-3">
-              <Shield className="text-[#002d2d] w-10 h-10" />
+              <Star className="text-[#002d2d] w-10 h-10 fill-current" />
             </div>
           </div>
         </div>
@@ -103,13 +104,13 @@ export default function Dashboard() {
               </Button>
             </DialogTrigger>
             <DialogContent className="rounded-[3rem] p-8 glass-turquoise border-white/10 shadow-3xl font-kufi">
-              <DialogHeader><DialogTitle className="text-right text-3xl font-black gold-gradient-text mb-4">استيراد عقل المهمة</DialogTitle></DialogHeader>
+              <DialogHeader><DialogTitle className="text-right text-3xl font-black gold-gradient-text mb-4 font-diwani">استيراد عقل المهمة</DialogTitle></DialogHeader>
               <div className="space-y-6 py-4 text-right">
-                <Input placeholder="اسم المهمة..." value={importName} onChange={(e) => setImportName(e.target.value)} className="h-16 rounded-[1.5rem] text-right" />
-                <Input placeholder="API Key (AIza...)" value={importKey} onChange={(e) => setImportKey(e.target.value)} className="h-16 rounded-[1.5rem] text-right" />
-                <Textarea placeholder="تعليمات الچينيوم..." className="min-h-[180px] rounded-[1.5rem] text-right" value={importPrompt} onChange={(e) => setImportPrompt(e.target.value)} />
+                <Input placeholder="اسم المهمة..." value={importName} onChange={(e) => setImportName(e.target.value)} className="h-16 rounded-[1.5rem] text-right font-diwani" />
+                <Input placeholder="API Key (AIza...)" value={importKey} onChange={(e) => setImportKey(e.target.value)} className="h-16 rounded-[1.5rem] text-right font-mono" />
+                <Textarea placeholder="تعليمات الچينيوم الوراثي..." className="min-h-[180px] rounded-[1.5rem] text-right font-diwani italic" value={importPrompt} onChange={(e) => setImportPrompt(e.target.value)} />
               </div>
-              <DialogFooter><Button onClick={handleQuickImport} className="w-full h-20 font-black text-2xl rounded-[2rem] bg-gradient-to-r from-[#d4af37] to-[#ffdf00] text-[#002d2d] border-none">تفعيل التردد 🚀</Button></DialogFooter>
+              <DialogFooter><Button onClick={handleQuickImport} className="w-full h-20 font-black text-2xl rounded-[2rem] bg-gradient-to-r from-[#d4af37] to-[#ffdf00] text-[#002d2d] border-none font-diwani">تفعيل التردد السيادي 🚀</Button></DialogFooter>
             </DialogContent>
           </Dialog>
 
@@ -124,7 +125,7 @@ export default function Dashboard() {
 
       <section className="space-y-6 relative z-10 px-2">
         <div className="flex items-center justify-end px-4 gap-3">
-          <h2 className="text-[11px] font-black uppercase text-white/40 tracking-[0.3em]">الخدمات السينابتية المتاحة</h2>
+          <h2 className="text-[11px] font-black uppercase text-white/40 tracking-[0.3em] font-diwani">الخدمات السينابتية المتاحة</h2>
           <LayoutGrid className="w-4 h-4 text-[#d4af37]" />
         </div>
         
@@ -135,7 +136,7 @@ export default function Dashboard() {
                 <ChevronLeft className="w-6 h-6 text-white/10 group-hover:text-[#00ffff] transition-colors" />
                 <div className="text-right flex-1 pr-2">
                   <h3 className="text-2xl font-black gold-gradient-text font-diwani leading-tight">{service.title}</h3>
-                  <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest mt-0.5">{service.merit}</p>
+                  <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest mt-0.5 font-diwani">{service.merit}</p>
                   <p className="text-[13px] text-white/60 mt-3 font-diwani italic leading-relaxed">{service.desc}</p>
                 </div>
                 <div className="p-5 rounded-3xl bg-white/5 group-hover:scale-110 transition-transform shadow-lg">
