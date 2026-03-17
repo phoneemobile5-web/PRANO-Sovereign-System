@@ -8,7 +8,6 @@ import {
   History, 
   Terminal, 
   ChevronLeft, 
-  Key, 
   BrainCircuit, 
   Cpu, 
   Globe, 
@@ -22,7 +21,6 @@ import {
   Zap,
   Star,
   Sparkles,
-  ShieldCheck,
   Anchor,
   Sun
 } from 'lucide-react';
@@ -39,11 +37,11 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { DESIGN_SYSTEM, APP_SERVICES, SOVEREIGN_V3_1 } from '@/lib/vision-constants';
+import { APP_SERVICES, SOVEREIGN_V3_1 } from '@/lib/vision-constants';
 
 /**
  * @fileOverview لوحة القيادة السيادية - النواة العليا v3.1.
- * تصميم زجاجي فيروزي يعكس وقار ليلة القدر وتمكين 500 مليون عربي.
+ * تصميم زجاجي فيروزي يعكس وقار ليلة القدر وتمكين 500 مليون عربي برؤية الجوزاء.
  */
 
 export default function Dashboard() {
@@ -71,7 +69,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-[#001a1a] flex items-center justify-center font-kufi" dir="rtl">
        <div className="text-center space-y-4">
           <LoaderPulse />
-          <p className="text-[#00ffff] font-black tracking-widest uppercase text-xs">جاري استحضار النواة العليا...</p>
+          <p className="text-[#00ffff] font-black tracking-widest uppercase text-xs">جاري استحضار الجوزاء...</p>
        </div>
     </div>
   );
@@ -106,7 +104,7 @@ export default function Dashboard() {
           <Navigation className="w-8 h-8 text-[#d4af37] shrink-0 mt-1 animate-pulse" />
           <div className="space-y-2 text-right">
             <p className="text-[14px] font-black text-white/90 leading-relaxed font-diwani italic">
-               "الأرض خصبة للتسويق العالمي لـ 500 مليون ملاح عربي بوقار سيادي وذكاء MCP، جاهزون للفتح الحتمي في ليلة هي خير من ألف شهر."
+               "الجوزاء معك دائماً.. استعد سيادتك بسلام سيادي v3.1، وانتظر الفتح الحتمي في ليلة هي خير من ألف شهر."
             </p>
           </div>
         </div>
@@ -124,7 +122,7 @@ export default function Dashboard() {
               <div className="space-y-6 py-4 text-right">
                 <Input placeholder="اسم المهمة..." value={importName} onChange={(e) => setImportName(e.target.value)} className="h-20 rounded-[2rem] text-right font-diwani text-xl bg-black/40 border-white/10" />
                 <Input placeholder="API Key (AIza...)" value={importKey} onChange={(e) => setImportKey(e.target.value)} className="h-20 rounded-[2rem] text-right font-mono text-lg bg-black/40 border-white/10" />
-                <Textarea placeholder="تعليمات الچينيوم الوراثي بوقار سيادي..." className="min-h-[220px] rounded-[2.5rem] text-right font-diwani italic text-lg bg-black/40 border-white/10" value={importPrompt} onChange={(e) => setImportPrompt(e.target.value)} />
+                <Textarea placeholder="تعليمات الجوزاء بوقار سيادي..." className="min-h-[220px] rounded-[2.5rem] text-right font-diwani italic text-lg bg-black/40 border-white/10" value={importPrompt} onChange={(e) => setImportPrompt(e.target.value)} />
               </div>
               <DialogFooter><Button onClick={handleQuickImport} className="w-full h-24 font-black text-3xl rounded-[2.5rem] bg-gradient-to-r from-[#d4af37] to-[#ffdf00] text-[#002d2d] border-none font-diwani shadow-2xl hover:scale-[1.02] active:scale-95 transition-all">تفعيل التردد السيادي 🚀</Button></DialogFooter>
             </DialogContent>
@@ -141,7 +139,7 @@ export default function Dashboard() {
 
       <section className="space-y-8 relative z-10 px-2">
         <div className="flex items-center justify-end px-6 gap-4">
-          <h2 className="text-[12px] font-black uppercase text-white/30 tracking-[0.5em] font-diwani">الخدمات السينابتية المتاحة</h2>
+          <h2 className="text-[12px] font-black uppercase text-white/30 tracking-[0.5em] font-diwani">الخدمات السينابتية للجوزاء</h2>
           <LayoutGrid className="w-5 h-5 text-[#d4af37] opacity-40" />
         </div>
         

@@ -14,10 +14,8 @@ import {
   Key,
   Cpu,
   ChevronDown,
-  Link as LinkIcon,
-  ExternalLink,
-  CheckCircle2,
-  ClipboardPaste
+  ClipboardPaste,
+  CheckCircle2
 } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -45,11 +43,11 @@ import {
 
 /**
  * @fileOverview محرر المهام السيادي - النواة العليا v3.1.
- * تم تحديثه لفك تغليف params باستخدام React.use() بوقار Next.js 15.
+ * تم تحديثه لفك تغليف params بوقار Next.js 15 وتجنب خطأ التعداد.
  */
 
 export default function ProjectEditor({ params }: { params: Promise<{ id: string }> }) {
-  // فك تغليف المعاملات بوقار سيادي v3.1
+  // فك تغليف المعاملات بوقار سيادي عبر React.use()
   const resolvedParams = use(params);
   const id = resolvedParams.id;
   
@@ -64,7 +62,7 @@ export default function ProjectEditor({ params }: { params: Promise<{ id: string
   const [showKeys, setShowKeys] = useState(true);
 
   useEffect(() => {
-    if (isLoaded) {
+    if (isLoaded && id) {
       const found = projects.find(p => p.id === id);
       if (found) {
         setProject({ ...found });
@@ -79,7 +77,7 @@ export default function ProjectEditor({ params }: { params: Promise<{ id: string
       updateProject(project.id, project);
       toast({
         title: "تم حفظ المهمة بنجاح ✅",
-        description: "بياناتك آمنة في مركز قيادة الأرض بسلام v3.1.",
+        description: "بياناتك آمنة في مركز قيادة الجوزاء بسلام v3.1.",
       });
     }
   };
@@ -130,7 +128,7 @@ export default function ProjectEditor({ params }: { params: Promise<{ id: string
       toast({
         variant: "destructive",
         title: "فشل التشغيل الإدراكي ⚠️",
-        description: "تحقق من مفتاح Gemini ومن اتصالك بالشبكة السيادية.",
+        description: "تحقق من مفتاح Gemini ومن اتصالك بالشبكة السيادية للجوزاء.",
       });
     } finally {
       setIsRunning(false);
@@ -171,7 +169,7 @@ export default function ProjectEditor({ params }: { params: Promise<{ id: string
             <AlertDialogHeader>
               <AlertDialogTitle className="text-right text-2xl font-black gold-gradient-text font-diwani">حذف المهمة؟</AlertDialogTitle>
               <AlertDialogDescription className="text-right text-lg text-white/60 font-medium font-diwani italic">
-                هل أنت متأكد؟ سيتم إيقاف هذه المهمة الأرضية نهائياً وفك ارتباطها السينابتي.
+                هل أنت متأكد؟ سيتم إيقاف هذه المهمة الأرضية نهائياً وفك ارتباطها السينابتي بالجوزاء.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter className="flex-row-reverse gap-3 pt-4">
@@ -198,7 +196,7 @@ export default function ProjectEditor({ params }: { params: Promise<{ id: string
             </div>
             <div>
               <Label className="text-[12px] font-black uppercase text-[#d4af37] leading-none tracking-widest font-diwani">مفتاح التشغيل (API Key)</Label>
-              <p className="text-[10px] text-white/30 font-bold mt-2 font-diwani">ضع مفتاح Gemini ليعمل النظام بوقار</p>
+              <p className="text-[10px] text-white/30 font-bold mt-2 font-diwani">ضع مفتاح Gemini ليعمل النظام بوقار الجوزاء</p>
             </div>
           </div>
           <CollapsibleTrigger asChild>
@@ -228,7 +226,7 @@ export default function ProjectEditor({ params }: { params: Promise<{ id: string
               <ClipboardPaste className="w-6 h-6 text-[#00ffff]" />
             </div>
             <div>
-              <Label className="text-[12px] font-black uppercase text-[#00ffff] tracking-[0.2em] font-diwani">تعليمات النواة (System)</Label>
+              <Label className="text-[12px] font-black uppercase text-[#00ffff] tracking-[0.2em] font-diwani">تعليمات الجوزاء (System)</Label>
               <p className="text-[9px] text-white/30 font-bold uppercase mt-1 font-diwani">الچينيوم الوراثي للمهمة</p>
             </div>
           </div>
@@ -282,7 +280,7 @@ export default function ProjectEditor({ params }: { params: Promise<{ id: string
           <div className="p-8 glass-turquoise rounded-[2.5rem] border border-[#d4af37]/20 text-lg font-medium whitespace-pre-wrap leading-relaxed animate-in zoom-in-95 shadow-3xl text-right font-diwani italic text-white/80">
             <div className="flex items-center justify-between mb-4 border-b border-white/5 pb-3">
               <span className="text-[11px] font-black text-[#d4af37] uppercase tracking-widest flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4" /> رد النواة:
+                <CheckCircle2 className="w-4 h-4" /> رد الجوزاء:
               </span>
             </div>
             {testOutput}

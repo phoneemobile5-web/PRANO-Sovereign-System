@@ -75,13 +75,13 @@
   100% { transform: scale(0.98); opacity: 0.6; }
 }
 
-@keyframes spin-slow {
+@keyframes gemma-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
-.animate-spin-slow {
-  animation: spin-slow 180s linear infinite;
+.animate-gemma-spin {
+  animation: gemma-spin 180s linear infinite;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
