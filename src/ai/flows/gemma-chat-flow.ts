@@ -46,7 +46,6 @@ export async function gemmaChat(input: ChatInput): Promise<ChatOutput> {
     })),
     config: {
       temperature: 0.1,
-      version: 'gemini-2.0-flash-thinking-preview-01-21'
     }
   });
 

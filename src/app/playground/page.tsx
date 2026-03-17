@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useWorkbenchStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
-import { Send, RefreshCw, Cpu, Zap, History, Terminal, HelpCircle, ChevronRight, Activity, Globe, Database, Star } from 'lucide-react';
+import { RefreshCw, Zap, Terminal, ChevronRight, Activity, Star } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { testAIProjectResponses } from '@/ai/flows/test-ai-project-responses';
@@ -66,7 +66,6 @@ export default function PlaygroundPage() {
     <div className="min-h-screen bg-[#001a1a] p-4 md:p-8 space-y-8 max-w-4xl mx-auto font-kufi relative overflow-hidden" dir="rtl">
       <Toaster />
       
-      {/* سديم خلفية */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
         <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-[#00ffff]/10 blur-[120px] rounded-full"></div>
       </div>
