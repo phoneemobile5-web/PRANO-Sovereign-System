@@ -29,11 +29,13 @@
   }
 
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
   }
   
   body {
-    @apply bg-[#001a1a] text-foreground selection:bg-primary/30 font-kufi;
+    background-color: #001a1a;
+    color: hsl(var(--foreground));
+    font-family: 'Reem Kufi', sans-serif;
     overflow-x: hidden;
   }
 }
@@ -48,7 +50,10 @@
   }
 
   .gold-gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#d4af37] via-[#f7e48b] to-[#d4af37];
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, #d4af37, #f7e48b, #d4af37);
   }
 
   .font-kufi {
@@ -81,8 +86,4 @@
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
-}
-
-h1, h2, h3, h4 {
-  @apply tracking-tight font-black;
 }

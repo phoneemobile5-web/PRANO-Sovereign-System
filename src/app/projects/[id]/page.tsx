@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { useWorkbenchStore, AIProject } from '@/lib/store';
 import { Button } from '@/components/ui/button';
@@ -42,17 +42,17 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import Link from 'next/link';
 
 /**
  * @fileOverview محرر المهام السيادي - النواة العليا v3.1.
- * تم تحديثه لفك تغليف params بوقار Next.js 15 ودعم السلام السيادي.
+ * تم تحديثه لفك تغليف params باستخدام React.use() بوقار Next.js 15.
  */
 
 export default function ProjectEditor({ params }: { params: Promise<{ id: string }> }) {
-  const resolvedParams = React.use(params);
+  // فك تغليف المعاملات بوقار سيادي v3.1
+  const resolvedParams = use(params);
   const id = resolvedParams.id;
+  
   const router = useRouter();
   const { toast } = useToast();
   const { projects, updateProject, deleteProject, isLoaded, addMessage } = useWorkbenchStore();
