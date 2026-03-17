@@ -27,6 +27,14 @@
     --ring: 45 65% 52%;
     --radius: 2.5rem;
   }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-[#001a1a] text-foreground selection:bg-primary/30 font-kufi;
+    overflow-x: hidden;
+  }
 }
 
 @layer components {
@@ -67,15 +75,6 @@
 
   .animate-spin-slow {
     animation: spin-slow 180s linear infinite;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-[#001a1a] text-foreground selection:bg-primary/30 font-kufi;
   }
 }
 

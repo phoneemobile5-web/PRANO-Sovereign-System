@@ -34,7 +34,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { DESIGN_SYSTEM, APP_SERVICES } from '@/lib/vision-constants';
+import { DESIGN_SYSTEM, APP_SERVICES, SOVEREIGN_V3_1 } from '@/lib/vision-constants';
 
 export default function Dashboard() {
   const { projects, isLoaded, addProject } = useWorkbenchStore();
@@ -45,15 +45,16 @@ export default function Dashboard() {
 
   const handleQuickImport = () => {
     if (!importPrompt || !importKey) return;
-    const newProject = addProject({
+    addProject({
       name: importName || 'مهمة ملاح الأرض',
       description: 'مشروع الربط السينابتي لخدمة عمارة Gemma Core 2030 لتمكين 500 مليون عربي',
       prompt: importPrompt,
       model: 'gemini-2.0-flash-thinking-preview',
       temperature: 0.2,
       apiKeys: [importKey],
+    }).then(newProject => {
+       if (newProject) router.push(`/projects/${newProject.id}`);
     });
-    router.push(`/projects/${newProject.id}`);
   };
 
   if (!isLoaded) return null;
@@ -70,7 +71,7 @@ export default function Dashboard() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
              <Badge variant="outline" className="border-[#d4af37]/30 text-[#d4af37] text-[9px] py-1.5 px-4 rounded-full bg-[#d4af37]/5">
-                GLOBAL SYNC
+                {SOVEREIGN_V3_1.version}
              </Badge>
           </div>
           <div className="flex items-center gap-5 text-right">
