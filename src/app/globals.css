@@ -31,6 +31,7 @@
   * {
     @apply border-border;
   }
+  
   body {
     @apply bg-[#001a1a] text-foreground selection:bg-primary/30 font-kufi;
     overflow-x: hidden;
