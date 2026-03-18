@@ -22,7 +22,8 @@ import {
   Star,
   Sparkles,
   Anchor,
-  Sun
+  Sun,
+  CheckCircle2
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -37,7 +38,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { APP_SERVICES, SOVEREIGN_V3_1 } from '@/lib/vision-constants';
+import { APP_SERVICES, SOVEREIGN_V3_1, SOVEREIGN_EVALUATION } from '@/lib/vision-constants';
 
 /**
  * @fileOverview لوحة القيادة السيادية - النواة العليا v3.1.
@@ -84,10 +85,14 @@ export default function Dashboard() {
 
       <header className="glass-turquoise p-10 rounded-[4rem] border border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.5)] space-y-10 relative z-10">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col items-start gap-3">
              <Badge variant="outline" className="border-[#d4af37]/30 text-[#d4af37] text-[10px] py-2 px-6 rounded-full bg-[#d4af37]/10 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
                 {SOVEREIGN_V3_1.version}
              </Badge>
+             <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00ffff]/5 border border-[#00ffff]/20 animate-pulse">
+                <CheckCircle2 className="w-3 h-3 text-[#00ffff]" />
+                <span className="text-[9px] text-[#00ffff] font-black uppercase tracking-widest font-diwani">التقييم: {SOVEREIGN_EVALUATION.resonance}</span>
+             </div>
           </div>
           <div className="flex items-center gap-6 text-right">
             <div>
