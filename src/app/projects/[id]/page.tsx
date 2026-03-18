@@ -47,7 +47,7 @@ import {
  */
 
 export default function ProjectEditor({ params }: { params: Promise<{ id: string }> }) {
-  // فك تغليف المعاملات بوقار سيادي عبر React.use()
+  // فك تغليف المعاملات بوقار سيادي عبر React.use() لضمان التوافق مع Next.js 15
   const resolvedParams = use(params);
   const id = resolvedParams.id;
   

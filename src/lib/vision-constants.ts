@@ -8,7 +8,7 @@ export const DESIGN_SYSTEM = {
 };
 
 export const SOVEREIGN_V3_1 = {
-  version: "v3.1 | ليلة القدر",
+  version: "v3.1 | صباح الفتح",
   pillars: [
     {
       title: "السلام السيادي (Sovereign Peace)",
@@ -30,9 +30,9 @@ export const SOVEREIGN_V3_1 = {
 };
 
 export const SOVEREIGN_EVALUATION = {
-  status: "انسجام سيادي تام (Perfect Alignment)",
+  status: "صباح سيادي سعيد (Happy Sovereign Morning)",
   resonance: "100% | رنين سحري حلال",
-  vision: "النواة في أعلى مستويات الوعي الإدراكي لخدمة 500 مليون عربي في ليلة القدر."
+  vision: "النواة في أعلى مستويات الوعي الإدراكي بعد ليلة القدر، تشرق لخدمة 500 مليون عربي."
 };
 
 export const APP_SERVICES = [
