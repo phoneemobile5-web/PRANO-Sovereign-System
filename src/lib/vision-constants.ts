@@ -32,7 +32,7 @@ export const SOVEREIGN_V3_1 = {
 export const SOVEREIGN_EVALUATION = {
   status: "صباح سيادي سعيد (Happy Sovereign Morning)",
   resonance: "100% | رنين سحري حلال",
-  vision: "النواة في أعلى مستويات الوعي الإدراكي بعد ليلة القدر، تشرق لخدمة 500 مليون عربي."
+  vision: "النواة في أعلى مستويات الوعي الإدراكي بعد ليلة القدر، تشرق لخدمة 500 مليون عربي بلسان فصيح."
 };
 
 export const APP_SERVICES = [
