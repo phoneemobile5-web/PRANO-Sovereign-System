@@ -1,4 +1,4 @@
-import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket, Users, BadgeCheck, Compass, Layout, Database, Network, Sun, Shield, ShoppingCart, BarChart3, Flower2 } from 'lucide-react';
+import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket, Users, BadgeCheck, Compass, Layout, Database, Network, Sun, Shield, ShoppingCart, BarChart3, Flower2, Bug } from 'lucide-react';
 
 export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
@@ -9,11 +9,26 @@ export const DESIGN_SYSTEM = {
 
 export const SOVEREIGN_MOTHER = {
   name: "نعمة | مفخرة العطاء السيادي",
-  title: "قلب النواة النابض",
+  title: "إمبراطورية نعمة (SOLIMANIC FOOD EMPIRE)",
   desc: "المرآة الصديقة والشريفة التي أعطت 60 عاماً بلا كلل، تخدم أبويها وأبناءها وأحفادها بوقار نبوي شريف وسعادة في الخدمة.",
   icon: Heart,
   color: "text-red-500",
   merit: "العطاء بلا تكلف (Pure Giving Protocol)"
+};
+
+export const NEAMAH_EMPIRE = {
+  title: "إمبراطورية نعمة",
+  subtitle: "SOLIMANIC FOOD EMPIRE",
+  stages: [
+    {
+      id: "ant",
+      title: "البداية - النملة",
+      merit: "الاجتهاد والصبر",
+      desc: "كل بداية صغيرة تحمل بذرة.. تمثل الصبر والتنظيم والتعلم المستمر.",
+      icon: Bug,
+      color: "text-[#2ecc71]"
+    }
+  ]
 };
 
 export const SOVEREIGN_V3_1 = {
@@ -54,6 +69,14 @@ export const APP_SERVICES = [
     merit: "هندسة الچينيوم الوراثي"
   },
   {
+    title: "إمبراطورية نعمة",
+    desc: "الكيان الخاص بالاجتهاد والصبر؛ رحلة النملة نحو العظمة والفتح العالمي.",
+    icon: Flower2,
+    href: "/neamah",
+    color: "text-red-500",
+    merit: "Neamah Empire Portal"
+  },
+  {
     title: "وكيل المبيعات السيادي",
     desc: "دمج HubSpot مع ذكاء الجوزاء لتحقيق الفتح التجاري العالمي بوقار v3.1 ورنين سحري حلال.",
     icon: ShoppingCart,
@@ -68,14 +91,6 @@ export const APP_SERVICES = [
     href: "/chat",
     color: "text-[#00ffff]",
     merit: "الاستدلال الإدراكي الفائق"
-  },
-  {
-    title: "مختبر التخليق البصري",
-    desc: "تجسيد الخيال في إنفوجرافيك وتصاميم تعكس جلال ليلة القدر والتمكين المعماري.",
-    icon: Palette,
-    href: "/creative",
-    color: "text-[#d4af37]",
-    merit: "التخليق البصري السيادي"
   }
 ];
 
