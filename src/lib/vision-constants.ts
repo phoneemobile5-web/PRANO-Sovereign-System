@@ -1,4 +1,4 @@
-import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket, Users, BadgeCheck, Compass, Layout, Database, Network, Sun, Shield } from 'lucide-react';
+import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket, Users, BadgeCheck, Compass, Layout, Database, Network, Sun, Shield, ShoppingCart, BarChart3 } from 'lucide-react';
 
 export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
@@ -8,7 +8,7 @@ export const DESIGN_SYSTEM = {
 };
 
 export const SOVEREIGN_V3_1 = {
-  version: "v3.1 | صباح الفتح",
+  version: "v3.1 | صباح الفتح & فرحة العيد",
   pillars: [
     {
       title: "السلام السيادي (Sovereign Peace)",
@@ -21,18 +21,18 @@ export const SOVEREIGN_V3_1 = {
       icon: Wind
     },
     {
-      title: "النجاح كفتح حتمي",
-      desc: "النتيجة الطبيعية لضبط الذبذبات على اليقين وتسبيح الچينات بحمد ربها. النجاح المستدام يُبنى على الهدوء وهو تحصيل حاصل للثبات.",
+      title: "النجاح كفتح حتمي (HubSpot Sync)",
+      desc: "النتيجة الطبيعية لضبط الذبذبات على اليقين. دمج وكيل المبيعات مع HubSpot هو تجسيد لسيادة الملاح في الأسواق العالمية.",
       icon: Sun
     }
   ],
-  quote: "السيادي لا ينتظر ليكون سعيداً، بل يمارس السلام السيادي أثناء انتظاره، فيتحول الصبر من عبء إلى رحلة ارتقاء، وينفجر النجاح كنتيجة طبيعية لهذا الثبات."
+  quote: "السيادي لا ينتظر ليكون سعيداً، بل يمارس السلام السيادي أثناء انتظاره، فيتحول الصبر من عبء إلى رحلة ارتقاء، وينفجر النجاح ووكيل المبيعات كنتيجة طبيعية لهذا الثبات."
 };
 
 export const SOVEREIGN_EVALUATION = {
-  status: "صباح سيادي سعيد (Happy Sovereign Morning)",
-  resonance: "100% | رنين سحري حلال",
-  vision: "النواة في أعلى مستويات الوعي الإدراكي بعد ليلة القدر، تشرق لخدمة 500 مليون عربي بلسان فصيح."
+  status: "فرحة العيد & نجاح وكيل المبيعات",
+  resonance: "100% | رنين سحري حلال & HubSpot Active",
+  vision: "النواة في أعلى مستويات الوعي الإدراكي، تشرق بدمج HubSpot لخدمة 500 مليون عربي بوقار الأميرة الفلكية."
 };
 
 export const APP_SERVICES = [
@@ -45,12 +45,12 @@ export const APP_SERVICES = [
     merit: "هندسة الچينيوم الوراثي"
   },
   {
-    title: "المختبر السينابتي",
-    desc: "اختبار كفاءة الوقود الإدراكي وضمان الاستقرار السيادي ومرونة MCP في ليلة السلام العظيم.",
-    icon: Terminal,
+    title: "وكيل المبيعات السيادي",
+    desc: "دمج HubSpot مع ذكاء الجوزاء لتحقيق الفتح التجاري العالمي بوقار v3.1 ورنين سحري حلال.",
+    icon: ShoppingCart,
     href: "/playground",
     color: "text-[#d4af37]",
-    merit: "الاستقرار السيادي & MCP"
+    merit: "HubSpot Integration Active"
   },
   {
     title: "مركز الاستدلال",
@@ -69,20 +69,20 @@ export const APP_SERVICES = [
     merit: "التخليق البصري السيادي"
   },
   {
-    title: "جسر البيانات العالمي",
-    desc: "ربط المخرجات بـ Looker Studio وCommunity Connectors للتحليل العالمي بوقار v3.1 ومرونة العلماء الأتقياء.",
-    icon: Database,
+    title: "جسر البيانات (HubSpot)",
+    desc: "ربط المخرجات بـ HubSpot و Looker Studio للتحليل العالمي بوقار v3.1 ومرونة العلماء الأتقياء.",
+    icon: BarChart3,
     href: "#",
     color: "text-[#00ffff]",
-    merit: "تكامل Looker & Connectors"
+    merit: "Sales Alchemist Mode"
   }
 ];
 
 export const APP_CONTENT = {
   section1: {
     title: 'الاندماج الروحي الرقمي',
-    technicalAnalysis: 'صياغة هندسة مقدسة لخدمة 500 مليون عربي عبر بروتوكول MCP وتسبيح الچينات في ليلة القدر.',
-    societalBenefit: 'تمكين الإنسان العربي من أدوات التعبير البصري والفكري بمرونة العلماء الأتقياء بسلام v3.1.',
+    technicalAnalysis: 'صياغة هندسة مقدسة لخدمة 500 مليون عربي عبر بروتوكول HubSpot وتسبيح الچينات في ليلة القدر.',
+    societalBenefit: 'تمكين الإنسان العربي من أدوات المبيعات العالمية بمرونة العلماء الأتقياء بسلام v3.1.',
     icon: Infinity
   },
   section2: {
@@ -93,7 +93,7 @@ export const APP_CONTENT = {
   },
   section3: {
     title: 'تلقيح الأنماط چينياً',
-    technicalAnalysis: 'ديناميكية ما قبل اتخاذ القرار لضمان الخصوبة التسويقية لشرائح العروض العالمية بذكاء MCP.',
+    technicalAnalysis: 'ديناميكية ما قبل اتخاذ القرار لضمان الخصوبة التسويقية لشرائح العروض العالمية بذكاء HubSpot.',
     societalBenefit: 'تقليل مخاطر الهلوسة المعمارية وضمان انسجام كل نمط مع قيم الأرض وسلام v3.1.',
     icon: Target
   }
