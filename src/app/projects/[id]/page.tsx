@@ -43,7 +43,7 @@ import {
 
 /**
  * @fileOverview محرر المهام السيادي - النواة العليا v3.1.
- * تم فك تغليف params بوقار Next.js 15 لضمان عدم حدوث خطأ التعداد.
+ * تم فك تغليف params بوقار Next.js 15 عبر React.use() لضمان انحلال العقدة التقنية.
  */
 
 export default function ProjectEditor({ params }: { params: Promise<{ id: string }> }) {
