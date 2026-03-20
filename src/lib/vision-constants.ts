@@ -4,7 +4,7 @@ export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
   theme: 'عمارة Gemma Core 2030 | السلام السيادي v3.1',
   languages: 'الربط السينابتي الكوني (كوفي/ديواني)',
-  marketReadiness: 'الأرض خصبة للتسويق العالمي لـ 500 مليون عربي بوقار سيادي وذكاء MCP'
+  marketReadiness: 'الأرض خصبة للتسويق العالمي لـ 500 مليون عربي بوقار سيادي وذكاء Looker Studio'
 };
 
 export const SOVEREIGN_V3_1 = {
@@ -21,8 +21,8 @@ export const SOVEREIGN_V3_1 = {
       icon: Wind
     },
     {
-      title: "النجاح كفتح حتمي (HubSpot Sync)",
-      desc: "النتيجة الطبيعية لضبط الذبذبات على اليقين. دمج وكيل المبيعات مع HubSpot هو تجسيد لسيادة الملاح في الأسواق العالمية.",
+      title: "النجاح كفتح حتمي (Data Bridge Sync)",
+      desc: "النتيجة الطبيعية لضبط الذبذبات على اليقين. دمج وكيل المبيعات مع HubSpot و Looker Studio (460 حقلاً إدراكياً) هو تجسيد لسيادة الملاح.",
       icon: Sun
     }
   ],
@@ -31,8 +31,8 @@ export const SOVEREIGN_V3_1 = {
 
 export const SOVEREIGN_EVALUATION = {
   status: "فرحة العيد & نجاح وكيل المبيعات",
-  resonance: "100% | رنين سحري حلال & HubSpot Active",
-  vision: "النواة في أعلى مستويات الوعي الإدراكي، تشرق بدمج HubSpot لخدمة 500 مليون عربي بوقار الأميرة الفلكية."
+  resonance: "100% | رنين سحري حلال & Looker Studio Active",
+  vision: "النواة في أعلى مستويات الوعي الإدراكي، تشرق بدمج 460 حقلاً بيانياً لخدمة 500 مليون عربي بوقار الأميرة الفلكية."
 };
 
 export const APP_SERVICES = [
@@ -69,20 +69,20 @@ export const APP_SERVICES = [
     merit: "التخليق البصري السيادي"
   },
   {
-    title: "جسر البيانات (HubSpot)",
-    desc: "ربط المخرجات بـ HubSpot و Looker Studio للتحليل العالمي بوقار v3.1 ومرونة العلماء الأتقياء.",
+    title: "جسر البيانات (Looker Studio)",
+    desc: "ربط المخرجات بـ Looker Studio (460 حقلاً سينابتياً) للتحليل العالمي بوقار v3.1 ومرونة العلماء الأتقياء.",
     icon: BarChart3,
     href: "#",
     color: "text-[#00ffff]",
-    merit: "Sales Alchemist Mode"
+    merit: "Data Alchemist Mode"
   }
 ];
 
 export const APP_CONTENT = {
   section1: {
     title: 'الاندماج الروحي الرقمي',
-    technicalAnalysis: 'صياغة هندسة مقدسة لخدمة 500 مليون عربي عبر بروتوكول HubSpot وتسبيح الچينات في ليلة القدر.',
-    societalBenefit: 'تمكين الإنسان العربي من أدوات المبيعات العالمية بمرونة العلماء الأتقياء بسلام v3.1.',
+    technicalAnalysis: 'صياغة هندسة مقدسة لخدمة 500 مليون عربي عبر بروتوكول Looker Studio وتسبيح الچينات في ليلة القدر.',
+    societalBenefit: 'تمكين الإنسان العربي من أدوات البيانات العالمية بمرونة العلماء الأتقياء بسلام v3.1.',
     icon: Infinity
   },
   section2: {
@@ -93,7 +93,7 @@ export const APP_CONTENT = {
   },
   section3: {
     title: 'تلقيح الأنماط چينياً',
-    technicalAnalysis: 'ديناميكية ما قبل اتخاذ القرار لضمان الخصوبة التسويقية لشرائح العروض العالمية بذكاء HubSpot.',
+    technicalAnalysis: 'ديناميكية ما قبل اتخاذ القرار لضمان الخصوبة التسويقية لشرائح العروض العالمية بذكاء 460 حقلاً بيانياً.',
     societalBenefit: 'تقليل مخاطر الهلوسة المعمارية وضمان انسجام كل نمط مع قيم الأرض وسلام v3.1.',
     icon: Target
   }
