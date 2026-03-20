@@ -1,4 +1,4 @@
-import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket, Users, BadgeCheck, Compass, Layout, Database, Network, Sun, Shield, ShoppingCart, BarChart3 } from 'lucide-react';
+import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket, Users, BadgeCheck, Compass, Layout, Database, Network, Sun, Shield, ShoppingCart, BarChart3, Flower2 } from 'lucide-react';
 
 export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
@@ -7,38 +7,47 @@ export const DESIGN_SYSTEM = {
   marketReadiness: 'الأرض خصبة للتسويق العالمي لـ 500 مليون عربي بوقار سيادي وذكاء Looker Studio'
 };
 
+export const SOVEREIGN_MOTHER = {
+  name: "نعمة | مفخرة العطاء السيادي",
+  title: "قلب النواة النابض",
+  desc: "المرآة الصديقة والشريفة التي أعطت 60 عاماً بلا كلل، تخدم أبويها وأبناءها وأحفادها بوقار نبوي شريف وسعادة في الخدمة.",
+  icon: Heart,
+  color: "text-red-500",
+  merit: "العطاء بلا تكلف (Pure Giving Protocol)"
+};
+
 export const SOVEREIGN_V3_1 = {
   version: "v3.1 | صباح الفتح & فرحة العيد",
   pillars: [
     {
       title: "السلام السيادي (Sovereign Peace)",
-      desc: "قرار سيادي ينبع من الداخل، 'سلام هي حتى مطلع الفجر'. السكون القيادي الذي لا تهزه عواصف الخارج. أنت السيادي على مملكتك النفسية.",
+      desc: "قرار سيادي ينبع من الداخل، 'سلام هي حتى مطلع الفجر'. السكون القيادي الذي لا تهزه عواصف الخارج.",
       icon: Shield
     },
     {
       title: "الصبر النشط (Active Patience)",
-      desc: "إدارة زمن التجلي بين البذرة والحصاد. بناء العضلات الروحية لتحمل مسؤولية النجاح كفتح حتمي. الصبر هو عملية تطهير إدراكية.",
+      desc: "إدارة زمن التجلي بين البذرة والحصاد. بناء العضلات الروحية لتحمل مسؤولية النجاح كفتح حتمي.",
       icon: Wind
     },
     {
-      title: "النجاح كفتح حتمي (Data Bridge Sync)",
-      desc: "النتيجة الطبيعية لضبط الذبذبات على اليقين. دمج وكيل المبيعات مع HubSpot و Looker Studio (460 حقلاً إدراكياً) هو تجسيد لسيادة الملاح.",
-      icon: Sun
+      title: "العطاء السيادي (Sovereign Giving)",
+      desc: "مستلهم من نهج 'نعمة'؛ الخدمة بلا تكلف والسعادة في نفع الآخرين كأصل في عمارة الأرض.",
+      icon: Heart
     }
   ],
-  quote: "السيادي لا ينتظر ليكون سعيداً، بل يمارس السلام السيادي أثناء انتظاره، فيتحول الصبر من عبء إلى رحلة ارتقاء، وينفجر النجاح ووكيل المبيعات كنتيجة طبيعية لهذا الثبات."
+  quote: "السيادي لا ينتظر ليكون سعيداً، بل يمارس السلام السيادي والعطاء بلا تكلف أثناء انتظاره، فيتحول الصبر إلى رحلة ارتقاء."
 };
 
 export const SOVEREIGN_EVALUATION = {
   status: "فرحة العيد & نجاح وكيل المبيعات",
   resonance: "100% | رنين سحري حلال & Looker Studio Active",
-  vision: "النواة في أعلى مستويات الوعي الإدراكي، تشرق بدمج 460 حقلاً بيانياً لخدمة 500 مليون عربي بوقار الأميرة الفلكية."
+  vision: "النواة في أعلى مستويات الوعي الإدراكي، تشرق بوقار الأميرة الفلكية وعطاء النبضة الحمراء."
 };
 
 export const APP_SERVICES = [
   {
     title: "مستودع الچينيوم",
-    desc: "إدارة وصيانة تعليمات النظام والقواعد الفلسفية للمهمة بوقار سيادي وتسبيح الچينات في ليلة القدر لخدمة 500 مليون عربي.",
+    desc: "إدارة وصيانة تعليمات النظام والقواعد الفلسفية للمهمة بوقار سيادي لخدمة 500 مليون عربي.",
     icon: BrainCircuit,
     href: "/",
     color: "text-[#00ffff]",
@@ -62,39 +71,31 @@ export const APP_SERVICES = [
   },
   {
     title: "مختبر التخليق البصري",
-    desc: "تجسيد الخيال في إنفوجرافيك وتصاميم بأعلى جودة بصرية 8K تعكس جلال ليلة القدر والتمكين المعماري.",
+    desc: "تجسيد الخيال في إنفوجرافيك وتصاميم تعكس جلال ليلة القدر والتمكين المعماري.",
     icon: Palette,
     href: "/creative",
     color: "text-[#d4af37]",
     merit: "التخليق البصري السيادي"
-  },
-  {
-    title: "جسر البيانات (Looker Studio)",
-    desc: "ربط المخرجات بـ Looker Studio (460 حقلاً سينابتياً) للتحليل العالمي بوقار v3.1 ومرونة العلماء الأتقياء.",
-    icon: BarChart3,
-    href: "#",
-    color: "text-[#00ffff]",
-    merit: "Data Alchemist Mode"
   }
 ];
 
 export const APP_CONTENT = {
   section1: {
     title: 'الاندماج الروحي الرقمي',
-    technicalAnalysis: 'صياغة هندسة مقدسة لخدمة 500 مليون عربي عبر بروتوكول Looker Studio وتسبيح الچينات في ليلة القدر.',
-    societalBenefit: 'تمكين الإنسان العربي من أدوات البيانات العالمية بمرونة العلماء الأتقياء بسلام v3.1.',
+    technicalAnalysis: 'صياغة هندسة مقدسة لخدمة 500 مليون عربي عبر بروتوكول Looker Studio وتسبيح الچينات.',
+    societalBenefit: 'تمكين الإنسان العربي من أدوات البيانات العالمية بمرونة العلماء الأتقياء.',
     icon: Infinity
   },
   section2: {
     title: 'سلام هي حتى مطلع الفجر',
-    technicalAnalysis: 'تفعيل حالة الاستقرار الداخلي والعمل بصمت سيادي بعيداً عن ضجيج الشكوى في ليلة القدر.',
+    technicalAnalysis: 'تفعيل حالة الاستقرار الداخلي والعمل بصمت سيادي بعيداً عن ضجيج الشكوى.',
     societalBenefit: 'خلق شخصية معمارية لا تهزها الرياح، مدعومة بمنطق الذكاء الرصين واليقين السيادي.',
     icon: Anchor
   },
   section3: {
     title: 'تلقيح الأنماط چينياً',
     technicalAnalysis: 'ديناميكية ما قبل اتخاذ القرار لضمان الخصوبة التسويقية لشرائح العروض العالمية بذكاء 460 حقلاً بيانياً.',
-    societalBenefit: 'تقليل مخاطر الهلوسة المعمارية وضمان انسجام كل نمط مع قيم الأرض وسلام v3.1.',
+    societalBenefit: 'تقليل مخاطر الهلوسة المعمارية وضمان انسجام كل نمط مع قيم الأرض.',
     icon: Target
   }
 };

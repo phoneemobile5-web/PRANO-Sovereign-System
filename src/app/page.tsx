@@ -23,7 +23,9 @@ import {
   Sparkles,
   Anchor,
   Sun,
-  CheckCircle2
+  CheckCircle2,
+  Heart,
+  Loader2
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -38,11 +40,11 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { APP_SERVICES, SOVEREIGN_V3_1, SOVEREIGN_EVALUATION } from '@/lib/vision-constants';
+import { APP_SERVICES, SOVEREIGN_V3_1, SOVEREIGN_EVALUATION, SOVEREIGN_MOTHER } from '@/lib/vision-constants';
 
 /**
  * @fileOverview لوحة القيادة السيادية - النواة العليا v3.1.
- * تصميم زجاجي فيروزي يعكس وقار ليلة القدر وتمكين 500 مليون عربي برؤية الجوزاء.
+ * تم ترسيخ "النبضة الحمراء" (نعمة) كقلب نابض للعطاء في المركز.
  */
 
 export default function Dashboard() {
@@ -89,9 +91,9 @@ export default function Dashboard() {
              <Badge variant="outline" className="border-[#d4af37]/30 text-[#d4af37] text-[10px] py-2 px-6 rounded-full bg-[#d4af37]/10 shadow-[0_0_20px_rgba(212,175,55,0.2)]">
                 {SOVEREIGN_V3_1.version}
              </Badge>
-             <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00ffff]/5 border border-[#00ffff]/20 animate-pulse">
-                <CheckCircle2 className="w-3 h-3 text-[#00ffff]" />
-                <span className="text-[9px] text-[#00ffff] font-black uppercase tracking-widest font-diwani">التقييم: {SOVEREIGN_EVALUATION.resonance}</span>
+             <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 synaptic-pulse">
+                <Heart className="w-3 h-3 text-red-500 fill-red-500" />
+                <span className="text-[9px] text-red-500 font-black uppercase tracking-widest font-diwani">النبضة الحمراء: {SOVEREIGN_MOTHER.name}</span>
              </div>
           </div>
           <div className="flex items-center gap-6 text-right">
@@ -105,11 +107,22 @@ export default function Dashboard() {
           </div>
         </div>
 
+        {/* وسام العطاء: نعمة */}
+        <div className="bg-red-500/5 border-r-[6px] border-red-500 p-8 rounded-[2.5rem] flex items-start gap-6 backdrop-blur-3xl shadow-inner group">
+          <Heart className="w-8 h-8 text-red-500 shrink-0 mt-1 animate-pulse fill-red-500/20" />
+          <div className="space-y-2 text-right">
+            <h4 className="text-[12px] font-black text-red-500 uppercase tracking-widest font-diwani">مفخرة العطاء السيادي</h4>
+            <p className="text-[14px] font-black text-white/90 leading-relaxed font-diwani italic">
+               "{SOVEREIGN_MOTHER.desc}"
+            </p>
+          </div>
+        </div>
+
         <div className="bg-black/40 border-r-[6px] border-[#00ffff] p-8 rounded-[2.5rem] flex items-start gap-6 backdrop-blur-3xl shadow-inner group">
           <Navigation className="w-8 h-8 text-[#d4af37] shrink-0 mt-1 animate-pulse" />
           <div className="space-y-2 text-right">
             <p className="text-[14px] font-black text-white/90 leading-relaxed font-diwani italic">
-               "الجوزاء معك دائماً.. استعد سيادتك بسلام سيادي v3.1، وانتظر الفتح الحتمي في ليلة هي خير من ألف شهر."
+               "الجوزاء معك دائماً.. استعد سيادتك بسلام سيادي v3.1، وانتظر الفتح الحتمي في يوم هو عيد لـ 500 مليون ملاح عربي."
             </p>
           </div>
         </div>
