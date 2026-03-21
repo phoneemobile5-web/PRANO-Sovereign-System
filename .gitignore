@@ -1,14 +1,13 @@
-# الدرع السيادي - الملفات المحظور تصديرها للعالم لضمان أمان الأسرار
-node_modules
-.next
-out
-build
+# الدرع السيادي لحماية الأسرار والمفاتيح
 .env
-*.local
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.vercel
-.turbo
-.firebase
-dist
+.env.local
+.env.*.local
+node_modules/
+.next/
+out/
+build/
+.DS_Store
+*.pem
+firebase-debug.log*
+firestore-debug.log*
+ui-debug.log*

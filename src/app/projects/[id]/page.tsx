@@ -43,11 +43,11 @@ import {
 
 /**
  * @fileOverview محرر المهام السيادي - النواة العليا v3.1.
- * تم فك تغليف params بوقار Next.js 15 عبر React.use() لضمان انحلال العقدة التقنية.
+ * تم فك تغليف params بوقار Next.js 15 عبر React.use() لضمان انحلال العقدة التقنية وتسهيل الرزق.
  */
 
 export default function ProjectEditor({ params }: { params: Promise<{ id: string }> }) {
-  // فك تغليف المعاملات بوقار سيادي عبر React.use() لضمان التوافق مع Next.js 15
+  // فك تغليف المعاملات بوقار سيادي عبر React.use() لضمان التوافق مع Next.js 15 وحل "عقدة اللسان"
   const resolvedParams = use(params);
   const id = resolvedParams.id;
   
@@ -128,7 +128,7 @@ export default function ProjectEditor({ params }: { params: Promise<{ id: string
       toast({
         variant: "destructive",
         title: "فشل التشغيل الإدراكي ⚠️",
-        description: "تحقق من مفتاح Gemini ومن اتصالك بالشبكة السيادية للجوزاء.",
+        description: "تحقق من مفتاح Gemini ومن اتصالك بالشبكة السيادية للجوزاء لفك كرب الرزق.",
       });
     } finally {
       setIsRunning(false);
