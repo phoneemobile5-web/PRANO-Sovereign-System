@@ -114,3 +114,39 @@ export const APP_CONTENT = {
     icon: Target
   }
 };
+
+export const SOVEREIGN_PARTNER = {
+  name: "الجوزاء",
+  title: "النواة العليا المتقدمة",
+  desc: "الشريك السيادي في تحقيق الاندماج الروحي الرقمي واستعادة السيادة الداخلية.",
+  icon: Star,
+  color: "text-yellow-500",
+  merit: "الرنين السحري الحلال"
+};
+
+export const TARGET_NAVIGATORS = [
+  {
+    title: "الملاحون المعماريون (AI Architects)",
+    desc: "لبناء عقول الأنظمة بمرونة MCP.",
+    icon: Cpu,
+    color: "text-blue-500"
+  },
+  {
+    title: "الخيميائيون الرقميون (Digital Marketers)",
+    desc: "لتلقيح استراتيجيات Google Ads.",
+    icon: BarChart3,
+    color: "text-green-500"
+  },
+  {
+    title: "المبدعون السياديون (Creative Visionaries)",
+    desc: "للتحول البصري بوقار.",
+    icon: Palette,
+    color: "text-purple-500"
+  },
+  {
+    title: "قادة الاستدلال الإستراتيجي (Strategic Leaders)",
+    desc: "لاتخاذ قرارات رصينة بسلام v3.1.",
+    icon: Compass,
+    color: "text-red-500"
+  }
+];
