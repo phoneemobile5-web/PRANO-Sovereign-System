@@ -1,5 +1,15 @@
 import { Zap, ShieldCheck, Globe, Infinity, Sparkles, Scale, Anchor, Wind, Heart, Waves, Star, Cpu, Target, BrainCircuit, Terminal, Activity, History, Palette, Lightbulb, Rocket, Users, BadgeCheck, Compass, Layout, Database, Network, Sun, Shield, ShoppingCart, BarChart3, Flower2, Bug } from 'lucide-react';
 
+// --- 1. مفاتيح الوكلاء التقنية (المسؤولة عن إصلاح الأخطاء الـ 8) ---
+export const ABDULZAHER_TREASURES = "ABDULZAHER_TREASURES";
+export const SOVEREIGN_PRICING_V3_1 = "SOVEREIGN_PRICING_V3_1";
+export const SOVEREIGN_SALES_AGENT_v3_1 = "SOVEREIGN_SALES_AGENT_v3_1";
+export const SOVEREIGN_ZAKAT_AGENT = "SOVEREIGN_ZAKAT_AGENT";
+export const SOVEREIGN_FINANCIAL_LEDGER = "SOVEREIGN_FINANCIAL_LEDGER";
+export const SOVEREIGN_TRONSCAN_PROTOCOL = "SOVEREIGN_TRONSCAN_PROTOCOL";
+export const MASTER_A_ZAKAT_AGENT = "MASTER_A_ZAKAT_AGENT";
+
+// --- 2. نظام التصميم والرؤية السيادية ---
 export const DESIGN_SYSTEM = {
   resolution: '8K Ultra-HD Global Visibility',
   theme: 'عمارة Gemma Core 2030 | السلام السيادي v3.1',
