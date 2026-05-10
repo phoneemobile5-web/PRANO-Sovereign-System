@@ -72,7 +72,7 @@ const GemmaChat: React.FC = () => {
     try {
       const result = await gemmaChat({ 
         message: textToSend, 
-        history: sessions.map(m => ({ role: m.role, text: m.text }))
+        history: sessions.map((m: any) => ({ role: m.role, text: m.text }))
       });
       await addMessage({ role: 'model', text: result.response });
     } catch (error) {
@@ -237,7 +237,7 @@ const GemmaChat: React.FC = () => {
                 </div>
               )}
 
-              {sessions.map((msg, i) => (
+              {sessions.map((msg: any, i: number) => (
                 <div key={i} className={`flex ${msg.role === 'user' ? 'justify-start' : 'justify-end animate-in fade-in slide-in-from-bottom-10 duration-700'}`}>
                   <div className={`max-w-[85%] md:max-w-[75%] p-10 rounded-[3.5rem] flex gap-8 shadow-3xl border transition-all ${
                     msg.role === 'user' 

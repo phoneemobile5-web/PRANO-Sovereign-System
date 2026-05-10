@@ -21,7 +21,7 @@ export default function HistoryPage() {
 
   if (!isLoaded) return null;
 
-  const filteredSessions = sessions.filter(session => {
+  const filteredSessions = sessions.filter((session: any) => {
     const matchesFilter = filter === 'all' || session.isBookmarked;
     const matchesSearch = 
       session.text.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -59,7 +59,7 @@ export default function HistoryPage() {
           </Badge>
           <div className="flex glass-turquoise rounded-full p-1.5 border border-white/10">
             <Button 
-              variant={filter === 'all' ? 'primary' : 'ghost'} 
+              variant={filter === 'all' ? 'default' : 'ghost'} 
               size="sm" 
               className={cn(
                 "h-10 text-[11px] px-8 rounded-full font-black uppercase tracking-widest transition-all",
@@ -70,7 +70,7 @@ export default function HistoryPage() {
               الكل
             </Button>
             <Button 
-              variant={filter === 'bookmarked' ? 'primary' : 'ghost'} 
+              variant={filter === 'bookmarked' ? 'default' : 'ghost'} 
               size="sm" 
               className={cn(
                 "h-10 text-[11px] px-8 rounded-full font-black uppercase tracking-widest transition-all",
@@ -96,7 +96,7 @@ export default function HistoryPage() {
 
       <div className="space-y-8 z-10 relative">
         {filteredSessions.length > 0 ? (
-          filteredSessions.map((session, idx) => (
+          filteredSessions.map((session: any, idx: number) => (
             <div key={session.id || idx} className="group glass-turquoise border-white/5 rounded-[3rem] overflow-hidden hover:border-[#00ffff]/30 transition-all shadow-2xl hover:shadow-[#00ffff]/5">
               <div className="p-6 border-b border-white/5 flex items-center justify-between bg-white/5">
                 <div className="flex items-center gap-6">
